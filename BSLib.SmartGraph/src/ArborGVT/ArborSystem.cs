@@ -155,19 +155,21 @@ namespace ArborGVT
 
         private void prepareGraph()
         {
-        	foreach (IVertex vertex in this.fGraph.Vertices) {
+        	foreach (IVertex vertex in this.fGraph.Vertices)
+        	{
         		ArborNode node = new ArborNode(vertex.Sign);
         		((Vertex)vertex).Extensions.Add(node);
-        		
+
         		this.resetCoords(node);
         		this.fNodes.Add(node);
         	}
 
-        	foreach (IEdge edge in this.fGraph.Edges) {
+        	foreach (IEdge edge in this.fGraph.Edges)
+        	{
         		Vertex vtxSrc = (Vertex)edge.Source;
         		Vertex vtxTgt = (Vertex)edge.Target;
-        		ArborNode anSrc = (ArborNode)vtxSrc.Extensions.Find<ArborNode>();
-        		ArborNode anTgt = (ArborNode)vtxTgt.Extensions.Find<ArborNode>();
+        		ArborNode anSrc = vtxSrc.Extensions.Find<ArborNode>();
+        		ArborNode anTgt = vtxTgt.Extensions.Find<ArborNode>();
 
         		ArborEdge arbEdge = new ArborEdge(anSrc, anTgt, 1, ParamStiffness);
         		((Edge)edge).Extensions.Add(arbEdge);

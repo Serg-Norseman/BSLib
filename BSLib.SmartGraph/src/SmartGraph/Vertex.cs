@@ -25,9 +25,6 @@ namespace BSLib.SmartGraph
 {
 	public class Vertex : GraphObject, IVertex
 	{
-    	//private static int nextNodeIdx = 1;
-        //public int Idx;
-
         public string Sign { get; set; }
 		public object Value { get; set; }
 
@@ -40,8 +37,6 @@ namespace BSLib.SmartGraph
 
 		public Vertex()
 		{
-			//this.Idx = nextNodeIdx++;
-
 			this.EdgesOut = new List<IEdge>();
 		}
 
