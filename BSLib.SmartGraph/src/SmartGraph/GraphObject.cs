@@ -25,9 +25,9 @@ namespace BSLib.SmartGraph
 {
 	public abstract class GraphObject : IExtensibleObject<GraphObject>
 	{
-		private ExtensionCollection<GraphObject, IExtension<GraphObject>> _extensions;
+		private IExtensionCollection<GraphObject, IExtension<GraphObject>> _extensions;
 
-		public ExtensionCollection<GraphObject, IExtension<GraphObject>> Extensions
+		public IExtensionCollection<GraphObject, IExtension<GraphObject>> Extensions
 		{
 			get { return _extensions; }
 		}
