@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.SmartGraph", "BSLib.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArborSample", "ArborSample\ArborSample.csproj", "{41E56AD7-9414-436C-BA68-CA974303B663}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.SmartGraph.Tests", "BSLib.SmartGraph.Tests\BSLib.SmartGraph.Tests.csproj", "{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,5 +22,9 @@ Global
 		{41E56AD7-9414-436C-BA68-CA974303B663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41E56AD7-9414-436C-BA68-CA974303B663}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41E56AD7-9414-436C-BA68-CA974303B663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal
