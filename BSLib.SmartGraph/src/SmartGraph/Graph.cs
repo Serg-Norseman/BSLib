@@ -23,7 +23,42 @@ using System.Collections.Generic;
 
 namespace BSLib.SmartGraph
 {
-    /// <summary>
+	[Serializable]
+	public class GraphException : Exception
+	{
+		public GraphException()
+		{
+		}
+		public GraphException(string message) : base(message)
+		{
+		}
+	}
+
+	public enum GraphNotification
+	{
+		Added,
+		Extracted,
+		Deleted
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public class NotifyEventArgs : EventArgs
+	{
+		public GraphNotification Notification { get; private set; }
+		public object ItemData { get; set; }
+
+		public NotifyEventArgs(GraphNotification notification, object itemData)
+		{
+			this.Notification = notification;
+			this.ItemData = itemData;
+		}
+	}
+
+	public delegate void NotifyEventHandler(object sender, NotifyEventArgs e);
+
+	/// <summary>
     /// 
     /// </summary>
     public class Graph : BaseObject, IGraph
@@ -69,6 +104,9 @@ namespace BSLib.SmartGraph
 		private readonly List<IEdge> fEdgesList;
 		private readonly List<IVertex> fVerticesList;
 		private readonly Dictionary<string, IVertex> fVerticesDictionary;
+		private NotifyEventHandler fOnChange;
+		private NotifyEventHandler fOnChanging;
+		private int fUpdateCount;
 
 		#endregion
 
@@ -82,6 +120,18 @@ namespace BSLib.SmartGraph
 		public IEnumerable<IEdge> Edges
 		{
 			get { return this.fEdgesList; }
+		}
+
+		public event NotifyEventHandler OnChange
+		{
+			add { this.fOnChange = value; }
+			remove { if (this.fOnChange == value) this.fOnChange = null; }
+		}
+
+		public event NotifyEventHandler OnChanging
+		{
+			add { this.fOnChanging = value; }
+			remove { if (this.fOnChanging == value) this.fOnChanging = null; }
 		}
 
 		#endregion
@@ -113,6 +163,10 @@ namespace BSLib.SmartGraph
 
 		#region Data management
 
+		private void Notify(object instance, GraphNotification action)
+		{
+		}
+
 		public void Clear()
 		{
 			foreach (IVertex vertex in this.fVerticesList)
@@ -132,14 +186,27 @@ namespace BSLib.SmartGraph
 			result.Value = data;
 			this.fVerticesList.Add(result);
 
+			if (result != null)
+			{
+				this.Notify(result, GraphNotification.Added);
+			}
+
 			return result;
 		}
 
 		public IVertex AddVertex(string sign, object data = null)
 		{
+			if (string.IsNullOrEmpty(sign))
+				throw new ArgumentNullException("sign");
+
 			IVertex result = this.AddVertex(data);
 			result.Sign = sign;
 			this.fVerticesDictionary.Add(sign, result);
+
+			if (result != null)
+			{
+				this.Notify(result, GraphNotification.Added);
+			}
 
 			return result;
 		}
@@ -148,7 +215,7 @@ namespace BSLib.SmartGraph
 		{
 			IEdge edge1 = this.AddDirectedEdge(source, target, cost, srcValue);
 			IEdge edge2 = this.AddDirectedEdge(target, source, cost, tgtValue);
-			
+
 			return (edge1 != null && edge2 != null);
 		}
 
@@ -167,13 +234,13 @@ namespace BSLib.SmartGraph
 		{
 			IVertex source = this.FindVertex(sourceSign);
 			IVertex target = this.FindVertex(targetSign);
-			
+
 			if (source == null && canCreate) source = this.AddVertex(sourceSign);
 			if (target == null && canCreate) target = this.AddVertex(targetSign);
-			
+
 			return this.AddDirectedEdge(source, target, cost, edgeValue);
 		}
-		
+
 		public IEdge AddDirectedEdge(IVertex source, IVertex target, int cost, object edgeValue)
 		{
 			if (source == null || target == null || source == target) return null;
@@ -181,7 +248,12 @@ namespace BSLib.SmartGraph
 			IEdge resultEdge = this.fProvider.CreateEdge(source, target, cost, edgeValue);
 			source.EdgesOut.Add(resultEdge);
 			this.fEdgesList.Add(resultEdge);
-			
+
+			if (resultEdge != null)
+			{
+				this.Notify(resultEdge, GraphNotification.Added);
+			}
+
 			return resultEdge;
 		}
 
@@ -200,6 +272,11 @@ namespace BSLib.SmartGraph
 			}
 
 			this.fVerticesList.Remove(vertex);
+
+			if (vertex != null)
+			{
+				this.Notify(vertex, GraphNotification.Deleted);
+			}
 		}
 
 		public void DeleteEdge(IEdge edge)
@@ -210,6 +287,11 @@ namespace BSLib.SmartGraph
 			src.EdgesOut.Remove(edge);
 
 			this.fEdgesList.Remove(edge);
+
+			if (edge != null)
+			{
+				this.Notify(edge, GraphNotification.Deleted);
+			}
 		}
 
 		public IVertex FindVertex(string sign)
@@ -217,6 +299,56 @@ namespace BSLib.SmartGraph
 			IVertex result;
 			this.fVerticesDictionary.TryGetValue(sign, out result);
 			return result;
+		}
+
+		#endregion
+
+		#region Updating
+
+		private void SetUpdateState(bool updating)
+		{
+			if (updating)
+			{
+				this.Changing();
+			}
+			else
+			{
+				this.Changed();
+			}
+		}
+
+		public void BeginUpdate()
+		{
+			if (this.fUpdateCount == 0)
+			{
+				this.SetUpdateState(true);
+			}
+			this.fUpdateCount++;
+		}
+
+		public void EndUpdate()
+		{
+			this.fUpdateCount--;
+			if (this.fUpdateCount == 0)
+			{
+				this.SetUpdateState(false);
+			}
+		}
+
+		private void Changed()
+		{
+			if (this.fUpdateCount == 0 && this.fOnChange != null)
+			{
+				this.fOnChange(this, null);
+			}
+		}
+
+		private void Changing()
+		{
+			if (this.fUpdateCount == 0 && this.fOnChanging != null)
+			{
+				this.fOnChanging(this, null);
+			}
 		}
 
 		#endregion
