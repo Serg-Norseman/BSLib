@@ -71,6 +71,7 @@
     <Compile Include="src\SmartGraph\IEdge.cs" />
     <Compile Include="src\SmartGraph\IGraph.cs" />
     <Compile Include="src\SmartGraph\IVertex.cs" />
+    <Compile Include="src\SmartGraph\PathCandidate.cs" />
     <Compile Include="src\SmartGraph\Vertex.cs" />
   </ItemGroup>
   <ItemGroup>

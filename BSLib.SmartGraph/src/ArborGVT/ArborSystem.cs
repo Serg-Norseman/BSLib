@@ -78,6 +78,30 @@ namespace ArborGVT
             set { this.fAutoStop = value; }
         }
 
+        public Graph Graph
+        {
+        	get {
+        		return this.fGraph;
+        	}
+        	set {
+        		if (this.fGraph != value)
+        		{
+        			if (this.fGraph != null)
+        			{
+        				this.fGraph.OnChange -= this.NotifyEventHandler;
+        			}
+
+        			this.fGraph = value;
+
+        			if (this.fGraph != null)
+        			{
+        				this.fGraph.OnChange += this.NotifyEventHandler;
+	        			this.syncGraph();
+        			}
+        		}
+        	}
+        }
+
         public List<ArborNode> Nodes
         {
             get { return this.fNodes; }
@@ -126,10 +150,8 @@ namespace ArborGVT
 
         #endregion
 
-        public ArborSystem(Graph graph, double repulsion, double stiffness, double friction, IArborRenderer renderer)
+        public ArborSystem(double repulsion, double stiffness, double friction, IArborRenderer renderer)
         {
-        	this.fGraph = graph;
-
             this.fAutoStop = true;
             this.fBusy = false;
             this.fNames = new Hashtable();
@@ -156,6 +178,9 @@ namespace ArborGVT
 
         private void syncGraph()
         {
+        	this.fEdges.Clear();
+        	this.fNodes.Clear();
+
         	foreach (IVertex vertex in this.fGraph.Vertices)
         	{
         		ArborNode node = new ArborNode(vertex.Sign);
@@ -178,9 +203,14 @@ namespace ArborGVT
         	}
         }
 
-        public void start()
+        private void NotifyEventHandler(object sender, NotifyEventArgs e)
         {
         	this.syncGraph();
+        }
+
+        public void start()
+        {
+        	//this.syncGraph();
 
             if (fOnStart != null) fOnStart(this, new EventArgs());
 
@@ -307,7 +337,7 @@ namespace ArborGVT
             return new ArborPoint(x, y);
         }
 
-        public ArborNode nearest(int sx, int sy)
+        public ArborNode getNearest(int sx, int sy)
         {
             ArborPoint x = this.fromScreen(sx, sy);
 

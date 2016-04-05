@@ -17,16 +17,19 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-using System.Collections.Generic;
+using System;
 
 namespace BSLib.SmartGraph
 {
-	public interface IGraph
+	internal sealed class PathCandidate
 	{
-		IEnumerable<IVertex> Vertices { get; }
-		IEnumerable<IEdge> Edges { get; }
-
-		bool IsEmpty();
+		public IVertex Node;
+		public PathCandidate Next;
+		
+		public PathCandidate(IVertex node, PathCandidate next)
+		{
+			this.Node = node;
+			this.Next = next;
+		}
 	}
 }

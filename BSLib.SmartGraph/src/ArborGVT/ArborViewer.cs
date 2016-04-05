@@ -58,9 +58,10 @@ namespace ArborGVT
             this.fGraph = new Graph();
 
             // repulsion - отталкивание, stiffness - тугоподвижность, friction - сила трения
-            this.fSys = new ArborSystem(this.fGraph, 10000, 500/*1000*/, 0.1, this);
+            this.fSys = new ArborSystem(10000, 500/*1000*/, 0.1, this);
             this.fSys.setScreenSize(this.Width, this.Height);
             this.fSys.AutoStop = false;
+            this.fSys.Graph = this.fGraph;
 
             this.fEnergyDebug = false;
             this.fDrawFont = new Font("Calibri", 9);
@@ -200,7 +201,7 @@ namespace ArborGVT
 
             if (this.fNodesDragging)
             {
-                this.fDragged = fSys.nearest(e.X, e.Y);
+                this.fDragged = fSys.getNearest(e.X, e.Y);
 
                 if (this.fDragged != null)
                 {
@@ -245,7 +246,7 @@ namespace ArborGVT
 
         public ArborNode getNodeByCoord(int x, int y)
         {
-            return fSys.nearest(x, y);
+            return fSys.getNearest(x, y);
 
             /*foreach (ArborNode node in fSys.Nodes)
             {
@@ -258,6 +259,8 @@ namespace ArborGVT
 
         public void doSample()
         {
+        	fGraph.BeginUpdate();
+
             fGraph.AddVertex("1")/*.Mass = 50*/;
 
             fGraph.AddDirectedEdge("1", "4"/*, 10*/);
@@ -295,6 +298,8 @@ namespace ArborGVT
             fGraph.AddDirectedEdge("88", "104");
             fGraph.AddDirectedEdge("91", "106");
             fGraph.AddDirectedEdge("91", "100");
+
+            fGraph.EndUpdate();
         }
 
         /*

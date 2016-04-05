@@ -88,18 +88,6 @@ namespace BSLib.SmartGraph
 			}
 		}
 
-		private class PathCandidate
-		{
-			public IVertex Node;
-			public PathCandidate Next;
-			
-			public PathCandidate(IVertex node, PathCandidate next)
-			{
-				this.Node = node;
-				this.Next = next;
-			}
-		}
-
 		private readonly IDataProvider fProvider;
 		private readonly List<IEdge> fEdgesList;
 		private readonly List<IVertex> fVerticesList;
@@ -165,6 +153,11 @@ namespace BSLib.SmartGraph
 
 		private void Notify(object instance, GraphNotification action)
 		{
+		}
+
+		public bool IsEmpty()
+		{
+			return (this.fEdgesList.Count == 0 && this.fVerticesList.Count == 0);
 		}
 
 		public void Clear()
