@@ -201,7 +201,7 @@ namespace ArborGVT
 
             if (this.fNodesDragging)
             {
-                this.fDragged = fSys.getNearest(e.X, e.Y);
+                this.fDragged = this.getNodeByCoord(e.X, e.Y);
 
                 if (this.fDragged != null)
                 {
