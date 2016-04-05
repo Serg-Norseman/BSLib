@@ -38,13 +38,18 @@ namespace BSLib.Extensions
 
 			lock (this._syncRoot)
 			{
-				X[] array = new X[this._size + 1];
-				if (this._size > 0)
+				int newSize = this._size + 1;
+				if (newSize > this._items.Length)
 				{
-					Array.Copy(this._items, 0, array, 0, this._size);
+					X[] array = new X[newSize];
+					if (this._size > 0)
+					{
+						Array.Copy(this._items, 0, array, 0, this._size);
+					}
+					this._items = array;
 				}
-				this._items = array;
-				this._items[this._size++] = item;
+				this._items[this._size] = item;
+				this._size++;
 
 				item.Attach(this._owner);
 			}
@@ -95,13 +100,13 @@ namespace BSLib.Extensions
 		{
 			lock (this._syncRoot)
 			{
-				for (int i = 0; i < this._size; i++)
-				{
-					this._items[i].Detach(this._owner);
-				}
-
 				if (this._size > 0)
 				{
+					for (int i = 0; i < this._size; i++)
+					{
+						this._items[i].Detach(this._owner);
+					}
+
 					Array.Clear(this._items, 0, this._size);
 					this._size = 0;
 				}

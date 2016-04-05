@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Timers;
+
 using BSLib.SmartGraph;
 
 namespace ArborGVT
@@ -153,7 +154,7 @@ namespace ArborGVT
             }
         }
 
-        private void prepareGraph()
+        private void syncGraph()
         {
         	foreach (IVertex vertex in this.fGraph.Vertices)
         	{
@@ -179,7 +180,7 @@ namespace ArborGVT
 
         public void start()
         {
-        	this.prepareGraph();
+        	this.syncGraph();
 
             if (fOnStart != null) fOnStart(this, new EventArgs());
 

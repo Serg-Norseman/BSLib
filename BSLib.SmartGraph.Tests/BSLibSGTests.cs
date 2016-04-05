@@ -1,9 +1,8 @@
 ﻿using System;
-
+using System.Collections.ObjectModel;
 using ArborGVT;
 using BSLib.Extensions;
 using BSLib.SmartGraph;
-
 using NUnit.Framework;
 
 namespace BSLibSGTests
@@ -50,32 +49,46 @@ namespace BSLibSGTests
 			Assert.IsTrue(exts.Contains(node));
 			Assert.AreEqual(1, exts.Count);
 
+			IExtension<GraphObject> xt = exts.Find<ArborNode>();
+			Assert.IsNotNull(xt);
+			Assert.IsTrue(xt is ArborNode);
+			Assert.AreEqual(node, xt);
+
 			//			
-			
+
 			Assert.IsTrue(exts.Remove(node));
 			Assert.IsFalse(exts.Contains(node));
 			Assert.AreEqual(0, exts.Count);
-			
+
 			//
-			
+
 			exts.Add(node);
 			ArborNode node1 = new ArborNode("");
 			exts.Add(node1);
-			
+
 			Assert.IsTrue(exts.Contains(node));
 			Assert.IsTrue(exts.Contains(node1));
 			Assert.AreEqual(2, exts.Count);
+
+			Collection<ArborNode> cols = exts.FindAll<ArborNode>();
+			Assert.AreEqual(2, cols.Count);
 
 			Assert.IsTrue(exts.Remove(node));
 			Assert.IsFalse(exts.Contains(node));
 			Assert.IsTrue(exts.Contains(node1));
 			Assert.AreEqual(1, exts.Count);
-			
+
+			//
+
+			exts.Add(node); // adding second node, but internal array was length=2
+
+			//
+
 			exts.Clear();
 			Assert.AreEqual(0, exts.Count);
-			
+
 			//
-			
+
 			Assert.IsFalse(exts.Remove(null));
 			Assert.Throws(typeof(ArgumentNullException), () => { exts.Add(null); });
 			Assert.Throws(typeof(ArgumentNullException), () => { new ExtensionCollection<GraphObject, IExtension<GraphObject>>(null); });
@@ -90,7 +103,7 @@ namespace BSLibSGTests
 		[Test]
 		public void Graph_Tests()
 		{
-			/*Vertex vertex = new Vertex();
+			Vertex vertex = new Vertex();
 			Assert.IsNotNull(vertex);
 			
 			Vertex vertex2 = new Vertex();
@@ -117,11 +130,11 @@ namespace BSLibSGTests
 			using (Graph graph = new Graph())
 			{
 				Assert.IsNotNull(graph);
-				
-				vert1 = graph.AddVertex(null);
+
+				/*vert1 = graph.AddVertex(null);
 				Assert.IsNotNull(vert1);
-				graph.DeleteVertex(vert1);
-				
+				graph.DeleteVertex(vert1);*/
+
 				vert1 = graph.AddVertex("test", null);
 				Assert.IsNotNull(vert1);
 				
@@ -137,13 +150,13 @@ namespace BSLibSGTests
 				graph.DeleteEdge(edge3);
 				
 				edge3 = graph.AddDirectedEdge("1", "2", 1, null);
-				Assert.IsNull(edge3);
+				Assert.IsNotNull(edge3);
 				
 				bool res = graph.AddUndirectedEdge(vert1, vert2, 1, null, null);
 				Assert.AreEqual(true, res);
 				
 				graph.Clear();
-			}*/
+			}
 		}
 	}
 }
