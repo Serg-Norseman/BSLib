@@ -17,7 +17,7 @@ namespace ArborSample
 
             arborViewer1.EnergyDebug = true;
             arborViewer1.NodesDragging = true;
-            arborViewer1.doSample();
+            arborViewer1.createSample();
             arborViewer1.start();
         }
 

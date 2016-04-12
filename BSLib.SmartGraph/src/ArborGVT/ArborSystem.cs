@@ -88,14 +88,14 @@ namespace ArborGVT
         		{
         			if (this.fGraph != null)
         			{
-        				this.fGraph.OnChange -= this.NotifyEventHandler;
+        				this.fGraph.OnChange -= this.notifyEventHandler;
         			}
 
         			this.fGraph = value;
 
         			if (this.fGraph != null)
         			{
-        				this.fGraph.OnChange += this.NotifyEventHandler;
+        				this.fGraph.OnChange += this.notifyEventHandler;
 	        			this.syncGraph();
         			}
         		}
@@ -181,29 +181,27 @@ namespace ArborGVT
         	this.fEdges.Clear();
         	this.fNodes.Clear();
 
-        	foreach (IVertex vertex in this.fGraph.Vertices)
+        	foreach (Vertex vertex in this.fGraph.Vertices)
         	{
         		ArborNode node = new ArborNode(vertex.Sign);
-        		((Vertex)vertex).Extensions.Add(node);
+        		vertex.Extensions.Add(node);
 
         		this.resetCoords(node);
         		this.fNodes.Add(node);
         	}
 
-        	foreach (IEdge edge in this.fGraph.Edges)
+        	foreach (Edge edge in this.fGraph.Edges)
         	{
-        		Vertex vtxSrc = (Vertex)edge.Source;
-        		Vertex vtxTgt = (Vertex)edge.Target;
-        		ArborNode anSrc = vtxSrc.Extensions.Find<ArborNode>();
-        		ArborNode anTgt = vtxTgt.Extensions.Find<ArborNode>();
+        		ArborNode anSrc = edge.Source.Extensions.Find<ArborNode>();
+        		ArborNode anTgt = edge.Target.Extensions.Find<ArborNode>();
 
         		ArborEdge arbEdge = new ArborEdge(anSrc, anTgt, 1, ParamStiffness);
-        		((Edge)edge).Extensions.Add(arbEdge);
+        		edge.Extensions.Add(arbEdge);
         		this.fEdges.Add(arbEdge);
         	}
         }
 
-        private void NotifyEventHandler(object sender, NotifyEventArgs e)
+        private void notifyEventHandler(object sender, NotifyEventArgs e)
         {
         	this.syncGraph();
         }
@@ -259,8 +257,8 @@ namespace ArborGVT
         {
             ArborPoint lt = this.fGraphBounds.LeftTop;
             ArborPoint rb = this.fGraphBounds.RightBottom;
-            double xx = lt.X + (rb.X - lt.X) * ArborSystem.NextRndDouble();
-            double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.NextRndDouble();
+            double xx = lt.X + (rb.X - lt.X) * ArborSystem.getRndDouble();
+            double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.getRndDouble();
 
             return this.addNode(sign, xx, yy);
         }
@@ -269,8 +267,8 @@ namespace ArborGVT
         {
             ArborPoint lt = this.fGraphBounds.LeftTop;
             ArborPoint rb = this.fGraphBounds.RightBottom;
-            double xx = lt.X + (rb.X - lt.X) * ArborSystem.NextRndDouble();
-            double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.NextRndDouble();
+            double xx = lt.X + (rb.X - lt.X) * ArborSystem.getRndDouble();
+            double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.getRndDouble();
 
         	node.Pt = new ArborPoint(xx, yy);
         }
@@ -560,10 +558,8 @@ namespace ArborGVT
             ArborPoint drift = rr.div(size);
 
             // main updates loop
-            foreach (IVertex vertex in fGraph.Vertices)//(ArborNode node in fNodes)
+            foreach (ArborNode node in fNodes)
             {
-            	ArborNode node = (ArborNode)((Vertex)vertex).Extensions.Find<ArborNode>();
-
                 // apply center drift
                 node.applyForce(drift);
 
@@ -607,7 +603,7 @@ namespace ArborGVT
             EnergyMean = eSum / size;
         }
 
-        internal static double NextRndDouble()
+        internal static double getRndDouble()
         {
             return _random.NextDouble();
         }

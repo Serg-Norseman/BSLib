@@ -33,23 +33,24 @@ namespace BSLib.SmartGraph
 			fBuffer.AppendLine("digraph " + name.Trim().Replace(' ', '_') + "{");
 		}
 
-		public GraphvizWriter(string name, string[] Options) : this(name)
+		public GraphvizWriter(string name, string[] options) : this(name)
 		{
 			fBuffer.AppendLine("digraph " + name.Trim().Replace(' ', '_') + "{");
-			foreach (string option in Options)
+
+			foreach (string option in options)
 			{
 				fBuffer.AppendLine("\t" + option + ";");
 			}
 		}
 
-		public void ConnNode(string From, string To)
+		public void WriteEdge(string From, string To)
 		{
 			fBuffer.AppendLine(string.Format("\"{0}\" -> \"{1}\";", From, To));
 		}
 
-		public void ListNode(string ID, string Name, string style, string color, string shape)
+		public void WriteNode(string id, string name, string style, string color, string shape)
 		{
-			fBuffer.AppendLine(string.Format("\"{0}\" [ label=\"{1}\",shape=\"{2}\",style=\"{3}\",color=\"{4}\" ];", ID, Name, shape, style, color));
+			fBuffer.AppendLine(string.Format("\"{0}\" [ label=\"{1}\",shape=\"{2}\",style=\"{3}\",color=\"{4}\" ];", id, name, shape, style, color));
 		}
 
 		public void SaveFile(string path)

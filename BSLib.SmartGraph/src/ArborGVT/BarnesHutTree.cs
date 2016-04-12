@@ -135,8 +135,8 @@ namespace ArborGVT
                             {
                                 double k = l.X * 0.08;
                                 double i = l.Y * 0.08;
-                                o.Pt.X = Math.Min(n.X + l.X, Math.Max(n.X, o.Pt.X - k / 2 + ArborSystem.NextRndDouble() * k));
-                                o.Pt.Y = Math.Min(n.Y + l.Y, Math.Max(n.Y, o.Pt.Y - i / 2 + ArborSystem.NextRndDouble() * i));
+                                o.Pt.X = Math.Min(n.X + l.X, Math.Max(n.X, o.Pt.X - k / 2 + ArborSystem.getRndDouble() * k));
+                                o.Pt.Y = Math.Min(n.Y + l.Y, Math.Max(n.Y, o.Pt.Y - i / 2 + ArborSystem.getRndDouble() * i));
                             }
 
                             gst.Add(o);

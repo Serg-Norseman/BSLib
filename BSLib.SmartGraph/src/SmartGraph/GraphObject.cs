@@ -25,16 +25,16 @@ namespace BSLib.SmartGraph
 {
 	public abstract class GraphObject : IExtensibleObject<GraphObject>
 	{
-		private IExtensionCollection<GraphObject, IExtension<GraphObject>> _extensions;
+		private IExtensionCollection<GraphObject, IExtension<GraphObject>> fExtensions;
 
 		public IExtensionCollection<GraphObject, IExtension<GraphObject>> Extensions
 		{
-			get { return _extensions; }
+			get { return this.fExtensions; }
 		}
 
 		public GraphObject()
 		{
-			_extensions = new ExtensionCollection<GraphObject, IExtension<GraphObject>>(this);
+			this.fExtensions = new ExtensionCollection<GraphObject, IExtension<GraphObject>>(this);
 		}
 	}
 }

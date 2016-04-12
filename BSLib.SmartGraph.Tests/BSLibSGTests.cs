@@ -122,9 +122,9 @@ namespace BSLibSGTests
 			Assert.AreNotEqual(0, edge.CompareTo(new Edge(vertex, vertex2, 1, null)));
 			Assert.Throws(typeof(ArgumentException), () => { edge.CompareTo(null); });
 			
-			IVertex vert1 = ((IEdge)edge).Source;
+			Vertex vert1 = edge.Source;
 			Assert.AreEqual(vertex, vert1);
-			IVertex vert2 = ((IEdge)edge).Target;
+			Vertex vert2 = edge.Target;
 			Assert.AreEqual(vertex2, vert2);
 			
 			using (Graph graph = new Graph())
@@ -145,7 +145,7 @@ namespace BSLibSGTests
 				
 				vert1 = graph.AddVertex("src", null);
 				vert2 = graph.AddVertex("tgt", null);
-				IEdge edge3 = graph.AddDirectedEdge("src", "tgt", 1, null);
+				Edge edge3 = graph.AddDirectedEdge("src", "tgt", 1, null);
 				Assert.IsNotNull(edge3);
 				graph.DeleteEdge(edge3);
 				

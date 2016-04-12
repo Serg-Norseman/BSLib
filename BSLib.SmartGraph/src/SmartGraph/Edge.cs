@@ -22,7 +22,7 @@ using System;
 
 namespace BSLib.SmartGraph
 {
-	public class Edge : GraphObject, IEdge
+	public class Edge : GraphObject, IComparable
 	{
 		#region Private fields
 
@@ -50,19 +50,9 @@ namespace BSLib.SmartGraph
 			get { return this.fSource; }
 		}
 
-		IVertex IEdge.Source
-		{
-			get { return (IVertex)this.fSource; }
-		}
-
 		public Vertex Target
 		{
 			get { return this.fTarget; }
-		}
-
-		IVertex IEdge.Target
-		{
-			get { return (IVertex)this.fTarget; }
 		}
 
 		#endregion

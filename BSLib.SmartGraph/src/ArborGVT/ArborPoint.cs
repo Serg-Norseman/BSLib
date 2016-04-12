@@ -31,7 +31,7 @@ namespace ArborGVT
 
         public static ArborPoint newRnd(double a = 5)
         {
-            return new ArborPoint(2 * a * (ArborSystem.NextRndDouble() - 0.5), 2 * a * (ArborSystem.NextRndDouble() - 0.5));
+            return new ArborPoint(2 * a * (ArborSystem.getRndDouble() - 0.5), 2 * a * (ArborSystem.getRndDouble() - 0.5));
         }
 
         public bool exploded()

@@ -23,10 +23,10 @@ namespace BSLib.SmartGraph
 {
 	internal sealed class PathCandidate
 	{
-		public readonly IVertex Node;
+		public readonly Vertex Node;
 		public readonly PathCandidate Next;
 		
-		public PathCandidate(IVertex node, PathCandidate next)
+		public PathCandidate(Vertex node, PathCandidate next)
 		{
 			this.Node = node;
 			this.Next = next;

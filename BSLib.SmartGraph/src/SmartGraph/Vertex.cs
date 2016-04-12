@@ -23,21 +23,26 @@ using System.Collections.Generic;
 
 namespace BSLib.SmartGraph
 {
-	public class Vertex : GraphObject, IVertex
+	public class Vertex : GraphObject, IComparable
 	{
+    	private static int NextIndex = 0;
+
+    	public readonly int Index;
+
         public string Sign { get; set; }
 		public object Value { get; set; }
 
-		// path-search runtime
-		public int Dist { get; set; }
-		public bool Visited { get; set; }
+		#region Path-search runtime
 
-		public IEdge EdgeIn { get; set; }
-		public List<IEdge> EdgesOut { get; private set; }
+		internal int Dist { get; set; }
+		internal bool Visited { get; set; }
+		internal Edge EdgeIn { get; set; }
+
+		#endregion
 
 		public Vertex()
 		{
-			this.EdgesOut = new List<IEdge>();
+			this.Index = NextIndex++;
 		}
 
 		public int CompareTo(object obj)

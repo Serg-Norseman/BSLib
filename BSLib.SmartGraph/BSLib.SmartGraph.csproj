@@ -67,17 +67,15 @@
     <Compile Include="src\SmartGraph\Graph.cs" />
     <Compile Include="src\SmartGraph\GraphObject.cs" />
     <Compile Include="src\SmartGraph\GraphvizWriter.cs" />
-    <Compile Include="src\SmartGraph\IDataProvider.cs" />
-    <Compile Include="src\SmartGraph\IEdge.cs" />
-    <Compile Include="src\SmartGraph\IGraph.cs" />
-    <Compile Include="src\SmartGraph\IVertex.cs" />
     <Compile Include="src\SmartGraph\PathCandidate.cs" />
     <Compile Include="src\SmartGraph\Vertex.cs" />
+    <Compile Include="src\SparseArray\SparseArray.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src" />
     <Folder Include="src\Extensions" />
     <Folder Include="src\ArborGVT" />
+    <Folder Include="src\SparseArray" />
     <Folder Include="src\SmartGraph" />
   </ItemGroup>
   <ItemGroup>

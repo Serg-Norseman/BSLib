@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+
 using BSLib.SmartGraph;
 
 namespace ArborGVT
@@ -257,7 +258,7 @@ namespace ArborGVT
             return null;*/
         }
 
-        public void doSample()
+        public void createSample()
         {
         	fGraph.BeginUpdate();
 
@@ -301,49 +302,5 @@ namespace ArborGVT
 
             fGraph.EndUpdate();
         }
-
-        /*
-
-        public void doSample()
-        {
-            fSys.addNode("1");//.Mass = 50
-
-            fSys.addEdge("1", "4");//, 10
-            fSys.addEdge("1", "12");//, 10
-            fSys.addEdge("4", "21");
-            fSys.addEdge("4", "23");//, 20
-            fSys.addEdge("7", "34");
-            fSys.addEdge("7", "13");
-            fSys.addEdge("7", "44");
-            fSys.addEdge("12", "25");
-            fSys.addEdge("12", "24");
-            fSys.addEdge("23", "50");
-            fSys.addEdge("23", "53");
-            fSys.addEdge("24", "6");
-            fSys.addEdge("24", "42");//, 20
-            fSys.addEdge("25", "94");
-            fSys.addEdge("25", "66");
-            fSys.addEdge("32", "47");
-            fSys.addEdge("32", "84");
-            fSys.addEdge("42", "32");
-            fSys.addEdge("42", "7");
-            fSys.addEdge("50", "72");
-            fSys.addEdge("50", "65");
-            fSys.addEdge("53", "67");
-            fSys.addEdge("53", "68");
-            fSys.addEdge("66", "79");
-            fSys.addEdge("66", "80");
-            fSys.addEdge("67", "88");
-            fSys.addEdge("67", "83");
-            fSys.addEdge("68", "77");
-            fSys.addEdge("68", "91");
-            fSys.addEdge("80", "99");
-            fSys.addEdge("80", "97");
-            fSys.addEdge("88", "110");
-            fSys.addEdge("88", "104");
-            fSys.addEdge("91", "106");
-            fSys.addEdge("91", "100");
-        }
-         */
     }
 }
