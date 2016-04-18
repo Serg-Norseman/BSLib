@@ -25,9 +25,9 @@ namespace BSLib.SmartGraph
 {
 	public class Vertex : GraphObject, IComparable
 	{
-    	private static int NextIndex = 0;
+    	private static uint NextIndex = 1;
 
-    	public readonly int Index;
+    	public readonly uint Index;
 
         public string Sign { get; set; }
 		public object Value { get; set; }

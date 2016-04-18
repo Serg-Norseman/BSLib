@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ArborGVT;
 using BSLib.Extensions;
@@ -156,6 +157,22 @@ namespace BSLibSGTests
 				Assert.AreEqual(true, res);
 				
 				graph.Clear();
+			}
+		}
+
+		[Test]
+		public void Graph2_Tests()
+		{
+			using (Graph graph = new Graph())
+			{
+				ArborViewer.createSample(graph);
+				
+				Vertex vertex = graph.FindVertex("1");
+				
+				graph.FindPathTree(vertex);
+				
+				IEnumerable<Edge> path = graph.GetPath(graph.FindVertex("110"));
+				// 110, 88, 67, 53, 23, 4, 1
 			}
 		}
 	}

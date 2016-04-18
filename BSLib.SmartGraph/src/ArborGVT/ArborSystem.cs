@@ -31,7 +31,7 @@ namespace ArborGVT
 
     public sealed class ArborSystem : IDisposable
     {
-        private static readonly int DEBUG_PROFILER_LIMIT = 2000;
+        private static readonly int DEBUG_PROFILER_LIMIT = 0;//2000;
 
         private static readonly Random _random = new Random();
 

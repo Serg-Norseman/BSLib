@@ -258,49 +258,49 @@ namespace ArborGVT
             return null;*/
         }
 
-        public void createSample()
+        public static void createSample(Graph graph)
         {
-        	fGraph.BeginUpdate();
+        	graph.BeginUpdate();
 
-            fGraph.AddVertex("1")/*.Mass = 50*/;
+            graph.AddVertex("1")/*.Mass = 50*/;
 
-            fGraph.AddDirectedEdge("1", "4"/*, 10*/);
-            fGraph.AddDirectedEdge("1", "12"/*, 10*/);
-            fGraph.AddDirectedEdge("4", "21");
-            fGraph.AddDirectedEdge("4", "23"/*, 20*/);
-            fGraph.AddDirectedEdge("7", "34");
-            fGraph.AddDirectedEdge("7", "13");
-            fGraph.AddDirectedEdge("7", "44");
-            fGraph.AddDirectedEdge("12", "25");
-            fGraph.AddDirectedEdge("12", "24");
-            fGraph.AddDirectedEdge("23", "50");
-            fGraph.AddDirectedEdge("23", "53");
-            fGraph.AddDirectedEdge("24", "6");
-            fGraph.AddDirectedEdge("24", "42"/*, 20*/);
-            fGraph.AddDirectedEdge("25", "94");
-            fGraph.AddDirectedEdge("25", "66");
-            fGraph.AddDirectedEdge("32", "47");
-            fGraph.AddDirectedEdge("32", "84");
-            fGraph.AddDirectedEdge("42", "32");
-            fGraph.AddDirectedEdge("42", "7");
-            fGraph.AddDirectedEdge("50", "72");
-            fGraph.AddDirectedEdge("50", "65");
-            fGraph.AddDirectedEdge("53", "67");
-            fGraph.AddDirectedEdge("53", "68");
-            fGraph.AddDirectedEdge("66", "79");
-            fGraph.AddDirectedEdge("66", "80");
-            fGraph.AddDirectedEdge("67", "88");
-            fGraph.AddDirectedEdge("67", "83");
-            fGraph.AddDirectedEdge("68", "77");
-            fGraph.AddDirectedEdge("68", "91");
-            fGraph.AddDirectedEdge("80", "99");
-            fGraph.AddDirectedEdge("80", "97");
-            fGraph.AddDirectedEdge("88", "110");
-            fGraph.AddDirectedEdge("88", "104");
-            fGraph.AddDirectedEdge("91", "106");
-            fGraph.AddDirectedEdge("91", "100");
+            graph.AddDirectedEdge("1", "4"/*, 10*/);
+            graph.AddDirectedEdge("1", "12"/*, 10*/);
+            graph.AddDirectedEdge("4", "21");
+            graph.AddDirectedEdge("4", "23"/*, 20*/);
+            graph.AddDirectedEdge("7", "34");
+            graph.AddDirectedEdge("7", "13");
+            graph.AddDirectedEdge("7", "44");
+            graph.AddDirectedEdge("12", "25");
+            graph.AddDirectedEdge("12", "24");
+            graph.AddDirectedEdge("23", "50");
+            graph.AddDirectedEdge("23", "53");
+            graph.AddDirectedEdge("24", "6");
+            graph.AddDirectedEdge("24", "42"/*, 20*/);
+            graph.AddDirectedEdge("25", "94");
+            graph.AddDirectedEdge("25", "66");
+            graph.AddDirectedEdge("32", "47");
+            graph.AddDirectedEdge("32", "84");
+            graph.AddDirectedEdge("42", "32");
+            graph.AddDirectedEdge("42", "7");
+            graph.AddDirectedEdge("50", "72");
+            graph.AddDirectedEdge("50", "65");
+            graph.AddDirectedEdge("53", "67");
+            graph.AddDirectedEdge("53", "68");
+            graph.AddDirectedEdge("66", "79");
+            graph.AddDirectedEdge("66", "80");
+            graph.AddDirectedEdge("67", "88");
+            graph.AddDirectedEdge("67", "83");
+            graph.AddDirectedEdge("68", "77");
+            graph.AddDirectedEdge("68", "91");
+            graph.AddDirectedEdge("80", "99");
+            graph.AddDirectedEdge("80", "97");
+            graph.AddDirectedEdge("88", "110");
+            graph.AddDirectedEdge("88", "104");
+            graph.AddDirectedEdge("91", "106");
+            graph.AddDirectedEdge("91", "100");
 
-            fGraph.EndUpdate();
+            graph.EndUpdate();
         }
     }
 }
