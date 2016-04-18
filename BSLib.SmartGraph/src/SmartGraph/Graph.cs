@@ -18,14 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//#define SPARSE
-
 using System;
 using System.Collections.Generic;
-
-#if SPARSE
-using BSLib.SparseArray;
-#endif
 
 namespace BSLib.SmartGraph
 {
@@ -71,12 +65,7 @@ namespace BSLib.SmartGraph
 	{
 		#region Private members
 
-		#if SPARSE
-		private readonly SparseArray<Edge> fEdgesList;
-		#else
 		private readonly List<Edge> fEdgesList;
-		#endif
-		
 		private readonly List<Vertex> fVerticesList;
 		private readonly Dictionary<string, Vertex> fVerticesDictionary;
 		private NotifyEventHandler fOnChange;
@@ -94,13 +83,7 @@ namespace BSLib.SmartGraph
 
 		public IEnumerable<Edge> Edges
 		{
-			get {
-				#if SPARSE
-				return this.fEdgesList.GetAllItems();
-				#else
-				return this.fEdgesList;
-				#endif
-			}
+			get { return this.fEdgesList; }
 		}
 
 		public event NotifyEventHandler OnChange
@@ -122,11 +105,7 @@ namespace BSLib.SmartGraph
 		public Graph()
 		{
 			this.fVerticesList = new List<Vertex>();
-			#if SPARSE
-			this.fEdgesList = new SparseArray<Edge>();
-			#else
 			this.fEdgesList = new List<Edge>();
-			#endif
 			this.fVerticesDictionary = new Dictionary<string, Vertex>();
 		}
 
@@ -145,11 +124,7 @@ namespace BSLib.SmartGraph
 
 		public bool IsEmpty()
 		{
-			#if SPARSE
-			return (this.fEdgesList.IsEmpty() && this.fVerticesList.Count == 0);
-			#else
 			return (this.fEdgesList.Count == 0 && this.fVerticesList.Count == 0);
-			#endif
 		}
 
 		public void Clear()
@@ -157,6 +132,7 @@ namespace BSLib.SmartGraph
 			foreach (Vertex vertex in this.fVerticesList)
 			{
 				vertex.EdgeIn = null;
+				vertex.EdgesOut.Clear();
 			}
 
 			this.fEdgesList.Clear();
@@ -217,12 +193,8 @@ namespace BSLib.SmartGraph
 			if (source == null || target == null || source == target) return null;
 
 			Edge resultEdge = new Edge(source, target, cost, edgeValue);
-
-			#if SPARSE
-			this.fEdgesList.SetItem(source.Index, target.Index, resultEdge);
-			#else
+			source.EdgesOut.Add(resultEdge);
 			this.fEdgesList.Add(resultEdge);
-			#endif
 
 			this.Notify(resultEdge, GraphNotification.Added);
 
@@ -233,10 +205,6 @@ namespace BSLib.SmartGraph
 		{
 			if (vertex == null) return;
 
-			#if SPARSE
-			this.fEdgesList.RemoveItemsByRow(vertex.Index);
-			this.fEdgesList.RemoveItemsByCol(vertex.Index);
-			#else
 			for (int i = this.fEdgesList.Count - 1; i >= 0; i--)
 			{
 				Edge edge = this.fEdgesList[i];
@@ -246,7 +214,6 @@ namespace BSLib.SmartGraph
 					this.DeleteEdge(edge);
 				}				
 			}
-			#endif
 
 			this.fVerticesList.Remove(vertex);
 			this.Notify(vertex, GraphNotification.Deleted);
@@ -256,11 +223,10 @@ namespace BSLib.SmartGraph
 		{
 			if (edge == null) return;
 
-			#if SPARSE
-			this.fEdgesList.SetItem(edge.Source.Index, edge.Target.Index, null);
-			#else
+			Vertex src = edge.Source;
+			src.EdgesOut.Remove(edge);
+
 			this.fEdgesList.Remove(edge);
-			#endif
 
 			this.Notify(edge, GraphNotification.Deleted);
 		}
@@ -270,24 +236,6 @@ namespace BSLib.SmartGraph
 			Vertex result;
 			this.fVerticesDictionary.TryGetValue(sign, out result);
 			return result;
-		}
-
-		public IEnumerable<Edge> GetEdgesOut(Vertex source)
-		{
-			#if SPARSE
-			return this.fEdgesList.GetItemsByRow(source.Index);
-			#else
-			for (int i = 0; i < this.fEdgesList.Count; i++)
-			{
-				Edge edge = this.fEdgesList[i];
-
-				if (edge.Source == source)
-				{
-					yield return edge;
-				}
-			}
-			yield break;
-			#endif
 		}
 
 		#endregion
@@ -372,7 +320,7 @@ namespace BSLib.SmartGraph
 				int nodeDist = topNode.Dist;
 				topNode.Visited = false;
 
-				foreach (Edge link in GetEdgesOut(topNode))
+				foreach (Edge link in topNode.EdgesOut)
 				{
                     Vertex target = link.Target;
                     int newDist = nodeDist + link.Cost;

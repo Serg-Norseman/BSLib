@@ -43,9 +43,9 @@ namespace BSLib.SmartGraph
 			}
 		}
 
-		public void WriteEdge(string From, string To)
+		public void WriteEdge(string frm, string to)
 		{
-			fBuffer.AppendLine(string.Format("\"{0}\" -> \"{1}\";", From, To));
+			fBuffer.AppendLine(string.Format("\"{0}\" -> \"{1}\";", frm, to));
 		}
 
 		public void WriteNode(string id, string name, string style, string color, string shape)
@@ -56,9 +56,9 @@ namespace BSLib.SmartGraph
 		public void SaveFile(string path)
 		{
 			fBuffer.AppendLine("}");
-			using (StreamWriter SW = new StreamWriter(path, false, Encoding.GetEncoding(1251)))
+			using (StreamWriter sw = new StreamWriter(path, false, Encoding.GetEncoding(1251)))
 			{
-				SW.Write(fBuffer.ToString());
+				sw.Write(fBuffer.ToString());
 				System.Console.Write(fBuffer.ToString());
 			}
 		}

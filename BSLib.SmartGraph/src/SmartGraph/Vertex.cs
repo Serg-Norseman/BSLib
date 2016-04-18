@@ -25,12 +25,9 @@ namespace BSLib.SmartGraph
 {
 	public class Vertex : GraphObject, IComparable
 	{
-    	private static uint NextIndex = 1;
-
-    	public readonly uint Index;
-
         public string Sign { get; set; }
 		public object Value { get; set; }
+		public List<Edge> EdgesOut { get; private set; }
 
 		#region Path-search runtime
 
@@ -42,7 +39,7 @@ namespace BSLib.SmartGraph
 
 		public Vertex()
 		{
-			this.Index = NextIndex++;
+			this.EdgesOut = new List<Edge>();
 		}
 
 		public int CompareTo(object obj)

@@ -25,7 +25,7 @@ namespace BSLib.SmartGraph
 	{
 		public readonly Vertex Node;
 		public readonly PathCandidate Next;
-		
+
 		public PathCandidate(Vertex node, PathCandidate next)
 		{
 			this.Node = node;

@@ -40,11 +40,6 @@ namespace BSLib.SmartGraph
 			get { return this.fCost; }
 		}
 
-		public object Value
-		{
-			get { return this.fValue; }
-		}
-
 		public Vertex Source
 		{
 			get { return this.fSource; }
@@ -53,6 +48,11 @@ namespace BSLib.SmartGraph
 		public Vertex Target
 		{
 			get { return this.fTarget; }
+		}
+
+		public object Value
+		{
+			get { return this.fValue; }
 		}
 
 		#endregion
