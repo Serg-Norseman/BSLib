@@ -100,19 +100,23 @@ namespace UDNTest
             fDates.Add(new UDN(CalendarType.ctJulian, 2016, 04, 21, "2016/05/04 [g] = 2016/04/21 [j]"));
             fDates.Add(new UDN(CalendarType.ctJulian, 2016, 04, 23, "2016/05/06 [g] = 2016/04/23 [j]"));
             
-            fDates.Add(new UDN(CalendarType.ctGregorian, 2016, 05, 0, "2016/05/?? [g]")); // must be first
-            fDates.Add(new UDN(CalendarType.ctGregorian, 2016, 06, 0, "2016/06/?? [g]")); // must be last
+            fDates.Add(new UDN(CalendarType.ctGregorian, 2016, 05, UDNHelper.unknownDay, "2016/05/?? [g]")); // must be first
+            fDates.Add(new UDN(CalendarType.ctGregorian, 2016, 06, UDNHelper.unknownDay, "2016/06/?? [g]")); // must be last
 
-            fDates.Add(new UDN(CalendarType.ctGregorian, 0, 0, 0, "??/??/?? [g]"));
-            fDates.Add(new UDN(CalendarType.ctGregorian, 0, 04, 23, "??/04/23 [g]"));
-            fDates.Add(new UDN(CalendarType.ctGregorian, 0, 03, 23, "??/03/23 [g]"));
-            fDates.Add(new UDN(CalendarType.ctGregorian, 0, 0, 23, "??/??/23 [g]"));
-            fDates.Add(new UDN(CalendarType.ctGregorian, 2016, 0, 0, "2016/??/?? [g]"));
-            fDates.Add(new UDN(CalendarType.ctGregorian, 2016, 0, 10, "2016/??/10 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, UDNHelper.unknownYear, UDNHelper.unknownMonth, UDNHelper.unknownDay, "??/??/?? [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, UDNHelper.unknownYear, 04, 23, "??/04/23 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, UDNHelper.unknownYear, 03, 23, "??/03/23 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, UDNHelper.unknownYear, UDNHelper.unknownMonth, 23, "??/??/23 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, 2016, UDNHelper.unknownMonth, UDNHelper.unknownDay, "2016/??/?? [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, 2016, UDNHelper.unknownMonth, 10, "2016/??/10 [g]"));
             fDates.Add(new UDN(CalendarType.ctGregorian, 2015, 03, 23, "2015/03/23 [g]"));
-            fDates.Add(new UDN(CalendarType.ctGregorian, 2014, 0, 23, "2014/??/23 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, 2014, UDNHelper.unknownMonth, 23, "2014/??/23 [g]"));
             fDates.Add(new UDN(CalendarType.ctGregorian, 2016, 05, 31, "2016/05/31 [g]"));
             fDates.Add(new UDN(CalendarType.ctGregorian, 2016, 05, 31, "2016/05/31 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, -4712, 1, 2, "-4712/01/02 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, -4712, 1, 3, "-4712/01/03 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, 0, 1, 3, "0000/01/03 [g]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, 1, 1, 3, "0001/01/03 [g]"));
 
             fDates.Sort(CompareItems);
             
