@@ -5,43 +5,58 @@ namespace UDNTest
 {
     public static class UDNHelper
     {
+        public const uint ignoreYear = 1u << 31;
+        public const uint ignoreMonth = 1u << 30;
+        public const uint ignoreDay = 1u << 29;
+        public const uint yearMask = ignoreYear;
+        public const uint monthMask = ignoreMonth;
+        public const uint dayMask = ignoreDay;
+        public const uint valueMask = 0x1fffffff;
+        public const int unknownYear = -4713;
+        public const int unknownMonth = 0;
+        public const int unknownDay = 0;
+
         public static uint getGregorianUDN(int year, int month, int day)
         {
-            // pre
-            int jdYear = (year > 0) ? year : 1;
-            int jdMonth = (month > 0) ? month : 1;
-            int jdDay = (day > 0) ? day : 1;
+            uint result = (uint)CalendarConverter.gregorian_to_jd(
+                Math.Max(unknownYear + 1, year),
+                Math.Max(unknownMonth + 1, month),
+                Math.Max(unknownDay + 1, day));
 
-            uint result = (uint)CalendarConverter.gregorian_to_jd(year, month, day);
-
-            bool unkYear = (year < 1);
-            bool unkMonth = (month < 1);
-            bool unkDay = (day < 1);
-            
-            if (unkYear) result |= (1u << 31);
-            if (unkMonth) result |= (1u << 30);
-            if (unkDay) result |= (1u << 29);
-            
+            if (unknownYear + 1 > year)
+            {
+                result |= ignoreYear;
+            }
+            if (unknownMonth + 1 > month)
+            {
+                result |= ignoreMonth;
+            }
+            if (unknownDay + 1 > day)
+            {
+                result |= ignoreDay;
+            }
             return result;
         }
 
         public static uint getJulianUDN(int year, int month, int day)
         {
-            // pre
-            int jdYear = (year > 0) ? year : 1;
-            int jdMonth = (month > 0) ? month : 1;
-            int jdDay = (day > 0) ? day : 1;
+            uint result = (uint) CalendarConverter.julian_to_jd(
+                Math.Max(unknownYear + 1, year),
+                Math.Max(unknownMonth + 1, month),
+                Math.Max(unknownDay + 1, day));
 
-            uint result = (uint)CalendarConverter.julian_to_jd(year, month, day);
-
-            bool unkYear = (year < 1);
-            bool unkMonth = (month < 1);
-            bool unkDay = (day < 1);
-            
-            if (unkYear) result |= (1u << 31);
-            if (unkMonth) result |= (1u << 30);
-            if (unkDay) result |= (1u << 29);
-            
+            if (unknownYear + 1 > year)
+            {
+                result |= ignoreYear;
+            }
+            if (unknownMonth + 1 > month)
+            {
+                result |= ignoreMonth;
+            }
+            if (unknownDay + 1 > day)
+            {
+                result |= ignoreDay;
+            }
             return result;
         }
         
