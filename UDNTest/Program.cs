@@ -32,62 +32,6 @@ namespace UDNTest
     class Program
     {
         private static List<UDN> fDates = new List<UDN>();
-        
-        private static int CompareItems(UDN left, UDN right)
-        {
-            uint l = left.Value;
-            uint r = right.Value;
-
-            if ((UDNHelper.yearMask & l) != UDNHelper.ignoreYear)
-            {
-                if ((UDNHelper.yearMask & r) != UDNHelper.ignoreYear)
-                {
-                    return ((int) (UDNHelper.valueMask & l)) - ((int) (UDNHelper.valueMask & r));
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-            else if ((UDNHelper.yearMask & r) != UDNHelper.ignoreYear)
-            {
-                return -1;
-            }
-            else if ((UDNHelper.monthMask & l) != UDNHelper.ignoreMonth)
-            {
-                if ((UDNHelper.monthMask & r) != UDNHelper.ignoreMonth)
-                {
-                    return ((int) (UDNHelper.valueMask & l)) - ((int) (UDNHelper.valueMask & r));
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-            else if ((UDNHelper.monthMask & r) != UDNHelper.ignoreMonth)
-            {
-                return -1;
-            }
-            else if ((UDNHelper.dayMask & l) != UDNHelper.ignoreDay)
-            {
-                if ((UDNHelper.dayMask & r) != UDNHelper.ignoreDay)
-                {
-                    return ((int) (UDNHelper.valueMask & l)) - ((int) (UDNHelper.valueMask & r));
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-            else if ((UDNHelper.dayMask & r) != UDNHelper.ignoreDay)
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
 
         public static void Main(string[] args)
         {
@@ -118,7 +62,7 @@ namespace UDNTest
             fDates.Add(new UDN(CalendarType.ctGregorian, 0, 1, 3, "0000/01/03 [g]"));
             fDates.Add(new UDN(CalendarType.ctGregorian, 1, 1, 3, "0001/01/03 [g]"));
 
-            fDates.Sort(CompareItems);
+            fDates.Sort(delegate(UDN left, UDN right) { return UDNHelper.CompareUDN(left.Value, right.Value); });
             
             foreach (UDN udn in fDates)
             {
