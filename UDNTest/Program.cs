@@ -69,6 +69,10 @@ namespace UDNTest
             fDates.Add(new UDN(CalendarType.ctGregorian, -4712, 1, 2, "-4712/01/02 [g]"));
             fDates.Add(new UDN(CalendarType.ctGregorian, -4712, 1, 3, "-4712/01/03 [g]"));
 
+            fDates.Add(new UDN(CalendarType.ctHebrew, 5564, 04, 04, "1804/06/13 [g] = 5564/04/04 [h]"));
+            fDates.Add(new UDN(CalendarType.ctIslamic, 1216, 01, 04, "1801/05/17 [g] = 1216/01/04 [i]"));
+            fDates.Add(new UDN(CalendarType.ctGregorian, 1802, 05, 01, "1802/05/01 [g]"));
+
             fDates.Add(new UDN(CalendarType.ctGregorian, 0, 1, 3, "0000/01/03 [g]"));
             fDates.Add(new UDN(CalendarType.ctGregorian, -1, 1, 3, "-0001/01/03 [g]"));
 
