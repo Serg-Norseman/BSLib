@@ -62,8 +62,8 @@ namespace UDNTest
 
             foreach (UDNRecord udn_rec in fDates)
             {
-                Object[] a = {udn_rec.Value, udn_rec.Value.GetUnmaskedValue(), udn_rec.Calendar.ToString(), udn_rec.Description};
-                Console.WriteLine("Value: {0, 12}\t(unmasked value: {1, 12})\t{2}\t{3}", a);
+                Object[] a = {udn_rec.Value, udn_rec.Value.GetUnmaskedValue(), udn_rec.Calendar.ToString(), udn_rec.Description, udn_rec.Value.ToString()};
+                Console.WriteLine("Value: {0, 12}\t(unmasked value: {1, 12})\t{2, 10}\t{3, 35}\t{4}", a);
             }
             
             Console.WriteLine();
