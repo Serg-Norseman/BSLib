@@ -4,7 +4,7 @@ using GKCommon;
 
 namespace UDNTest
 {
-    public enum CalendarType { ctGregorian, ctJulian }
+    public enum CalendarType { ctGregorian, ctJulian, ctHebrew, ctIslamic }
     
     public class UDN
     {
@@ -16,20 +16,28 @@ namespace UDNTest
         {
             this.Calendar = calendar;
             this.Description = description;
-            
+
             switch (calendar)
             {
                 case CalendarType.ctGregorian:
                     this.Value = UDNHelper.GetGregorianUDN(year, month, day);
                     break;
-                    
+
                 case CalendarType.ctJulian:
                     this.Value = UDNHelper.GetJulianUDN(year, month, day);
+                    break;
+
+                case CalendarType.ctHebrew:
+                    this.Value = UDNHelper.GetHebrewUDN(year, month, day);
+                    break;
+
+                case CalendarType.ctIslamic:
+                    this.Value = UDNHelper.GetIslamicUDN(year, month, day);
                     break;
             }
         }
     }
-    
+
     class Program
     {
         private static List<UDN> fDates = new List<UDN>();

@@ -5,3 +5,6 @@
 /CalendarConverterTests/obj/
 /UDNTest/bin/
 /UDNTest/obj/
+*.suo
+*.userprefs
+*.DotSettings.user
