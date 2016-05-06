@@ -60,10 +60,23 @@ namespace UDNTest
 
             fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
 
+            int[] widths = {16, 16, 12, 32};
+            string format = string.Format(
+                "{{0, {0}}}\t{{1, {1}}}\t{{2, {2}}}\t{{3, {3}}}", widths[0], widths[1], widths[2], widths[3]);
+            Object[] a = {"Value", "Unmasked value", "Calendar", "Description"};
+            Console.WriteLine(format, a);
+            a = new Object[]
+            {
+                new string('-', widths[0]),
+                new string('-', widths[1]),
+                new string('-', widths[2]),
+                new string('-', widths[3])
+            };
+            Console.WriteLine(format, a);
             foreach (UDNRecord udn_rec in fDates)
             {
-                Object[] a = {udn_rec.Value, udn_rec.Value.GetUnmaskedValue(), udn_rec.Calendar.ToString(), udn_rec.Description, udn_rec.Value.ToString()};
-                Console.WriteLine("Value: {0, 12}\t(unmasked value: {1, 12})\t{2, 10}\t{3, 35}\t{4}", a);
+                a = new Object[] {udn_rec.Value, udn_rec.Value.GetUnmaskedValue(), udn_rec.Calendar.ToString(), udn_rec.Description};
+                Console.WriteLine(format, a);
             }
             
             Console.WriteLine();
