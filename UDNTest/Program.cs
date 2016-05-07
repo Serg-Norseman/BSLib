@@ -60,15 +60,17 @@ namespace UDNTest
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, -1, 1, 3, "-0001/01/03 [g]"));
 
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 1, 1, 3, "0001/01/03 [g]"));
+            fDates.Add(new UDNRecord(UDNCalendarType.ctJulian, 2016, 04, 21, "2016/05/04 [g] = 2016/04/21 [j]"));
+            fDates.Add(new UDNRecord(UDNCalendarType.ctJulian, 2016, 04, 21, "2016/05/04 [g] = 2016/04/21 [j]"));
 
             fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
 
             int[] widths = {16, 16, 12, 32};
             string format =
 #if LEFT_AND_RIGHT_BORDERS
-            string.Format("{{4}} {{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}} {{4}}", widths[0], widths[1], widths[2], widths[3]);
+                string.Format("{{4}} {{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}} {{4}}", widths[0], widths[1], widths[2], widths[3]);
 #else
-            string.Format("{{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}}", widths[0], widths[1], widths[2], widths[3]);
+                string.Format("{{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}}", widths[0], widths[1], widths[2], widths[3]);
 #endif
             Object[] a =
             {
@@ -88,6 +90,61 @@ namespace UDNTest
             foreach (UDNRecord udn_rec in fDates)
             {
                 a = new Object[] {udn_rec.Value, udn_rec.Value.GetUnmaskedValue(), udn_rec.Calendar.ToString(), udn_rec.Description, "|"};
+                Console.WriteLine(format, a);
+            }
+#if TOP_AND_BOTTOM_BORDERS
+            Console.WriteLine(delimiter);
+#endif
+
+            widths = new int[] {32, 32, 48};
+            format =
+#if LEFT_AND_RIGHT_BORDERS
+                string.Format("{{3}} {{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}} {{3}}", widths[0], widths[1], widths[2]);
+#else
+                string.Format("{{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}}}", widths[0], widths[1], widths[2]);
+#endif
+            a = new Object[]
+            {
+                new string('-', widths[0]),
+                new string('-', widths[1]),
+                new string('-', widths[2]),
+                new string('+', 1)
+            };
+            delimiter = string.Format(format, a);
+#if TOP_AND_BOTTOM_BORDERS
+            Console.WriteLine(delimiter);
+#endif
+            a = new Object[] {"Left", "Right", "Between 'Left' and 'Right'", "|"};
+            Console.WriteLine(format, a);
+            Console.WriteLine(delimiter);
+            for (int i = 0; i < fDates.Count - 1; i++)
+            {
+                string between;
+                try
+                {
+                    UDN foo = UDN.Between(fDates[i].Value, fDates[i + 1].Value);
+                    // Always use Gregorian calendar to show "between-date".
+                    int year;
+                    int month;
+                    int day;
+                    CalendarConverter.jd_to_gregorian(foo.GetUnmaskedValue(), out year, out month, out day);
+                    // If 'left' or 'right' dates ain't in the Gregorian calendar, show "+f".
+                    bool forced =
+                        (UDNCalendarType.ctGregorian != fDates[i].Calendar) ||
+                        (UDNCalendarType.ctGregorian != fDates[i + 1].Calendar);
+                    between = string.Format(
+                        "{4} == {0}/{1}/{2} [g{3}]",
+                        year,
+                        foo.hasKnownMonth() ? month.ToString() : "??",
+                        foo.hasKnownDay() ? day.ToString() : "??",
+                        forced ? "+f" : "",
+                        foo.GetUnmaskedValue());
+                }
+                catch (Exception e)
+                {
+                    between = e.Message;
+                }
+                a = new Object[] {fDates[i].Description, fDates[i + 1].Description, between, "|"};
                 Console.WriteLine(format, a);
             }
 #if TOP_AND_BOTTOM_BORDERS
