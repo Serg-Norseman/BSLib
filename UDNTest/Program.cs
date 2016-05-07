@@ -1,4 +1,7 @@
-﻿using System;
+﻿#define LEFT_AND_RIGHT_BORDERS
+#define TOP_AND_BOTTOM_BORDERS
+
+using System;
 using System.Collections.Generic;
 using GKCommon;
 
@@ -61,24 +64,36 @@ namespace UDNTest
             fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
 
             int[] widths = {16, 16, 12, 32};
-            string format = string.Format(
-                "{{0, {0}}}\t{{1, {1}}}\t{{2, {2}}}\t{{3, {3}}}", widths[0], widths[1], widths[2], widths[3]);
-            Object[] a = {"Value", "Unmasked value", "Calendar", "Description"};
-            Console.WriteLine(format, a);
-            a = new Object[]
+            string format =
+#if LEFT_AND_RIGHT_BORDERS
+            string.Format("{{4}} {{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}} {{4}}", widths[0], widths[1], widths[2], widths[3]);
+#else
+            string.Format("{{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}}", widths[0], widths[1], widths[2], widths[3]);
+#endif
+            Object[] a =
             {
                 new string('-', widths[0]),
                 new string('-', widths[1]),
                 new string('-', widths[2]),
-                new string('-', widths[3])
+                new string('-', widths[3]),
+                new string('+', 1)
             };
+            string delimiter = string.Format(format, a);
+#if TOP_AND_BOTTOM_BORDERS
+            Console.WriteLine(delimiter);
+#endif
+            a = new Object[] {"Value", "Unmasked value", "Calendar", "Description", "|"};
             Console.WriteLine(format, a);
+            Console.WriteLine(delimiter);
             foreach (UDNRecord udn_rec in fDates)
             {
-                a = new Object[] {udn_rec.Value, udn_rec.Value.GetUnmaskedValue(), udn_rec.Calendar.ToString(), udn_rec.Description};
+                a = new Object[] {udn_rec.Value, udn_rec.Value.GetUnmaskedValue(), udn_rec.Calendar.ToString(), udn_rec.Description, "|"};
                 Console.WriteLine(format, a);
             }
-            
+#if TOP_AND_BOTTOM_BORDERS
+            Console.WriteLine(delimiter);
+#endif
+
             Console.WriteLine();
             Console.Write("Press any key to continue . . . ");
             Console.ReadKey(true);
