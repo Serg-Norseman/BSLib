@@ -12,12 +12,19 @@ namespace UDNTest
         public readonly UDNCalendarType Calendar;
         public readonly string Description;
         public readonly UDN Value;
-        
+
         public UDNRecord(UDNCalendarType calendar, int year, int month, int day, string description)
         {
             this.Calendar = calendar;
             this.Description = description;
             this.Value = new UDN(calendar, year, month, day);
+        }
+
+        public UDNRecord(UDN udn, UDNCalendarType calendar, string description)
+        {
+            this.Calendar = calendar;
+            this.Description = description;
+            this.Value = udn;
         }
     }
 
@@ -60,8 +67,18 @@ namespace UDNTest
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, -1, 1, 3, "-0001/01/03 [g]"));
 
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 1, 1, 3, "0001/01/03 [g]"));
-            fDates.Add(new UDNRecord(UDNCalendarType.ctJulian, 2016, 04, 21, "2016/05/04 [g] = 2016/04/21 [j]"));
-            fDates.Add(new UDNRecord(UDNCalendarType.ctJulian, 2016, 04, 21, "2016/05/04 [g] = 2016/04/21 [j]"));
+
+            // Add dates before/after.
+            fDates.Add(new UDNRecord(UDN.CreateBefore(
+                UDNCalendarType.ctGregorian, 1, 1, 3), UDNCalendarType.ctGregorian, "before 0001/01/03 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateBefore(
+                UDNCalendarType.ctGregorian, 2016, 05, 31), UDNCalendarType.ctGregorian, "before 2016/05/31 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateBefore(
+                UDNCalendarType.ctGregorian, -4712, 1, 2), UDNCalendarType.ctGregorian, "before -4712/01/02 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateBefore(
+                UDNCalendarType.ctGregorian, UDN.UnknownYear, 05, 31), UDNCalendarType.ctGregorian, "before ????/05/31 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateBefore(
+                UDNCalendarType.ctGregorian, 2015, UDN.UnknownMonth, 31), UDNCalendarType.ctGregorian, "before 2015/??/31 [g]"));
 
             fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
 
