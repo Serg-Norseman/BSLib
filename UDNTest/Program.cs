@@ -39,7 +39,7 @@ namespace UDNTest
             
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2016, 05, 05, "2016/05/05 [g]"));
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2016, 05, 04, "2016/05/04 [g]"));
-            
+
             fDates.Add(new UDNRecord(UDNCalendarType.ctJulian, 2016, 04, 21, "2016/05/04 [g] = 2016/04/21 [j]"));
             fDates.Add(new UDNRecord(UDNCalendarType.ctJulian, 2016, 04, 23, "2016/05/06 [g] = 2016/04/23 [j]"));
             
@@ -68,9 +68,9 @@ namespace UDNTest
 
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 1, 1, 3, "0001/01/03 [g]"));
 
-            // Add dates before/after.
+            // Add dates before.
             fDates.Add(new UDNRecord(UDN.CreateBefore(
-                UDNCalendarType.ctGregorian, 1, 1, 3), UDNCalendarType.ctGregorian, "before 0001/01/03 [g]"));
+                UDNCalendarType.ctGregorian, 1, 1, 4), UDNCalendarType.ctGregorian, "before 0001/01/04 [g]"));
             fDates.Add(new UDNRecord(UDN.CreateBefore(
                 UDNCalendarType.ctGregorian, 2016, 05, 31), UDNCalendarType.ctGregorian, "before 2016/05/31 [g]"));
             fDates.Add(new UDNRecord(UDN.CreateBefore(
@@ -79,6 +79,17 @@ namespace UDNTest
                 UDNCalendarType.ctGregorian, UDN.UnknownYear, 05, 31), UDNCalendarType.ctGregorian, "before ????/05/31 [g]"));
             fDates.Add(new UDNRecord(UDN.CreateBefore(
                 UDNCalendarType.ctGregorian, 2015, UDN.UnknownMonth, 31), UDNCalendarType.ctGregorian, "before 2015/??/31 [g]"));
+            // Add dates after.
+            fDates.Add(new UDNRecord(UDN.CreateAfter(
+                UDNCalendarType.ctGregorian, 2016, 05, 31), UDNCalendarType.ctGregorian, "after 2016/05/31 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateAfter(
+                UDNCalendarType.ctGregorian, UDN.UnknownYear, 05, 31), UDNCalendarType.ctGregorian, "after ????/05/31 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateAfter(
+                UDNCalendarType.ctGregorian, UDN.UnknownYear, 06, 15), UDNCalendarType.ctGregorian, "after ????/06/15 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateAfter(
+                UDNCalendarType.ctGregorian, 2015, UDN.UnknownMonth, 31), UDNCalendarType.ctGregorian, "after 2015/??/31 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateAfter(
+                UDNCalendarType.ctGregorian, 2015, UDN.UnknownMonth, 30), UDNCalendarType.ctGregorian, "after 2015/??/30 [g]"));
 
             fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
 
