@@ -161,12 +161,11 @@ namespace UDNTest
                         (UDNCalendarType.ctGregorian != fDates[i].Calendar) ||
                         (UDNCalendarType.ctGregorian != fDates[i + 1].Calendar);
                     between = string.Format(
-                        "{4} == {0}/{1}/{2} [g{3}]",
+                        "{0}/{1}/{2} [g{3}]",
                         year,
                         foo.hasKnownMonth() ? month.ToString() : "??",
                         foo.hasKnownDay() ? day.ToString() : "??",
-                        forced ? "+f" : "",
-                        foo.GetUnmaskedValue());
+                        forced ? "+f" : "");
                 }
                 catch (Exception e)
                 {
