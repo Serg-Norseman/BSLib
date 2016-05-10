@@ -67,6 +67,8 @@ namespace UDNTest
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, -1, 1, 3, "-0001/01/03 [g]"));
 
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 1, 1, 3, "0001/01/03 [g]"));
+            fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2015, 2, 27, "2015/02/27 [g]"));
+            fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 3268, 1, 23, "3268/01/23 [g]"));
 
             // Add dates before.
             fDates.Add(new UDNRecord(UDN.CreateBefore(
@@ -90,6 +92,19 @@ namespace UDNTest
                 UDNCalendarType.ctGregorian, 2015, UDN.UnknownMonth, 31), UDNCalendarType.ctGregorian, "after 2015/??/31 [g]"));
             fDates.Add(new UDNRecord(UDN.CreateAfter(
                 UDNCalendarType.ctGregorian, 2015, UDN.UnknownMonth, 30), UDNCalendarType.ctGregorian, "after 2015/??/30 [g]"));
+            // Add approximate dates.
+            fDates.Add(new UDNRecord(UDN.CreateApproximate(
+                UDNCalendarType.ctGregorian, 2016, 05, 31), UDNCalendarType.ctGregorian, "~ 2016/05/31 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateApproximate(
+                UDNCalendarType.ctGregorian, 1, 1, 4), UDNCalendarType.ctGregorian, "~ 0001/01/04 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateApproximate(
+                UDNCalendarType.ctGregorian, 1, 1, UDN.UnknownDay), UDNCalendarType.ctGregorian, "~ 0001/01/?? [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateApproximate(
+                UDNCalendarType.ctGregorian, UDN.UnknownYear, 05, 31), UDNCalendarType.ctGregorian, "~ ????/05/31 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateApproximate(
+                UDNCalendarType.ctGregorian, 2015, UDN.UnknownMonth, 31), UDNCalendarType.ctGregorian, "~ 2015/??/31 [g]"));
+            fDates.Add(new UDNRecord(UDN.CreateApproximate(
+                UDNCalendarType.ctGregorian, 2015, 2, 28), UDNCalendarType.ctGregorian, "~ 2015/02/28 [g]"));
 
             fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
 
