@@ -165,7 +165,7 @@ namespace UDNTest
                 string between;
                 try
                 {
-                    UDN foo = UDN.Between(fDates[i].Value, fDates[i + 1].Value);
+                    UDN foo = UDN.CreateBetween(fDates[i].Value, fDates[i + 1].Value);
                     // Always use Gregorian calendar to show "between-date".
                     int year;
                     int month;
@@ -178,8 +178,8 @@ namespace UDNTest
                     between = string.Format(
                         "{0}/{1}/{2} [g{3}]",
                         year,
-                        foo.hasKnownMonth() ? month.ToString() : "??",
-                        foo.hasKnownDay() ? day.ToString() : "??",
+                        foo.HasKnownMonth() ? month.ToString() : "??",
+                        foo.HasKnownDay() ? day.ToString() : "??",
                         forced ? "+f" : "");
                 }
                 catch (Exception e)
