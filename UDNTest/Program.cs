@@ -28,6 +28,22 @@ namespace UDNTest
         }
     }
 
+    public struct date
+    {
+        public date(UDNCalendarType calendar, int year, int month, int day)
+        {
+            this.calendar = calendar;
+            this.year = year;
+            this.month = month;
+            this.day = day;
+        }
+
+        public UDNCalendarType calendar;
+        public int year;
+        public int month;
+        public int day;
+    }
+
     class Program
     {
         private static List<UDNRecord> fDates = new List<UDNRecord>();
@@ -108,6 +124,7 @@ namespace UDNTest
 
             fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
 
+            Console.WriteLine("Check UDNs ordering");
             int[] widths = {16, 16, 12, 32};
             string format =
 #if LEFT_AND_RIGHT_BORDERS
@@ -139,6 +156,7 @@ namespace UDNTest
             Console.WriteLine(delimiter);
 #endif
 
+            Console.WriteLine("\nCheck 'UDN *between* dates'");
             widths = new int[] {32, 32, 48};
             format =
 #if LEFT_AND_RIGHT_BORDERS
@@ -188,6 +206,82 @@ namespace UDNTest
                 }
                 a = new Object[] {fDates[i].Description, fDates[i + 1].Description, between, "|"};
                 Console.WriteLine(format, a);
+            }
+#if TOP_AND_BOTTOM_BORDERS
+            Console.WriteLine(delimiter);
+#endif
+
+            List<date> dates = new List<date>();
+            dates.Add(new date(UDNCalendarType.ctGregorian, 2015, 5, 30));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 2000, 2, 29));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 5, 30));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 5, 31));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 6, 30));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 1));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 15));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 31));
+            dates.Add(new date(UDNCalendarType.ctJulian, 2013, 10, 15));
+            dates.Add(new date(UDNCalendarType.ctJulian, 2016, 1, 31));
+            dates.Add(new date(UDNCalendarType.ctJulian, 2016, 2, 29));
+            Console.WriteLine("\nCheck does a JDN algorithm make reversible dates");
+            widths = new int[] {32, 48, 32};
+            format =
+#if LEFT_AND_RIGHT_BORDERS
+                string.Format("{{3}} {{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}} {{3}}", widths[0], widths[1], widths[2]);
+#else
+                string.Format("{{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}}}", widths[0], widths[1], widths[2]);
+#endif
+            a = new Object[]
+            {
+                new string('-', widths[0]),
+                new string('-', widths[1]),
+                new string('-', widths[2]),
+                new string('+', 1)
+            };
+            delimiter = string.Format(format, a);
+#if TOP_AND_BOTTOM_BORDERS
+            Console.WriteLine(delimiter);
+#endif
+            a = new Object[] { "Date", "JDN", "Date restored from JDN", "|" };
+            Console.WriteLine(format, a);
+            Console.WriteLine(delimiter);
+            for (int i = 0; i < dates.Count; i++)
+            {
+                date d = dates[i];
+                string original = string.Format("{0}/{1}/{2}", d.year, d.month, d.day);
+                int year;
+                int month;
+                int day;
+                if (UDNCalendarType.ctGregorian == d.calendar)
+                {
+                    uint jdn = CalendarConverter.gregorian_to_jd3(d.year, d.month, d.day);
+                    CalendarConverter.jd_to_gregorian3(jdn, out year, out month, out day);
+                    string reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                    a = new Object[] {original, "by `jd_to_gregorian3`: " + jdn.ToString(), reconstructed, "|"};
+                    Console.WriteLine(format, a);
+                    jdn = (uint)CalendarConverter.gregorian_to_jd(d.year, d.month, d.day);
+                    CalendarConverter.jd_to_gregorian(jdn, out year, out month, out day);
+                    reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                    a = new Object[] {original, "by `jd_to_gregorian`:  " + jdn.ToString(), reconstructed, "|"};
+                    Console.WriteLine(format, a);
+                }
+                else if (UDNCalendarType.ctJulian == d.calendar)
+                {
+                    uint jdn = CalendarConverter.julian_to_jd3(d.year, d.month, d.day);
+                    CalendarConverter.jd_to_julian3(jdn, out year, out month, out day);
+                    string reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                    a = new Object[] {original, "by `jd_to_julian3`: " + jdn.ToString(), reconstructed, "|"};
+                    Console.WriteLine(format, a);
+                    jdn = (uint)CalendarConverter.julian_to_jd(d.year, d.month, d.day);
+                    CalendarConverter.jd_to_julian(jdn, out year, out month, out day);
+                    reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                    a = new Object[] {original, "by `jd_to_julian`:  " + jdn.ToString(), reconstructed, "|"};
+                    Console.WriteLine(format, a);
+                }
+                if (dates.Count - 1 > i)
+                {
+                    Console.WriteLine(delimiter);
+                }
             }
 #if TOP_AND_BOTTOM_BORDERS
             Console.WriteLine(delimiter);
