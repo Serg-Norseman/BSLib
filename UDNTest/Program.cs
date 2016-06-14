@@ -223,6 +223,9 @@ namespace UDNTest
             dates.Add(new date(UDNCalendarType.ctJulian, 2013, 10, 15));
             dates.Add(new date(UDNCalendarType.ctJulian, 2016, 1, 31));
             dates.Add(new date(UDNCalendarType.ctJulian, 2016, 2, 29));
+            dates.Add(new date(UDNCalendarType.ctIslamic, 1432, 8, 29));
+            dates.Add(new date(UDNCalendarType.ctIslamic, 2000, 2, 29));
+            dates.Add(new date(UDNCalendarType.ctIslamic, 2016, 8, 29));
             Console.WriteLine("\nCheck does a JDN algorithm make reversible dates");
             widths = new int[] {32, 48, 32};
             format =
@@ -276,6 +279,19 @@ namespace UDNTest
                     CalendarConverter.jd_to_julian(jdn, out year, out month, out day);
                     reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
                     a = new Object[] {original, "by `jd_to_julian`:  " + jdn.ToString(), reconstructed, "|"};
+                    Console.WriteLine(format, a);
+                }
+                else if (UDNCalendarType.ctIslamic == d.calendar)
+                {
+                    uint jdn = CalendarConverter.islamic_to_jd3(d.year, d.month, d.day);
+                    CalendarConverter.jd_to_islamic3(jdn, out year, out month, out day);
+                    string reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                    a = new Object[] {original, "by `jd_to_islamic3`: " + jdn.ToString(), reconstructed, "|"};
+                    Console.WriteLine(format, a);
+                    jdn = (uint)CalendarConverter.islamic_to_jd(d.year, d.month, d.day);
+                    CalendarConverter.jd_to_islamic(jdn, out year, out month, out day);
+                    reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                    a = new Object[] {original, "by `jd_to_islamic`:  " + jdn.ToString(), reconstructed, "|"};
                     Console.WriteLine(format, a);
                 }
                 if (dates.Count - 1 > i)
