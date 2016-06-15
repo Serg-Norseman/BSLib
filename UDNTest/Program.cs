@@ -226,6 +226,16 @@ namespace UDNTest
             dates.Add(new date(UDNCalendarType.ctIslamic, 1432, 8, 29));
             dates.Add(new date(UDNCalendarType.ctIslamic, 2000, 2, 29));
             dates.Add(new date(UDNCalendarType.ctIslamic, 2016, 8, 29));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 4682, 3, 18));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 4684, 7, 1));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 3761, 10, 18));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 3761, 12, 1));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 3761, 12, 2));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 10, 29));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 11, 1));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 12, 2));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 13, 29));
+            dates.Add(new date(UDNCalendarType.ctHebrew, 3763, 1, 1));
             Console.WriteLine("\nCheck does a JDN algorithm make reversible dates");
             widths = new int[] {32, 48, 32};
             format =
@@ -292,6 +302,19 @@ namespace UDNTest
                     CalendarConverter.jd_to_islamic(jdn, out year, out month, out day);
                     reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
                     a = new Object[] {original, "by `jd_to_islamic`:  " + jdn.ToString(), reconstructed, "|"};
+                    Console.WriteLine(format, a);
+                }
+                else if (UDNCalendarType.ctHebrew == d.calendar)
+                {
+                    uint jdn = CalendarConverter.hebrew_to_jd3(d.year, d.month, d.day);
+                    CalendarConverter.jd_to_hebrew3(jdn, out year, out month, out day);
+                    string reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                    a = new Object[] {original, "by `jd_to_hebrew3`: " + jdn.ToString(), reconstructed, "|"};
+                    Console.WriteLine(format, a);
+                    jdn = (uint)CalendarConverter.hebrew_to_jd(d.year, d.month, d.day);
+                    CalendarConverter.jd_to_hebrew(jdn, out year, out month, out day);
+                    reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                    a = new Object[] {original, "by `jd_to_hebrew`:  " + jdn.ToString(), reconstructed, "|"};
                     Console.WriteLine(format, a);
                 }
                 if (dates.Count - 1 > i)
