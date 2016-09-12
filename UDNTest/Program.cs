@@ -52,13 +52,13 @@ namespace UDNTest
         {
             Console.WriteLine("Unified Date Numbers Test");
             Console.WriteLine();
-            
+
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2016, 05, 05, "2016/05/05 [g]"));
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2016, 05, 04, "2016/05/04 [g]"));
 
             fDates.Add(new UDNRecord(UDNCalendarType.ctJulian, 2016, 04, 21, "2016/05/04 [g] = 2016/04/21 [j]"));
             fDates.Add(new UDNRecord(UDNCalendarType.ctJulian, 2016, 04, 23, "2016/05/06 [g] = 2016/04/23 [j]"));
-            
+
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2016, 05, UDN.UnknownDay, "2016/05/?? [g]")); // must be first
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2016, 06, UDN.UnknownDay, "2016/06/?? [g]")); // must be last
 
