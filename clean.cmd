@@ -1,6 +1,3 @@
-rem @echo off
-
-cls
 
 rmdir .\CalendarConverterLib\bin /s /q
 rmdir .\CalendarConverterLib\obj /s /q
