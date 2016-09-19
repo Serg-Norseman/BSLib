@@ -127,11 +127,11 @@ namespace UDNTest
             Console.WriteLine("Check UDNs ordering");
             int[] widths = {16, 16, 12, 32};
             string format =
-#if LEFT_AND_RIGHT_BORDERS
+                #if LEFT_AND_RIGHT_BORDERS
                 string.Format("{{4}} {{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}} {{4}}", widths[0], widths[1], widths[2], widths[3]);
-#else
-                string.Format("{{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}}", widths[0], widths[1], widths[2], widths[3]);
-#endif
+            #else
+            string.Format("{{0, {0}}} {{4}} {{1, {1}}} {{4}} {{2, {2}}} {{4}} {{3, {3}}}", widths[0], widths[1], widths[2], widths[3]);
+            #endif
             Object[] a =
             {
                 new string('-', widths[0]),
@@ -141,9 +141,9 @@ namespace UDNTest
                 new string('+', 1)
             };
             string delimiter = string.Format(format, a);
-#if TOP_AND_BOTTOM_BORDERS
+            #if TOP_AND_BOTTOM_BORDERS
             Console.WriteLine(delimiter);
-#endif
+            #endif
             a = new Object[] {"Value", "Unmasked value", "Calendar", "Description", "|"};
             Console.WriteLine(format, a);
             Console.WriteLine(delimiter);
@@ -152,18 +152,18 @@ namespace UDNTest
                 a = new Object[] {udn_rec.Value, udn_rec.Value.GetUnmaskedValue(), udn_rec.Calendar.ToString(), udn_rec.Description, "|"};
                 Console.WriteLine(format, a);
             }
-#if TOP_AND_BOTTOM_BORDERS
+            #if TOP_AND_BOTTOM_BORDERS
             Console.WriteLine(delimiter);
-#endif
+            #endif
 
             Console.WriteLine("\nCheck 'UDN *between* dates'");
             widths = new int[] {32, 32, 48};
             format =
-#if LEFT_AND_RIGHT_BORDERS
+                #if LEFT_AND_RIGHT_BORDERS
                 string.Format("{{3}} {{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}} {{3}}", widths[0], widths[1], widths[2]);
-#else
-                string.Format("{{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}}}", widths[0], widths[1], widths[2]);
-#endif
+            #else
+            string.Format("{{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}}}", widths[0], widths[1], widths[2]);
+            #endif
             a = new Object[]
             {
                 new string('-', widths[0]),
@@ -172,9 +172,9 @@ namespace UDNTest
                 new string('+', 1)
             };
             delimiter = string.Format(format, a);
-#if TOP_AND_BOTTOM_BORDERS
+            #if TOP_AND_BOTTOM_BORDERS
             Console.WriteLine(delimiter);
-#endif
+            #endif
             a = new Object[] {"Left", "Right", "Between 'Left' and 'Right'", "|"};
             Console.WriteLine(format, a);
             Console.WriteLine(delimiter);
@@ -207,9 +207,9 @@ namespace UDNTest
                 a = new Object[] {fDates[i].Description, fDates[i + 1].Description, between, "|"};
                 Console.WriteLine(format, a);
             }
-#if TOP_AND_BOTTOM_BORDERS
+            #if TOP_AND_BOTTOM_BORDERS
             Console.WriteLine(delimiter);
-#endif
+            #endif
 
             List<date> dates = new List<date>();
             dates.Add(new date(UDNCalendarType.ctGregorian, -1, 1, 25));
@@ -245,11 +245,11 @@ namespace UDNTest
             Console.WriteLine("\nCheck does a JDN algorithm make reversible dates");
             widths = new int[] {32, 48, 34};
             format =
-#if LEFT_AND_RIGHT_BORDERS
+                #if LEFT_AND_RIGHT_BORDERS
                 string.Format("{{3}} {{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}} {{3}}", widths[0], widths[1], widths[2]);
-#else
-                string.Format("{{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}}}", widths[0], widths[1], widths[2]);
-#endif
+            #else
+            string.Format("{{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}}}", widths[0], widths[1], widths[2]);
+            #endif
             a = new Object[]
             {
                 new string('-', widths[0]),
@@ -258,9 +258,9 @@ namespace UDNTest
                 new string('+', 1)
             };
             delimiter = string.Format(format, a);
-#if TOP_AND_BOTTOM_BORDERS
+            #if TOP_AND_BOTTOM_BORDERS
             Console.WriteLine(delimiter);
-#endif
+            #endif
             a = new Object[] { "Date", "JDN", "Date restored from JDN", "|" };
             Console.WriteLine(format, a);
             Console.WriteLine(delimiter);
@@ -346,9 +346,9 @@ namespace UDNTest
                     Console.WriteLine(delimiter);
                 }
             }
-#if TOP_AND_BOTTOM_BORDERS
+            #if TOP_AND_BOTTOM_BORDERS
             Console.WriteLine(delimiter);
-#endif
+            #endif
 
             Console.WriteLine();
             Console.Write("Press any key to continue . . . ");
