@@ -212,6 +212,9 @@ namespace UDNTest
 #endif
 
             List<date> dates = new List<date>();
+            dates.Add(new date(UDNCalendarType.ctGregorian, -1, 1, 25));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 0, 1, 25));
+            dates.Add(new date(UDNCalendarType.ctGregorian, 1, 1, 25));
             dates.Add(new date(UDNCalendarType.ctGregorian, 2015, 5, 30));
             dates.Add(new date(UDNCalendarType.ctGregorian, 2000, 2, 29));
             dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 5, 30));
@@ -220,6 +223,9 @@ namespace UDNTest
             dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 1));
             dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 15));
             dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 31));
+            dates.Add(new date(UDNCalendarType.ctJulian, -1, 10, 15));
+            dates.Add(new date(UDNCalendarType.ctJulian, 0, 10, 15));
+            dates.Add(new date(UDNCalendarType.ctJulian, 1, 10, 15));
             dates.Add(new date(UDNCalendarType.ctJulian, 2013, 10, 15));
             dates.Add(new date(UDNCalendarType.ctJulian, 2016, 1, 31));
             dates.Add(new date(UDNCalendarType.ctJulian, 2016, 2, 29));
@@ -237,7 +243,7 @@ namespace UDNTest
             dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 13, 29));
             dates.Add(new date(UDNCalendarType.ctHebrew, 3763, 1, 1));
             Console.WriteLine("\nCheck does a JDN algorithm make reversible dates");
-            widths = new int[] {32, 48, 32};
+            widths = new int[] {32, 48, 34};
             format =
 #if LEFT_AND_RIGHT_BORDERS
                 string.Format("{{3}} {{0, {0}}} {{3}} {{1, {1}}} {{3}} {{2, {2}}} {{3}}", widths[0], widths[1], widths[2]);
