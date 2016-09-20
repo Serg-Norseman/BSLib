@@ -230,7 +230,6 @@ namespace UDNTest
             dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 1));
             dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 15));
             dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 31));
-/*
             dates.Add(new date(UDNCalendarType.ctJulian, -1, 10, 15));
             dates.Add(new date(UDNCalendarType.ctJulian, 0, 10, 15));
             dates.Add(new date(UDNCalendarType.ctJulian, 1, 10, 15));
@@ -250,7 +249,6 @@ namespace UDNTest
             dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 12, 2));
             dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 13, 29));
             dates.Add(new date(UDNCalendarType.ctHebrew, 3763, 1, 1));
-*/
             Console.WriteLine("\nCheck does a JDN algorithm make reversible dates");
             widths = new int[] {32, 48, 35};
             format =
