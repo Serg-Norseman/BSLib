@@ -1,3 +1,13 @@
+rmdir .\.vs /s /q
+
+rmdir .\BSLib\bin /s /q
+rmdir .\BSLib\obj /s /q
+
+rmdir .\BSLib.Controls\bin /s /q
+rmdir .\BSLib.Controls\obj /s /q
+
+rmdir .\BSLib.Controls.Samples\bin /s /q
+rmdir .\BSLib.Controls.Samples\obj /s /q
 
 rmdir .\ArborSample\bin /s /q
 rmdir .\ArborSample\obj /s /q
