@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
-    <ProjectGuid>{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}</ProjectGuid>
+    <ProjectGuid>{F657A1B7-C834-420A-B302-88460E3F6283}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>BSLib.Controls</RootNamespace>
-    <AssemblyName>BSLib.Controls</AssemblyName>
+    <RootNamespace>BSLib</RootNamespace>
+    <AssemblyName>BSLib</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
@@ -33,17 +33,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="EnumGroup.cs" />
-    <Compile Include="RadioGroup.cs" />
+    <Compile Include="common\BaseObject.cs" />
+    <Compile Include="common\CSVReader.cs" />
+    <Compile Include="common\ExtList.cs" />
+    <Compile Include="common\IniFile.cs" />
+    <Compile Include="common\IniFiles\IniFileBlankLine.cs" />
+    <Compile Include="common\IniFiles\IniFileCommentary.cs" />
+    <Compile Include="common\IniFiles\IniFileElement.cs" />
+    <Compile Include="common\IniFiles\IniFileEx.cs" />
+    <Compile Include="common\IniFiles\IniFileSection.cs" />
+    <Compile Include="common\IniFiles\IniFileSectionStart.cs" />
+    <Compile Include="common\IniFiles\IniFileValue.cs" />
+    <Compile Include="common\StringList.cs" />
+    <Compile Include="common\SysUtils.cs" />
+    <Compile Include="Math\DoubleHelper.cs" />
+    <Compile Include="Math\WeightedMean.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="common" />
+    <Folder Include="common\IniFiles" />
+    <Folder Include="Math" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

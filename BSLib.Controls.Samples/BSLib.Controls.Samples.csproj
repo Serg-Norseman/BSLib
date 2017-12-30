@@ -49,11 +49,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.Designer.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BSLib.Controls\BSLib.Controls.csproj">
       <Project>{3180214e-8bfd-4b0b-ad9b-e298fae67ccb}</Project>
       <Name>BSLib.Controls</Name>
