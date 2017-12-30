@@ -1,14 +1,13 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("BSLib")]
+[assembly: AssemblyTitle("BSLibTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BSLib")]
-[assembly: AssemblyCopyright("Copyright © 2007-2017 Sergey V. Zhdanovskih")]
+[assembly: AssemblyProduct("BSLibTests")]
+[assembly: AssemblyCopyright("Copyright 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("0.2.0.0")]
+[assembly: AssemblyVersion("1.0.*")]

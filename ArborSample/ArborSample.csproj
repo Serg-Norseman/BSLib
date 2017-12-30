@@ -39,6 +39,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="SampleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -46,7 +47,6 @@
       <DependentUpon>SampleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SampleForm.resx">
@@ -57,6 +57,10 @@
     <ProjectReference Include="..\BSLib.SmartGraph\BSLib.SmartGraph.csproj">
       <Project>{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}</Project>
       <Name>BSLib.SmartGraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSLib\BSLib.csproj">
+      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
+      <Name>BSLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

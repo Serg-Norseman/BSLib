@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+# SharpDevelop 5.1
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib", "BSLib\BSLib.csproj", "{F657A1B7-C834-420A-B302-88460E3F6283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Controls", "BSLib.Controls\BSLib.Controls.csproj", "{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Controls.Samples", "BSLib.Controls.Samples\BSLib.Controls.Samples.csproj", "{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.SmartGraph", "BSLib.SmartGraph\BSLib.SmartGraph.csproj", "{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.SmartGraph.Tests", "BSLib.SmartGraph.Tests\BSLib.SmartGraph.Tests.csproj", "{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArborSample", "ArborSample\ArborSample.csproj", "{41E56AD7-9414-436C-BA68-CA974303B663}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F657A1B7-C834-420A-B302-88460E3F6283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F657A1B7-C834-420A-B302-88460E3F6283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F657A1B7-C834-420A-B302-88460E3F6283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F657A1B7-C834-420A-B302-88460E3F6283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC59E01-3EB2-4710-BC95-D6AFDCBCFB59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41E56AD7-9414-436C-BA68-CA974303B663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41E56AD7-9414-436C-BA68-CA974303B663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41E56AD7-9414-436C-BA68-CA974303B663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41E56AD7-9414-436C-BA68-CA974303B663}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

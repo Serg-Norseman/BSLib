@@ -20,14 +20,14 @@ using System;
 
 namespace BSLib.Math
 {
-	/// <summary>
-	/// A class that tests for equality, less than, and greater than with two doubles.
-	/// </summary>
-	public static class DoubleHelper
-	{
-		private const double EPSILON = 0.00001;
+    /// <summary>
+    /// A class that tests for equality, less than, and greater than with two doubles.
+    /// </summary>
+    public static class DoubleHelper
+    {
+        private const double EPSILON = 0.00001;
 
-		/**
+        /**
 		 * Returns true if two doubles are considered equal. Tests if the absolute
 		 * difference between two doubles has a difference less then .00001. This
 		 * should be fine when comparing prices, because prices have a precision of
@@ -37,12 +37,12 @@ namespace BSLib.Math
 		 * @param b double to compare.
 		 * @return true true if two doubles are considered equal.
 		 */
-		public static bool Equals(double a, double b)
-		{
-			return a == b ? true : System.Math.Abs(a - b) < EPSILON;
-		}
+        public static bool Equals(double a, double b)
+        {
+            return a == b ? true : System.Math.Abs(a - b) < EPSILON;
+        }
 
-		/**
+        /**
 		 * Returns true if two doubles are considered equal. Tests if the absolute
 		 * difference between the two doubles has a difference less then a given
 		 * double (epsilon). Determining the given epsilon is highly dependant on
@@ -54,12 +54,12 @@ namespace BSLib.Math
 		 * doubles to determine if they are equal.
 		 * @return true if a is considered equal to b.
 		 */
-		public static bool Equals(double a, double b, double epsilon)
-		{
-			return a == b ? true : System.Math.Abs(a - b) < epsilon;
-		}
+        public static bool Equals(double a, double b, double epsilon)
+        {
+            return a == b ? true : System.Math.Abs(a - b) < epsilon;
+        }
 
-		/**
+        /**
 		 * Returns true if the first double is considered greater than the second
 		 * double. Test if the difference of first minus second is greater then
 		 * .00001. This should be fine when comparing prices, because prices have a
@@ -70,12 +70,12 @@ namespace BSLib.Math
 		 * @return true if the first double is considered greater than the second
 		 * double
 		 */
-		public static bool GreaterThan(double a, double b)
-		{
-			return GreaterThan(a, b, EPSILON);
-		}
+        public static bool GreaterThan(double a, double b)
+        {
+            return GreaterThan(a, b, EPSILON);
+        }
 
-		/**
+        /**
 		 * Returns true if the first double is considered greater than the second
 		 * double. Test if the difference of first minus second is greater then a
 		 * given double (epsilon). Determining the given epsilon is highly dependant
@@ -86,12 +86,12 @@ namespace BSLib.Math
 		 * @return true if the first double is considered greater than the second
 		 * double
 		 */
-		public static bool GreaterThan(double a, double b, double epsilon)
-		{
-			return a - b > epsilon;
-		}
+        public static bool GreaterThan(double a, double b, double epsilon)
+        {
+            return a - b > epsilon;
+        }
 
-		/**
+        /**
 		 * Returns true if the first double is considered less than the second
 		 * double. Test if the difference of second minus first is greater then
 		 * .00001. This should be fine when comparing prices, because prices have a
@@ -102,12 +102,12 @@ namespace BSLib.Math
 		 * @return true if the first double is considered less than the second
 		 * double
 		 */
-		public static bool LessThan(double a, double b)
-		{
-			return LessThan(a, b, EPSILON);
-		}
+        public static bool LessThan(double a, double b)
+        {
+            return LessThan(a, b, EPSILON);
+        }
 
-		/**
+        /**
 		 * Returns true if the first double is considered less than the second
 		 * double. Test if the difference of second minus first is greater then a
 		 * given double (epsilon). Determining the given epsilon is highly dependant
@@ -118,9 +118,9 @@ namespace BSLib.Math
 		 * @return true if the first double is considered less than the second
 		 * double
 		 */
-		public static bool LessThan(double a, double b, double epsilon)
-		{
-			return b - a > epsilon;
-		}
-	}
+        public static bool LessThan(double a, double b, double epsilon)
+        {
+            return b - a > epsilon;
+        }
+    }
 }

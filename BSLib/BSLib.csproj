@@ -37,7 +37,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="common\BaseObject.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="BaseObject.cs" />
     <Compile Include="common\CSVReader.cs" />
     <Compile Include="common\ExtList.cs" />
     <Compile Include="common\IniFile.cs" />
@@ -52,7 +53,6 @@
     <Compile Include="common\SysUtils.cs" />
     <Compile Include="Math\DoubleHelper.cs" />
     <Compile Include="Math\WeightedMean.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="common" />

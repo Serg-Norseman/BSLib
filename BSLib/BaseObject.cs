@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2015-2017 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2017 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,28 +16,34 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BSLib.Math
+using System;
+
+namespace BSLib
 {
-    public sealed class WeightedMean
+    /// <summary>
+    /// 
+    /// </summary>
+    public class BaseObject : IDisposable
     {
-        private double fResult;
-        private double fSum;
+        private bool fDisposed;
 
-        public WeightedMean()
+        protected virtual void Dispose(bool disposing)
         {
-            this.fResult = 0.0d;
-            this.fSum = 0.0d;
         }
 
-        public void AddValue(double value, double weight)
+        public void Dispose()
         {
-            this.fResult += (value * weight);
-            this.fSum += weight;
+            if (!fDisposed) {
+                Dispose(true /*called by user directly*/);
+                fDisposed = true;
+            }
+
+            GC.SuppressFinalize(this);
         }
 
-        public double GetResult()
+        ~BaseObject()
         {
-            return (fSum != 0.0d) ? fResult / fSum : double.NaN;
+            Dispose(false /*not called by user directly*/);
         }
     }
 }
