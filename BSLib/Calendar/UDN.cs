@@ -20,7 +20,7 @@
 
 using System;
 
-namespace GKCommon
+namespace BSLib.Calendar
 {
     public enum UDNCalendarType { ctGregorian, ctJulian, ctHebrew, ctIslamic }
 

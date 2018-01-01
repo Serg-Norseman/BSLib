@@ -13,7 +13,7 @@
 
 using System;
 
-namespace GKCommon
+namespace BSLib.Calendar
 {
     public class CalendarConverter
     {

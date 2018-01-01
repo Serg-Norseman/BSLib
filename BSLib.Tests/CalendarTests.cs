@@ -1,8 +1,7 @@
 ﻿using System;
-using GKCommon;
 using NUnit.Framework;
 
-namespace CalendarConverterTests
+namespace BSLib.Calendar
 {
     [TestFixture]
     public class CalendarTests

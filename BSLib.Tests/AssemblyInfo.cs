@@ -2,12 +2,12 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("GKTests")]
+[assembly: AssemblyTitle("BSLib.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GKTests")]
-[assembly: AssemblyCopyright("Copyright 2013 by Serg V. Zhdanovskih")]
+[assembly: AssemblyProduct("BSLib.Tests")]
+[assembly: AssemblyCopyright("Copyright 2013-2017 by Serg V. Zhdanovskih")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

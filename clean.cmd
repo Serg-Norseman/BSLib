@@ -19,3 +19,9 @@ rmdir .\BSLib.SmartGraph.Tests\bin /s /q
 rmdir .\BSLib.SmartGraph.Tests\obj /s /q
 rmdir .\BSLib.SmartGraph.Tests\OpenCover /s /q
 
+rmdir .\BSLib.Tests\bin /s /q
+rmdir .\BSLib.Tests\obj /s /q
+rmdir .\BSLib.Tests\OpenCover /s /q
+
+rmdir .\UDNTest\bin /s /q
+rmdir .\UDNTest\obj /s /q

@@ -1,3 +1,8 @@
+**/.vs/
+*.suo
+*.userprefs
+*.DotSettings.user
+
 /BSLib/bin/
 /BSLib/obj/
 
@@ -16,5 +21,11 @@
 /BSLib.SmartGraph.Tests/bin/
 /BSLib.SmartGraph.Tests/obj/
 /BSLib.SmartGraph.Tests/OpenCover/
+
+/BSLib.Tests/bin/
+/BSLib.Tests/obj/
+
+/UDNTest/bin/
+/UDNTest/obj/
 
 /temp/

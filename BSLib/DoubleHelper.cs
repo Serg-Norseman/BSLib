@@ -18,7 +18,7 @@
 
 using System;
 
-namespace BSLib.Math
+namespace BSLib
 {
     /// <summary>
     /// A class that tests for equality, less than, and greater than with two doubles.

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using GKCommon;
 using NUnit.Framework;
 
-namespace CalendarConverterTests
+namespace BSLib.Calendar
 {
     public class UDNRecord
     {

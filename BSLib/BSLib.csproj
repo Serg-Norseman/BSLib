@@ -54,19 +54,23 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BaseObject.cs" />
+    <Compile Include="Calendar\CalendarAltConverter.cs" />
+    <Compile Include="Calendar\CalendarConverter.cs" />
+    <Compile Include="Calendar\CalendarData.cs" />
+    <Compile Include="Calendar\UDN.cs" />
     <Compile Include="CSVReader.cs" />
+    <Compile Include="DoubleHelper.cs" />
     <Compile Include="EnumSet.cs" />
     <Compile Include="ExtList.cs" />
     <Compile Include="ListTimSort.cs" />
-    <Compile Include="Math\DoubleHelper.cs" />
-    <Compile Include="Math\WeightedMean.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="SortHelper.cs" />
     <Compile Include="StringList.cs" />
+    <Compile Include="WeightedMean.cs" />
     <Compile Include="ZipStorer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Math" />
+    <Folder Include="Calendar" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
