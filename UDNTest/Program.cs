@@ -283,21 +283,21 @@ namespace UDNTest
                 char ok;
                 if (UDNCalendarType.ctGregorian == d.calendar)
                 {
-                    uint jdn;
+                    int jdn;
                     string reconstructed;
                     try
                     {
-                      jdn = CalendarAltConverter.gregorian_to_jd5(d.year, d.month, d.day);
-                      CalendarAltConverter.jd_to_gregorian5(jdn, out year, out month, out day);
-                      recDate = string.Format("{0}/{1}/{2}", year, month, day);
-                      ok = (recDate == original) ? '+' : 'o';
-                      reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                        jdn = CalendarAltConverter.gregorian_to_jd5(d.year, d.month, d.day);
+                        CalendarAltConverter.jd_to_gregorian5(jdn, out year, out month, out day);
+                        recDate = string.Format("{0}/{1}/{2}", year, month, day);
+                        ok = (recDate == original) ? '+' : 'o';
+                        reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
                     }
                     catch (Exception)
                     {
-                      jdn = 0;
-                      ok = 'o';
-                      reconstructed = "**** error";
+                        jdn = 0;
+                        ok = 'o';
+                        reconstructed = "**** error";
                     }
                     a = new Object[] {original, "by `gregorian_to_jd5`: " + jdn.ToString(), reconstructed + " " + ok, "|"};
                     Console.WriteLine(format, a);
@@ -310,28 +310,28 @@ namespace UDNTest
                     Console.WriteLine(format, a);
                     try
                     {
-                      jdn = CalendarAltConverter.gregorian_to_jd3(d.year, d.month, d.day);
-                      CalendarAltConverter.jd_to_gregorian3(jdn, out year, out month, out day);
-                      recDate = string.Format("{0}/{1}/{2}", year, month, day);
-                      ok = (recDate == original) ? '+' : 'o';
-                      reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
+                        jdn = CalendarAltConverter.gregorian_to_jd3(d.year, d.month, d.day);
+                        CalendarAltConverter.jd_to_gregorian3(jdn, out year, out month, out day);
+                        recDate = string.Format("{0}/{1}/{2}", year, month, day);
+                        ok = (recDate == original) ? '+' : 'o';
+                        reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
                     }
                     catch (Exception)
                     {
-                      jdn = 0;
-                      ok = 'o';
-                      reconstructed = "**** error";
+                        jdn = 0;
+                        ok = 'o';
+                        reconstructed = "**** error";
                     }
                     a = new Object[] {original, "by `gregorian_to_jd3`: " + jdn.ToString(), reconstructed + " " + ok, "|"};
                     Console.WriteLine(format, a);
-                    jdn = (uint)CalendarConverter.gregorian_to_jd2(d.year, d.month, d.day);
+                    jdn = CalendarConverter.gregorian_to_jd2(d.year, d.month, d.day);
                     CalendarConverter.jd_to_gregorian2(jdn, out year, out month, out day);
                     recDate = string.Format("{0}/{1}/{2}", year, month, day);
                     ok = (recDate == original) ? '+' : 'o';
                     reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
                     a = new Object[] {original, "by `gregorian_to_jd2`:  " + jdn.ToString(), reconstructed + " " + ok, "|"};
                     Console.WriteLine(format, a);
-                    jdn = (uint)CalendarConverter.gregorian_to_jd(d.year, d.month, d.day);
+                    jdn = (int)CalendarConverter.gregorian_to_jd(d.year, d.month, d.day);
                     CalendarConverter.jd_to_gregorian(jdn, out year, out month, out day);
                     recDate = string.Format("{0}/{1}/{2}", year, month, day);
                     ok = (recDate == original) ? '+' : 'o';
@@ -341,14 +341,14 @@ namespace UDNTest
                 }
                 else if (UDNCalendarType.ctJulian == d.calendar)
                 {
-                    uint jdn = CalendarAltConverter.julian_to_jd3(d.year, d.month, d.day);
+                    int jdn = CalendarAltConverter.julian_to_jd3(d.year, d.month, d.day);
                     CalendarAltConverter.jd_to_julian3(jdn, out year, out month, out day);
                     recDate = string.Format("{0}/{1}/{2}", year, month, day);
                     ok = (recDate == original) ? '+' : 'o';
                     string reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
                     a = new Object[] {original, "by `julian_to_jd3`: " + jdn.ToString(), reconstructed + " " + ok, "|"};
                     Console.WriteLine(format, a);
-                    jdn = (uint)CalendarConverter.julian_to_jd(d.year, d.month, d.day);
+                    jdn = (int)CalendarConverter.julian_to_jd(d.year, d.month, d.day);
                     CalendarConverter.jd_to_julian(jdn, out year, out month, out day);
                     recDate = string.Format("{0}/{1}/{2}", year, month, day);
                     ok = (recDate == original) ? '+' : 'o';
@@ -358,14 +358,14 @@ namespace UDNTest
                 }
                 else if (UDNCalendarType.ctIslamic == d.calendar)
                 {
-                    uint jdn = CalendarConverter.islamic_to_jd3(d.year, d.month, d.day);
+                    int jdn = CalendarConverter.islamic_to_jd3(d.year, d.month, d.day);
                     CalendarConverter.jd_to_islamic3(jdn, out year, out month, out day);
                     recDate = string.Format("{0}/{1}/{2}", year, month, day);
                     ok = (recDate == original) ? '+' : 'o';
                     string reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
                     a = new Object[] {original, "by `islamic_to_jd3`: " + jdn.ToString(), reconstructed + " " + ok, "|"};
                     Console.WriteLine(format, a);
-                    jdn = (uint)CalendarConverter.islamic_to_jd(d.year, d.month, d.day);
+                    jdn = (int)CalendarConverter.islamic_to_jd(d.year, d.month, d.day);
                     CalendarConverter.jd_to_islamic(jdn, out year, out month, out day);
                     recDate = string.Format("{0}/{1}/{2}", year, month, day);
                     ok = (recDate == original) ? '+' : 'o';
@@ -375,14 +375,14 @@ namespace UDNTest
                 }
                 else if (UDNCalendarType.ctHebrew == d.calendar)
                 {
-                    uint jdn = CalendarConverter.hebrew_to_jd3(d.year, d.month, d.day);
+                    int jdn = CalendarConverter.hebrew_to_jd3(d.year, d.month, d.day);
                     CalendarConverter.jd_to_hebrew3(jdn, out year, out month, out day);
                     recDate = string.Format("{0}/{1}/{2}", year, month, day);
                     ok = (recDate == original) ? '+' : 'o';
                     string reconstructed = string.Format("{0}/{1}/{2} (must be {3})", year, month, day, original);
                     a = new Object[] {original, "by `hebrew_to_jd3`: " + jdn.ToString(), reconstructed + " " + ok, "|"};
                     Console.WriteLine(format, a);
-                    jdn = (uint)CalendarConverter.hebrew_to_jd(d.year, d.month, d.day);
+                    jdn = (int)CalendarConverter.hebrew_to_jd(d.year, d.month, d.day);
                     CalendarConverter.jd_to_hebrew(jdn, out year, out month, out day);
                     recDate = string.Format("{0}/{1}/{2}", year, month, day);
                     ok = (recDate == original) ? '+' : 'o';

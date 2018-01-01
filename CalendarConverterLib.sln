@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-# SharpDevelop 4.4
+# SharpDevelop 5.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarConverterLib", "CalendarConverterLib\CalendarConverterLib.csproj", "{15E27382-8C1F-43DF-A37B-AF6511B06A60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarConverterTests", "CalendarConverterTests\CalendarConverterTests.csproj", "{A8B53A6B-40A6-40BA-A671-03FC911BC37B}"
@@ -14,17 +14,17 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{15E27382-8C1F-43DF-A37B-AF6511B06A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E27382-8C1F-43DF-A37B-AF6511B06A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15E27382-8C1F-43DF-A37B-AF6511B06A60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E27382-8C1F-43DF-A37B-AF6511B06A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E27382-8C1F-43DF-A37B-AF6511B06A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Debug|Any CPU.Build.0 = Debug|x86
+		{15E27382-8C1F-43DF-A37B-AF6511B06A60}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Release|Any CPU.Build.0 = Release|x86
+		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Debug|Any CPU.Build.0 = Debug|x86
 		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Release|Any CPU.ActiveCfg = Release|x86
-		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Release|Any CPU.Build.0 = Release|x86
 		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
