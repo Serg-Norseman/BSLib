@@ -62,6 +62,14 @@
     <Compile Include="DoubleHelper.cs" />
     <Compile Include="EnumSet.cs" />
     <Compile Include="ExtList.cs" />
+    <Compile Include="IniFile.cs" />
+    <Compile Include="IniFiles\IniFileBlankLine.cs" />
+    <Compile Include="IniFiles\IniFileCommentary.cs" />
+    <Compile Include="IniFiles\IniFileElement.cs" />
+    <Compile Include="IniFiles\IniFileEx.cs" />
+    <Compile Include="IniFiles\IniFileSection.cs" />
+    <Compile Include="IniFiles\IniFileSectionStart.cs" />
+    <Compile Include="IniFiles\IniFileValue.cs" />
     <Compile Include="ListTimSort.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="SortHelper.cs" />
@@ -71,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Calendar" />
+    <Folder Include="IniFiles" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
