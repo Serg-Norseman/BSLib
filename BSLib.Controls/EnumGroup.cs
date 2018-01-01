@@ -152,7 +152,7 @@ namespace BSLib.Controls
                         x += GetMaxTextWidth();
                     }
                 }
-            } catch (Exception ex) {
+            } catch (Exception) {
             }
         }
 
