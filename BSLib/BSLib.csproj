@@ -62,6 +62,9 @@
     <Compile Include="DoubleHelper.cs" />
     <Compile Include="EnumSet.cs" />
     <Compile Include="ExtList.cs" />
+    <Compile Include="ExtPoint.cs" />
+    <Compile Include="ExtRect.cs" />
+    <Compile Include="ExtSize.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="IniFiles\IniFileBlankLine.cs" />
     <Compile Include="IniFiles\IniFileCommentary.cs" />
