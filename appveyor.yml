@@ -8,7 +8,7 @@ environment:
 
 configuration: Debug
 
-platform: x86
+platform: Any CPU
 
 build:
   project: BSLib.sln
