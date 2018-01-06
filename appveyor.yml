@@ -15,7 +15,7 @@ build:
   verbosity: minimal
 
 after_test: 
-  - .\packages\OpenCover\OpenCover.Console.exe -register:user -target:"nunit-console-x86.exe" -targetdir:"C:\projects\BSLib\BSLib.Tests\bin\Debug\" -targetargs:"\"C:\projects\BSLib\BSLib.Tests\bin\Debug\BSLib.Tests.dll\" /noxml" -output:".\coverage.xml" -filter:"+[*]* "
+  - .\packages\OpenCover\OpenCover.Console.exe -register:user -target:"nunit-console-x86.exe" -targetdir:"C:\projects\BSLib\BSLib.Tests\bin\Debug" -targetargs:"\"C:\projects\BSLib\BSLib.Tests\bin\Debug\BSLib.Tests.dll\" /noxml" -output:".\coverage.xml" -filter:"+[*]* "
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
   - codecov -f "coverage.xml" -X gcov
