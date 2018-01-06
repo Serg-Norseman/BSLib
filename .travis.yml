@@ -1,0 +1,10 @@
+language: csharp
+solution: BSLib.sln
+
+install:
+  - sudo apt-get install nunit-console
+  - nuget restore ./BSLib.sln
+ 
+script:
+  - xbuild /p:Configuration=Debug /p:CIMode=true /p:MonoCS=true ./BSLib.sln
+  - nunit-console ./BSLib.Tests/bin/Debug/BSLib.Tests.dll
