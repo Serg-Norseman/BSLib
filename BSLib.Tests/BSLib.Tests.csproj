@@ -50,13 +50,34 @@
       <HintPath>nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="BitHelperTests.cs" />
     <Compile Include="CalendarTests.cs" />
+    <Compile Include="CSVReaderTests.cs" />
+    <Compile Include="DateHelperTests.cs" />
+    <Compile Include="EnumSetTests.cs" />
+    <Compile Include="ExtListTests.cs" />
+    <Compile Include="ExtRectTests.cs" />
+    <Compile Include="IniFileTests.cs" />
+    <Compile Include="MathHelperTests.cs" />
+    <Compile Include="RangesTests.cs" />
+    <Compile Include="SmartGraphTests.cs" />
+    <Compile Include="SortHelperTests.cs" />
+    <Compile Include="StringListTests.cs" />
+    <Compile Include="TestStubs.cs" />
     <Compile Include="UDNTests.cs" />
+    <Compile Include="ZipStorerTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BSLib.SmartGraph\BSLib.SmartGraph.csproj">
+      <Project>{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}</Project>
+      <Name>BSLib.SmartGraph</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BSLib\BSLib.csproj">
       <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
       <Name>BSLib</Name>

@@ -54,11 +54,13 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BaseObject.cs" />
+    <Compile Include="BitHelper.cs" />
     <Compile Include="Calendar\CalendarAltConverter.cs" />
     <Compile Include="Calendar\CalendarConverter.cs" />
     <Compile Include="Calendar\CalendarData.cs" />
     <Compile Include="Calendar\UDN.cs" />
     <Compile Include="CSVReader.cs" />
+    <Compile Include="DateHelper.cs" />
     <Compile Include="DoubleHelper.cs" />
     <Compile Include="EnumSet.cs" />
     <Compile Include="ExtList.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="IniFiles\IniFileSectionStart.cs" />
     <Compile Include="IniFiles\IniFileValue.cs" />
     <Compile Include="ListTimSort.cs" />
+    <Compile Include="MathHelper.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="SortHelper.cs" />
     <Compile Include="StringList.cs" />

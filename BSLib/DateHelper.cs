@@ -20,38 +20,31 @@ using System;
 
 namespace BSLib
 {
-    public struct Range<T> : ICloneable where T : IComparable<T>
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class DateHelper
     {
-        public readonly T Start;
-        public readonly T End;
-
-        public Range(T start, T end)
+        public static bool IsLeapYear(short year)
         {
-            if (start.CompareTo(end) > 0)
-                throw new ArgumentException("End must be greater than Start");
-
-            Start = start;
-            End = end;
+            return (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
         }
 
-        public bool IsOverlapped(Range<T> other)
+        public static int DaysBetween(DateTime now, DateTime then)
         {
-            if (Start.CompareTo(other.Start) == 0)
-            {
-                return true;
-            }
-            
-            if (Start.CompareTo(other.Start) > 0)
-            {
-                return Start.CompareTo(other.End) <= 0;
-            }
-            
-            return other.Start.CompareTo(End) <= 0;
+            TimeSpan span = then - now;
+            return span.Days;
         }
 
-        public object Clone()
+        private static readonly byte[][] MONTH_DAYS = new byte[][]
         {
-            return new Range<T>(this.Start, this.End);
+            new byte[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
+            new byte[] { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
+        };
+
+        public static byte DaysInMonth(short year, byte month)
+        {
+            return MONTH_DAYS[(month == 2 && IsLeapYear(year)) ? 1 : 0][month - 1];
         }
     }
 }

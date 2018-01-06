@@ -4,17 +4,16 @@ using System.Collections.ObjectModel;
 
 using ArborGVT;
 using BSLib.Extensions;
-using BSLib.SmartGraph;
 using NUnit.Framework;
 
-namespace BSLibSGTests
+namespace BSLib.SmartGraph
 {
     public class GTestObj : GraphObject
     {
     }
 
     [TestFixture]
-    public class BSLibTests
+    public class SmartGraphTests
     {
         GTestObj _context;
 

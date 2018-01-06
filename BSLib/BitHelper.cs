@@ -20,38 +20,24 @@ using System;
 
 namespace BSLib
 {
-    public struct Range<T> : ICloneable where T : IComparable<T>
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class BitHelper
     {
-        public readonly T Start;
-        public readonly T End;
-
-        public Range(T start, T end)
+        public static int SetBit(int bitMask, int bit)
         {
-            if (start.CompareTo(end) > 0)
-                throw new ArgumentException("End must be greater than Start");
-
-            Start = start;
-            End = end;
+            return (bitMask | (1 << bit));
         }
 
-        public bool IsOverlapped(Range<T> other)
+        public static int UnsetBit(int bitMask, int bit)
         {
-            if (Start.CompareTo(other.Start) == 0)
-            {
-                return true;
-            }
-            
-            if (Start.CompareTo(other.Start) > 0)
-            {
-                return Start.CompareTo(other.End) <= 0;
-            }
-            
-            return other.Start.CompareTo(End) <= 0;
+            return (bitMask & ~(1 << bit));
         }
 
-        public object Clone()
+        public static bool IsSetBit(int bitMask, int bit)
         {
-            return new Range<T>(this.Start, this.End);
+            return (bitMask & (1 << bit)) != 0;
         }
     }
 }

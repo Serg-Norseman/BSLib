@@ -1,8 +1,6 @@
 ﻿/*
- *  "GEDKeeper", the personal genealogical database editor.
+ *  "BSLib".
  *  Copyright (C) 2009-2017 by Sergey V. Zhdanovskih.
- *
- *  This file is part of "GEDKeeper".
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
