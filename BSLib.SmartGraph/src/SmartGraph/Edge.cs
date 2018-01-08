@@ -22,60 +22,60 @@ using System;
 
 namespace BSLib.SmartGraph
 {
-	public class Edge : GraphObject, IComparable
-	{
-		#region Private fields
+    public class Edge : GraphObject, IComparable
+    {
+        #region Private fields
 
-		private int fCost;
-		private Vertex fSource;
-		private Vertex fTarget;
-		private object fValue;
+        private int fCost;
+        private Vertex fSource;
+        private Vertex fTarget;
+        private object fValue;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public int Cost
-		{
-			get { return this.fCost; }
-		}
+        public int Cost
+        {
+            get { return fCost; }
+        }
 
-		public Vertex Source
-		{
-			get { return this.fSource; }
-		}
+        public Vertex Source
+        {
+            get { return fSource; }
+        }
 
-		public Vertex Target
-		{
-			get { return this.fTarget; }
-		}
+        public Vertex Target
+        {
+            get { return fTarget; }
+        }
 
-		public object Value
-		{
-			get { return this.fValue; }
-		}
+        public object Value
+        {
+            get { return fValue; }
+        }
 
-		#endregion
+        #endregion
 
-		public Edge(Vertex source, Vertex target, int cost, object value)
-		{
-			if (source == null)
-				throw new ArgumentNullException("source");
-			if (target == null)
-				throw new ArgumentNullException("target");
+        public Edge(Vertex source, Vertex target, int cost, object value)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+            if (target == null)
+                throw new ArgumentNullException("target");
 
-			this.fSource = source;
-			this.fTarget = target;
-			this.fCost = cost;
-			this.fValue = value;
-		}
+            fSource = source;
+            fTarget = target;
+            fCost = cost;
+            fValue = value;
+        }
 
-		public int CompareTo(object obj)
-		{
-			if (!(obj is Edge))
-				throw new ArgumentException("Cannot compare two objects");
+        public int CompareTo(object obj)
+        {
+            if (!(obj is Edge))
+                throw new ArgumentException("Cannot compare two objects");
 
-			return GetHashCode().CompareTo(obj.GetHashCode());
-		}
-	}
+            return GetHashCode().CompareTo(obj.GetHashCode());
+        }
+    }
 }

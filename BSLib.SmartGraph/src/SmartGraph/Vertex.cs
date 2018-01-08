@@ -23,31 +23,31 @@ using System.Collections.Generic;
 
 namespace BSLib.SmartGraph
 {
-	public class Vertex : GraphObject, IComparable
-	{
+    public class Vertex : GraphObject, IComparable
+    {
         public string Sign { get; set; }
-		public object Value { get; set; }
-		public List<Edge> EdgesOut { get; private set; }
+        public object Value { get; set; }
+        public List<Edge> EdgesOut { get; private set; }
 
-		#region Path-search runtime
+        #region Path-search runtime
 
-		internal int Dist { get; set; }
-		internal bool Visited { get; set; }
-		internal Edge EdgeIn { get; set; }
+        internal int Dist { get; set; }
+        internal bool Visited { get; set; }
+        internal Edge EdgeIn { get; set; }
 
-		#endregion
+        #endregion
 
-		public Vertex()
-		{
-			this.EdgesOut = new List<Edge>();
-		}
+        public Vertex()
+        {
+            EdgesOut = new List<Edge>();
+        }
 
-		public int CompareTo(object obj)
-		{
-			if (!(obj is Vertex))
-				throw new ArgumentException("Cannot compare two objects");
+        public int CompareTo(object obj)
+        {
+            if (!(obj is Vertex))
+                throw new ArgumentException("Cannot compare two objects");
 
-			return GetHashCode().CompareTo(obj.GetHashCode());
-		}
-	}
+            return GetHashCode().CompareTo(obj.GetHashCode());
+        }
+    }
 }

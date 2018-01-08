@@ -21,15 +21,15 @@ using System;
 
 namespace BSLib.SmartGraph
 {
-	internal sealed class PathCandidate
-	{
-		public readonly Vertex Node;
-		public readonly PathCandidate Next;
+    internal sealed class PathCandidate
+    {
+        public readonly Vertex Node;
+        public readonly PathCandidate Next;
 
-		public PathCandidate(Vertex node, PathCandidate next)
-		{
-			this.Node = node;
-			this.Next = next;
-		}
-	}
+        public PathCandidate(Vertex node, PathCandidate next)
+        {
+            this.Node = node;
+            this.Next = next;
+        }
+    }
 }

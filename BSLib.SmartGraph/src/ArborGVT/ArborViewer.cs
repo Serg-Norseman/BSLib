@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 using BSLib.SmartGraph;
 
-namespace ArborGVT
+namespace BSLib.ArborGVT
 {
     public sealed class ArborViewer : Panel, IArborRenderer
     {

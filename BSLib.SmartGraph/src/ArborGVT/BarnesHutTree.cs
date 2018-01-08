@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace ArborGVT
+namespace BSLib.ArborGVT
 {
     internal class Branch
     {

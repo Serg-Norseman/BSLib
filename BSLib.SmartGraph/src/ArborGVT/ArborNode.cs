@@ -11,7 +11,7 @@ using System.Drawing;
 using BSLib.Extensions;
 using BSLib.SmartGraph;
 
-namespace ArborGVT
+namespace BSLib.ArborGVT
 {
 	public class ArborNode : IExtension<GraphObject>
 	{

@@ -15,7 +15,7 @@ using System.Timers;
 
 using BSLib.SmartGraph;
 
-namespace ArborGVT
+namespace BSLib.ArborGVT
 {
     internal class PSBounds
     {

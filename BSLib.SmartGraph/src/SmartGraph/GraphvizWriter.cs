@@ -31,8 +31,7 @@ namespace BSLib.SmartGraph
         {
             fBuffer = new StringBuilder();
             fBuffer.AppendLine("digraph " + name.Trim().Replace(' ', '_') + "{");
-            foreach (string option in options)
-            {
+            foreach (string option in options) {
                 fBuffer.AppendLine("\t" + option + ";");
             }
         }
@@ -50,8 +49,7 @@ namespace BSLib.SmartGraph
         public void SaveFile(string path)
         {
             fBuffer.AppendLine("}");
-            using (StreamWriter sw = new StreamWriter(path, false, Encoding.GetEncoding(1251)))
-            {
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8)) {
                 sw.Write(fBuffer.ToString());
             }
         }

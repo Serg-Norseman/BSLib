@@ -7,7 +7,7 @@
  *  Fork and C# implementation, copyright (c) 2012,2016 by Serg V. Zhdanovskih.
  */
 
-namespace ArborGVT
+namespace BSLib.ArborGVT
 {
     public interface IArborRenderer
     {

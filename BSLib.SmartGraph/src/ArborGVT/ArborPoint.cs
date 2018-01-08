@@ -9,7 +9,7 @@
 
 using System;
 
-namespace ArborGVT
+namespace BSLib.ArborGVT
 {
     public struct ArborPoint
     {

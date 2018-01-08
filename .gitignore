@@ -24,6 +24,7 @@
 
 /BSLib.Tests/bin/
 /BSLib.Tests/obj/
+/BSLib.Tests/OpenCover/
 
 /UDNTest/bin/
 /UDNTest/obj/

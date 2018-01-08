@@ -29,7 +29,8 @@ namespace BSLib.SmartGraph
         public GraphException()
         {
         }
-        public GraphException(string message) : base(message)
+        public GraphException(string message)
+            : base(message)
         {
         }
     }
@@ -51,8 +52,8 @@ namespace BSLib.SmartGraph
 
         public NotifyEventArgs(GraphNotification notification, object itemData)
         {
-            this.Notification = notification;
-            this.ItemData = itemData;
+            Notification = notification;
+            ItemData = itemData;
         }
     }
 
@@ -78,24 +79,34 @@ namespace BSLib.SmartGraph
 
         public IEnumerable<Vertex> Vertices
         {
-            get { return this.fVerticesList; }
+            get { return fVerticesList; }
         }
 
         public IEnumerable<Edge> Edges
         {
-            get { return this.fEdgesList; }
+            get { return fEdgesList; }
         }
 
         public event NotifyEventHandler OnChange
         {
-            add { this.fOnChange = value; }
-            remove { if (this.fOnChange == value) this.fOnChange = null; }
+            add {
+                fOnChange = value;
+            }
+            remove {
+                if (fOnChange == value)
+                    fOnChange = null;
+            }
         }
 
         public event NotifyEventHandler OnChanging
         {
-            add { this.fOnChanging = value; }
-            remove { if (this.fOnChanging == value) this.fOnChanging = null; }
+            add {
+                fOnChanging = value;
+            }
+            remove {
+                if (fOnChanging == value)
+                    fOnChanging = null;
+            }
         }
 
         #endregion
@@ -104,16 +115,15 @@ namespace BSLib.SmartGraph
 
         public Graph()
         {
-            this.fVerticesList = new List<Vertex>();
-            this.fEdgesList = new List<Edge>();
-            this.fVerticesDictionary = new Dictionary<string, Vertex>();
+            fVerticesList = new List<Vertex>();
+            fEdgesList = new List<Edge>();
+            fVerticesDictionary = new Dictionary<string, Vertex>();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                this.Clear();
+            if (disposing) {
+                Clear();
             }
             base.Dispose(disposing);
         }
@@ -124,21 +134,20 @@ namespace BSLib.SmartGraph
 
         public bool IsEmpty()
         {
-            return (this.fEdgesList.Count == 0 && this.fVerticesList.Count == 0);
+            return (fEdgesList.Count == 0 && fVerticesList.Count == 0);
         }
 
         public void Clear()
         {
-            foreach (Vertex vertex in this.fVerticesList)
-            {
+            foreach (Vertex vertex in fVerticesList) {
                 vertex.EdgeIn = null;
                 vertex.EdgesOut.Clear();
             }
 
-            this.fEdgesList.Clear();
-            this.fVerticesList.Clear();
-            this.fVerticesDictionary.Clear();
-            this.Notify(null, GraphNotification.Cleared);
+            fEdgesList.Clear();
+            fVerticesList.Clear();
+            fVerticesDictionary.Clear();
+            Notify(null, GraphNotification.Cleared);
         }
 
         private void Notify(object instance, GraphNotification action)
@@ -151,14 +160,14 @@ namespace BSLib.SmartGraph
                 throw new ArgumentNullException("sign");
 
             Vertex result;
-            if (!this.fVerticesDictionary.TryGetValue(sign, out result)) {
+            if (!fVerticesDictionary.TryGetValue(sign, out result)) {
                 result = new Vertex();
                 result.Sign = sign;
                 result.Value = data;
 
-                this.fVerticesList.Add(result);
-                this.fVerticesDictionary.Add(sign, result);
-                this.Notify(result, GraphNotification.Added);
+                fVerticesList.Add(result);
+                fVerticesDictionary.Add(sign, result);
+                Notify(result, GraphNotification.Added);
             }
 
             return result;
@@ -166,75 +175,78 @@ namespace BSLib.SmartGraph
 
         public bool AddUndirectedEdge(Vertex source, Vertex target, int cost, object srcValue, object tgtValue)
         {
-            Edge edge1 = this.AddDirectedEdge(source, target, cost, srcValue);
-            Edge edge2 = this.AddDirectedEdge(target, source, cost, tgtValue);
+            Edge edge1 = AddDirectedEdge(source, target, cost, srcValue);
+            Edge edge2 = AddDirectedEdge(target, source, cost, tgtValue);
 
             return (edge1 != null && edge2 != null);
         }
 
         public Edge AddDirectedEdge(string sourceSign, string targetSign, bool canCreate = true)
         {
-            return this.AddDirectedEdge(sourceSign, targetSign, 0, null, canCreate);
+            return AddDirectedEdge(sourceSign, targetSign, 0, null, canCreate);
         }
 
         public Edge AddDirectedEdge(string sourceSign, string targetSign, int cost, object edgeValue, bool canCreate = true)
         {
-            Vertex source = this.FindVertex(sourceSign);
-            Vertex target = this.FindVertex(targetSign);
+            Vertex source = FindVertex(sourceSign);
+            Vertex target = FindVertex(targetSign);
 
-            if (source == null && canCreate) source = this.AddVertex(sourceSign);
-            if (target == null && canCreate) target = this.AddVertex(targetSign);
+            if (source == null && canCreate)
+                source = AddVertex(sourceSign);
+            if (target == null && canCreate)
+                target = AddVertex(targetSign);
 
-            return this.AddDirectedEdge(source, target, cost, edgeValue);
+            return AddDirectedEdge(source, target, cost, edgeValue);
         }
 
         public Edge AddDirectedEdge(Vertex source, Vertex target, int cost, object edgeValue)
         {
-            if (source == null || target == null || source == target) return null;
+            if (source == null || target == null || source == target)
+                return null;
 
             Edge resultEdge = new Edge(source, target, cost, edgeValue);
             source.EdgesOut.Add(resultEdge);
-            this.fEdgesList.Add(resultEdge);
+            fEdgesList.Add(resultEdge);
 
-            this.Notify(resultEdge, GraphNotification.Added);
+            Notify(resultEdge, GraphNotification.Added);
 
             return resultEdge;
         }
 
         public void DeleteVertex(Vertex vertex)
         {
-            if (vertex == null) return;
+            if (vertex == null)
+                return;
 
-            for (int i = this.fEdgesList.Count - 1; i >= 0; i--)
-            {
-                Edge edge = this.fEdgesList[i];
+            for (int i = fEdgesList.Count - 1; i >= 0; i--) {
+                Edge edge = fEdgesList[i];
 
-                if (edge.Source == vertex || edge.Target == vertex)
-                {
-                    this.DeleteEdge(edge);
+                if (edge.Source == vertex || edge.Target == vertex) {
+                    DeleteEdge(edge);
                 }
             }
 
-            this.fVerticesList.Remove(vertex);
-            this.Notify(vertex, GraphNotification.Deleted);
+            fVerticesList.Remove(vertex);
+            Notify(vertex, GraphNotification.Deleted);
         }
 
         public void DeleteEdge(Edge edge)
         {
-            if (edge == null) return;
+            if (edge == null)
+                return;
 
             Vertex src = edge.Source;
             src.EdgesOut.Remove(edge);
 
-            this.fEdgesList.Remove(edge);
+            fEdgesList.Remove(edge);
 
-            this.Notify(edge, GraphNotification.Deleted);
+            Notify(edge, GraphNotification.Deleted);
         }
 
         public Vertex FindVertex(string sign)
         {
             Vertex result;
-            this.fVerticesDictionary.TryGetValue(sign, out result);
+            fVerticesDictionary.TryGetValue(sign, out result);
             return result;
         }
 
@@ -244,47 +256,40 @@ namespace BSLib.SmartGraph
 
         private void SetUpdateState(bool updating)
         {
-            if (updating)
-            {
-                this.Changing();
-            }
-            else
-            {
-                this.Changed();
+            if (updating) {
+                Changing();
+            } else {
+                Changed();
             }
         }
 
         public void BeginUpdate()
         {
-            if (this.fUpdateCount == 0)
-            {
-                this.SetUpdateState(true);
+            if (fUpdateCount == 0) {
+                SetUpdateState(true);
             }
-            this.fUpdateCount++;
+            fUpdateCount++;
         }
 
         public void EndUpdate()
         {
-            this.fUpdateCount--;
-            if (this.fUpdateCount == 0)
-            {
-                this.SetUpdateState(false);
+            fUpdateCount--;
+            if (fUpdateCount == 0) {
+                SetUpdateState(false);
             }
         }
 
         private void Changed()
         {
-            if (this.fUpdateCount == 0 && this.fOnChange != null)
-            {
-                this.fOnChange(this, null);
+            if (fUpdateCount == 0 && fOnChange != null) {
+                fOnChange(this, null);
             }
         }
 
         private void Changing()
         {
-            if (this.fUpdateCount == 0 && this.fOnChanging != null)
-            {
-                this.fOnChanging(this, null);
+            if (fUpdateCount == 0 && fOnChanging != null) {
+                fOnChanging(this, null);
             }
         }
 
@@ -294,11 +299,11 @@ namespace BSLib.SmartGraph
 
         public void FindPathTree(Vertex root)
         {
-            if (root == null) return;
+            if (root == null)
+                return;
 
             // reset path tree
-            foreach (Vertex node in this.fVerticesList)
-            {
+            foreach (Vertex node in fVerticesList) {
                 node.Dist = int.MaxValue;
                 node.Visited = false;
                 node.EdgeIn = null;
@@ -312,26 +317,22 @@ namespace BSLib.SmartGraph
             PathCandidate topCandidate = new PathCandidate(root, null);
 
             // processing
-            while (topCandidate != null)
-            {
+            while (topCandidate != null) {
                 Vertex topNode = topCandidate.Node;
                 topCandidate = topCandidate.Next;
 
                 int nodeDist = topNode.Dist;
                 topNode.Visited = false;
 
-                foreach (Edge link in topNode.EdgesOut)
-                {
+                foreach (Edge link in topNode.EdgesOut) {
                     Vertex target = link.Target;
                     int newDist = nodeDist + link.Cost;
 
-                    if (newDist < target.Dist)
-                    {
+                    if (newDist < target.Dist) {
                         target.Dist = newDist;
                         target.EdgeIn = link;
 
-                        if (!target.Visited)
-                        {
+                        if (!target.Visited) {
                             target.Visited = true;
                             topCandidate = new PathCandidate(target, topCandidate);
                         }
@@ -344,11 +345,9 @@ namespace BSLib.SmartGraph
         {
             List<Edge> result = new List<Edge>();
 
-            if (target != null)
-            {
+            if (target != null) {
                 Edge edge = target.EdgeIn;
-                while (edge != null)
-                {
+                while (edge != null) {
                     result.Insert(0, edge);
                     edge = edge.Source.EdgeIn;
                 }

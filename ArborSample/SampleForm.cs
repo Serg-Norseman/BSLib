@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using ArborGVT;
+using BSLib.ArborGVT;
 
 namespace ArborSample
 {

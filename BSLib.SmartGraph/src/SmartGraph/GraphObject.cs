@@ -23,18 +23,18 @@ using BSLib.Extensions;
 
 namespace BSLib.SmartGraph
 {
-	public abstract class GraphObject : IExtensibleObject<GraphObject>
-	{
-		private IExtensionCollection<GraphObject, IExtension<GraphObject>> fExtensions;
+    public abstract class GraphObject : IExtensibleObject<GraphObject>
+    {
+        private readonly IExtensionCollection<GraphObject, IExtension<GraphObject>> fExtensions;
 
-		public IExtensionCollection<GraphObject, IExtension<GraphObject>> Extensions
-		{
-			get { return this.fExtensions; }
-		}
+        public IExtensionCollection<GraphObject, IExtension<GraphObject>> Extensions
+        {
+            get { return fExtensions; }
+        }
 
-		public GraphObject()
-		{
-			this.fExtensions = new ExtensionCollection<GraphObject, IExtension<GraphObject>>(this);
-		}
-	}
+        protected GraphObject()
+        {
+            fExtensions = new ExtensionCollection<GraphObject, IExtension<GraphObject>>(this);
+        }
+    }
 }

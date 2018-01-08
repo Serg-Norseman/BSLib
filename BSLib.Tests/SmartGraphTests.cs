@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-using ArborGVT;
+using BSLib.ArborGVT;
 using BSLib.Extensions;
 using NUnit.Framework;
 
