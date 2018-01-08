@@ -13,18 +13,18 @@ namespace BSLib.Calendar
 
         public UDNRecord(UDNCalendarType calendar, int year, int month, int day, string description)
         {
-            this.Calendar = calendar;
-            this.Description = description;
-            this.Value = new UDN(calendar, year, month, day);
-            this.StrVal = this.Value.ToString();
+            Calendar = calendar;
+            Description = description;
+            Value = new UDN(calendar, year, month, day);
+            StrVal = Value.ToString();
         }
 
         public UDNRecord(UDN udn, UDNCalendarType calendar, string description)
         {
-            this.Calendar = calendar;
-            this.Description = description;
-            this.Value = udn;
-            this.StrVal = this.Value.ToString();
+            Calendar = calendar;
+            Description = description;
+            Value = udn;
+            StrVal = Value.ToString();
         }
     }
 
@@ -34,14 +34,14 @@ namespace BSLib.Calendar
     [TestFixture]
     public class UDNTests
     {
-        private List<UDNRecord> fDates = new List<UDNRecord>();
+        private readonly List<UDNRecord> fDates = new List<UDNRecord>();
 
         public UDNTests()
         {
         }
 
         [Test]
-        public void UDNSort_Tests()
+        public void Test_Sort()
         {
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2016, 05, 05, "2016/05/05 [g]"));
             fDates.Add(new UDNRecord(UDNCalendarType.ctGregorian, 2016, 05, 04, "2016/05/04 [g]"));
@@ -112,7 +112,9 @@ namespace BSLib.Calendar
             fDates.Add(new UDNRecord(UDN.CreateApproximate(
                 UDNCalendarType.ctGregorian, 2015, 2, 28), UDNCalendarType.ctGregorian, "~ 2015/02/28 [g]"));
 
-            fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
+            // standart sort for .NET and Mono gives different result at items 31 and 32
+            SortHelper.QuickSort(fDates, delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
+            //fDates.Sort(delegate(UDNRecord left, UDNRecord right) { return left.Value.CompareTo(right.Value); });
 
             Assert.AreEqual("??/??/?? [g]", fDates[0].Description, "(00)");
             Assert.AreEqual("??/??/23 [g]", fDates[1].Description, "(01)");
@@ -148,8 +150,9 @@ namespace BSLib.Calendar
             Assert.AreEqual("2016/??/10 [g]", fDates[29].Description, "(29)");
 
             Assert.AreEqual("2016/05/?? [g]", fDates[30].Description, "(30)");
-            Assert.AreEqual("2016/05/04 [g] = 2016/04/21 [j]", fDates[31].Description, "(31)");
-            Assert.AreEqual("2016/05/04 [g]", fDates[32].Description, "(32)");
+            Assert.AreEqual("2016/05/04 [g]", fDates[31].Description, "(31)");
+            Assert.AreEqual("2016/05/04 [g] = 2016/04/21 [j]", fDates[32].Description, "(32)");
+
             Assert.AreEqual("2016/05/05 [g]", fDates[33].Description, "(33)");
             Assert.AreEqual("2016/05/06 [g] = 2016/04/23 [j]", fDates[34].Description, "(34)");
             Assert.AreEqual("before 2016/05/31 [g]", fDates[35].Description, "(35)");
@@ -167,14 +170,14 @@ namespace BSLib.Calendar
 
         [Test(Description = "UDN Exceptions Test")]
         [ExpectedException(typeof(Exception))]
-        public void UDNExceptions_Tests()
+        public void Test_Exceptions()
         {
             UDN.CreateBetween(new UDN(UDNCalendarType.ctGregorian, UDN.UnknownYear, 05, 05),
                               new UDN(UDNCalendarType.ctGregorian, UDN.UnknownYear, 05, 07));
         }
 
         [Test]
-        public void UDNCommon_Tests()
+        public void Test_Common()
         {
             UDN testUDNAft = UDN.CreateAfter(UDNCalendarType.ctGregorian, 1900, 11, 0);
             Assert.AreEqual(">1900/11/??", testUDNAft.ToString());
@@ -189,11 +192,16 @@ namespace BSLib.Calendar
             Assert.AreEqual(-1, testUDNBef.CompareTo((object) testUDNAft));
             Assert.AreEqual(-1, testUDNBef.CompareTo(null));
 
+            Assert.IsFalse(testUDNBef.Equals((object)testUDNAft));
+            Assert.IsFalse(testUDNBef.Equals(null));
+            Assert.IsTrue(testUDNBef.Equals((object)testUDNBef));
+
             UDN testUDN2 = (UDN)testUDNApp.Clone();
             Assert.AreEqual("~????/05/14", testUDN2.ToString());
             Assert.IsFalse(testUDN2.IsEmpty());
+            Assert.IsTrue(testUDNApp.Equals(testUDN2));
 
-            //Assert.IsTrue(testUDN2.GetHashCode() != 0);
+            Assert.IsTrue(testUDN2.GetHashCode() != 0);
 
             Assert.Throws(typeof(Exception), () => {
                               UDN.CreateBetween(new UDN(UDNCalendarType.ctGregorian, UDN.UnknownYear, 05, 05),

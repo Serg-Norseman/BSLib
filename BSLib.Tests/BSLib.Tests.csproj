@@ -61,18 +61,24 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BitHelperTests.cs" />
     <Compile Include="CalendarTests.cs" />
+    <Compile Include="ConvertHelperTests.cs" />
     <Compile Include="CSVReaderTests.cs" />
     <Compile Include="DateHelperTests.cs" />
     <Compile Include="EnumSetTests.cs" />
+    <Compile Include="ExpCalculatorTests.cs" />
     <Compile Include="ExtListTests.cs" />
+    <Compile Include="ExtMarginsTests.cs" />
     <Compile Include="ExtRectTests.cs" />
+    <Compile Include="IndistinctMatchingTests.cs" />
     <Compile Include="IniFileTests.cs" />
     <Compile Include="MathHelperTests.cs" />
     <Compile Include="RangesTests.cs" />
     <Compile Include="SmartGraphTests.cs" />
     <Compile Include="SortHelperTests.cs" />
     <Compile Include="StringListTests.cs" />
+    <Compile Include="StringTokenizerTests.cs" />
     <Compile Include="TestStubs.cs" />
+    <Compile Include="TypeHandlerTests.cs" />
     <Compile Include="UDNTests.cs" />
     <Compile Include="ZipStorerTests.cs" />
   </ItemGroup>

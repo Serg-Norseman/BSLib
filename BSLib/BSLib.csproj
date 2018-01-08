@@ -59,14 +59,18 @@
     <Compile Include="Calendar\CalendarConverter.cs" />
     <Compile Include="Calendar\CalendarData.cs" />
     <Compile Include="Calendar\UDN.cs" />
+    <Compile Include="ConvertHelper.cs" />
     <Compile Include="CSVReader.cs" />
     <Compile Include="DateHelper.cs" />
     <Compile Include="DoubleHelper.cs" />
     <Compile Include="EnumSet.cs" />
+    <Compile Include="ExpCalculator.cs" />
     <Compile Include="ExtList.cs" />
+    <Compile Include="ExtMargins.cs" />
     <Compile Include="ExtPoint.cs" />
     <Compile Include="ExtRect.cs" />
     <Compile Include="ExtSize.cs" />
+    <Compile Include="IndistinctMatching.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="IniFiles\IniFileBlankLine.cs" />
     <Compile Include="IniFiles\IniFileCommentary.cs" />
@@ -80,6 +84,8 @@
     <Compile Include="Range.cs" />
     <Compile Include="SortHelper.cs" />
     <Compile Include="StringList.cs" />
+    <Compile Include="StringTokenizer.cs" />
+    <Compile Include="TypeHandler.cs" />
     <Compile Include="WeightedMean.cs" />
     <Compile Include="ZipStorer.cs" />
   </ItemGroup>

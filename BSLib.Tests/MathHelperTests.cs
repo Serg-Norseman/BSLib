@@ -16,6 +16,9 @@ namespace BSLib
 
             Assert.AreEqual(57.295779513, MathHelper.RadiansToDegrees(1.0), 0.0000000001);
             Assert.AreEqual(1.0, MathHelper.DegreesToRadians(57.295779513), 0.0000000001);
+
+            Assert.AreEqual(11, MathHelper.Distance(1, 0, 12, 0));
+            Assert.AreEqual(16, MathHelper.Distance(new ExtPoint(1, 1), new ExtPoint(12, 12)));
         }
     }
 }

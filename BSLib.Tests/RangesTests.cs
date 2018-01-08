@@ -23,6 +23,11 @@ namespace BSLib
             Assert.IsTrue(new Range<int>((1), (4)).IsOverlapped(new Range<int>((1), (2))), "chk9"); // true
             Assert.IsTrue(new Range<int>((1), (4)).IsOverlapped(new Range<int>((3), (4))), "chk10"); // true
             Assert.IsTrue(new Range<int>((3), (4)).IsOverlapped(new Range<int>((1), (4))), "chk11"); // true
+
+            var range = new Range<int>(11, 22);
+            var range2 = (Range<int>)range.Clone();
+            Assert.AreEqual(11, range2.Start);
+            Assert.AreEqual(22, range2.End);
         }
     }
 }
