@@ -60,6 +60,7 @@
     <Compile Include="Calendar\CalendarData.cs" />
     <Compile Include="Calendar\UDN.cs" />
     <Compile Include="ConvertHelper.cs" />
+    <Compile Include="CRC32.cs" />
     <Compile Include="CSVReader.cs" />
     <Compile Include="DateHelper.cs" />
     <Compile Include="DoubleHelper.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="ExtPoint.cs" />
     <Compile Include="ExtRect.cs" />
     <Compile Include="ExtSize.cs" />
+    <Compile Include="GfxHelper.cs" />
     <Compile Include="IndistinctMatching.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="IniFiles\IniFileBlankLine.cs" />
@@ -81,6 +83,8 @@
     <Compile Include="IniFiles\IniFileValue.cs" />
     <Compile Include="ListTimSort.cs" />
     <Compile Include="MathHelper.cs" />
+    <Compile Include="PriorityQueue.cs" />
+    <Compile Include="RandomHelper.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="SortHelper.cs" />
     <Compile Include="StringList.cs" />

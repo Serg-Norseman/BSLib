@@ -56,5 +56,21 @@ namespace BSLib
         {
             return Distance(pt1.X, pt1.Y, pt2.X, pt2.Y);
         }
+
+        public static bool IsValueBetween(int value, int lowLimit, int topLimit, bool includeLimits)
+        {
+            if (lowLimit > topLimit) {
+                int temp = lowLimit;
+                lowLimit = topLimit;
+                topLimit = temp;
+            }
+
+            if (!includeLimits) {
+                lowLimit++;
+                topLimit--;
+            }
+
+            return value >= lowLimit && value <= topLimit;
+        }
     }
 }
