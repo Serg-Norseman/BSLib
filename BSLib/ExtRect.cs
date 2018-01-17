@@ -20,7 +20,7 @@ using System.Globalization;
 
 namespace BSLib
 {
-    public struct ExtRect
+    public struct ExtRect : ICloneable<ExtRect>
     {
         public static readonly ExtRect Empty = default(ExtRect);
 
@@ -32,6 +32,16 @@ namespace BSLib
         public int Square
         {
             get { return this.GetWidth() * this.GetHeight(); }
+        }
+
+        public int Width
+        {
+            get { return (Right == Left) ? 0 : Right - Left + 1; }
+        }
+
+        public int Height
+        {
+            get { return (Bottom == Top) ? 0 : Bottom - Top + 1; }
         }
 
         public static ExtRect Create(int left, int top, int right, int bottom)
@@ -154,6 +164,11 @@ namespace BSLib
         {
             return string.Concat("{X=", Left.ToString(), ",Y=", Top.ToString(),
                                  ",Width=", GetWidth().ToString(), ",Height=", GetHeight().ToString(), "}");
+        }
+
+        public ExtRect Clone()
+        {
+            return ExtRect.Create(Left, Top, Right, Bottom);
         }
     }
 

@@ -16,11 +16,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Globalization;
 
 namespace BSLib
 {
-    public struct ExtPoint
+    public struct ExtPoint : ICloneable<ExtPoint>
     {
         public static readonly ExtPoint Empty = default(ExtPoint);
 
@@ -90,6 +91,11 @@ namespace BSLib
                 ",Y=", this.Y.ToString(CultureInfo.CurrentCulture),
                 "}"
             });
+        }
+
+        public ExtPoint Clone()
+        {
+            return new ExtPoint(X, Y);
         }
     }
 

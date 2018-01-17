@@ -72,6 +72,7 @@
     <Compile Include="ExtRect.cs" />
     <Compile Include="ExtSize.cs" />
     <Compile Include="GfxHelper.cs" />
+    <Compile Include="ICloneable.cs" />
     <Compile Include="IndistinctMatching.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="IniFiles\IniFileBlankLine.cs" />
