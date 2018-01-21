@@ -31,13 +31,13 @@ namespace BSLib
             Assert.IsTrue(rt.Contains(5, 5));
 
             rt.Inflate(3, -2);
-            Assert.AreEqual("{X=3,Y=-2,Width=4,Height=14}", rt.ToString());
+            Assert.AreEqual("{X=-3,Y=2,Width=16,Height=6}", rt.ToString());
 
             rt.Offset(2, 5);
-            Assert.AreEqual("{X=5,Y=3,Width=4,Height=14}", rt.ToString());
+            Assert.AreEqual("{X=-1,Y=7,Width=16,Height=6}", rt.ToString());
 
             rt = rt.GetOffset(10, 10);
-            Assert.AreEqual("{X=15,Y=13,Width=4,Height=14}", rt.ToString());
+            Assert.AreEqual("{X=9,Y=17,Width=16,Height=6}", rt.ToString());
 
             Assert.IsTrue(rt.IntersectsWith(ExtRect.Create(16, 14, 20, 20)));
 

@@ -89,6 +89,12 @@ namespace BSLib
             return Contains(pt.X, pt.Y);
         }
 
+        public bool Contains(ExtRect rt)
+        {
+            return Contains(rt.Left, rt.Top) && Contains(rt.Right, rt.Top)
+                && Contains(rt.Left, rt.Bottom) && Contains(rt.Right, rt.Bottom);
+        }
+
         public ExtRect GetOffset(int dX, int dY)
         {
             return Create(Left + dX, Top + dY, Right + dX, Bottom + dY);
@@ -104,10 +110,10 @@ namespace BSLib
 
         public void Inflate(int dX, int dY)
         {
-            Left += dX;
-            Right -= dX;
-            Top += dY;
-            Bottom -= dY;
+            Left -= dX;
+            Top -= dY;
+            Right += dX;
+            Bottom += dY;
         }
 
         public bool IntersectsWith(ExtRect rect)

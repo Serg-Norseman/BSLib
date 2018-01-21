@@ -21,9 +21,18 @@ using System.Collections.Generic;
 
 namespace BSLib
 {
-    public class ListException : Exception
+    public class ListException : BaseException
     {
+        public ListException()
+        {
+        }
+
         public ListException(string message) : base(message)
+        {
+        }
+
+        public ListException(string message, params object[] args)
+            : base(message, args)
         {
         }
     }
