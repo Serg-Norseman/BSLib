@@ -47,7 +47,7 @@ namespace BSLib.Calendar
             }
             else
             {
-                dividend = (int)(dividend / ((double) (divisor)) - 1.0);
+                dividend = (int)(dividend / ((double) divisor) - 1.0);
             }
             return dividend;
         }
@@ -159,12 +159,12 @@ namespace BSLib.Calendar
         public static void jd_to_julian(double jd, out int year, out int month, out int day)
         {
             int b = iFloor(jd + 0.5) + 1524;
-            int c = iFloor(((b - 122.1) / 365.25));
-            int d = iFloor((365.25 * c));
-            int e = iFloor(((b - d) / 30.6001));
-            month = iFloor((e < 14 ? e - 1 : e - 13));
-            year = iFloor((month > 2 ? c - 4716 : c - 4715));
-            day = b - d - iFloor((30.6001 * e));
+            int c = iFloor((b - 122.1) / 365.25);
+            int d = iFloor(365.25 * c);
+            int e = iFloor((b - d) / 30.6001);
+            month = iFloor(e < 14 ? e - 1 : e - 13);
+            year = iFloor(month > 2 ? c - 4716 : c - 4715);
+            day = b - d - iFloor(30.6001 * e);
             if (year < 1)
             {
                 year--;
@@ -210,9 +210,9 @@ namespace BSLib.Calendar
 
         private static int hebrew_delay_1(int year)
         {
-            int months = iFloor(((235 * year - 234) / 19.0));
+            int months = iFloor((235 * year - 234) / 19.0);
             int parts = 12084 + 13753 * months;
-            int day = months * 29 + iFloor((parts / 25920.0));
+            int day = months * 29 + iFloor(parts / 25920.0);
             if (_modf(3 * (day + 1), 7.0) < 3f)
             {
                 day++;
@@ -321,7 +321,7 @@ namespace BSLib.Calendar
         public static void jd_to_hebrew(double jd, out int year, out int month, out int day)
         {
             jd = (Math.Floor(jd) + 0.5);
-            int count = iFloor(((jd - HEBREW_EPOCH) * 98496.0 / 35975351.0));
+            int count = iFloor((jd - HEBREW_EPOCH) * 98496.0 / 35975351.0);
             year = count - 1;
             int i = count;
             while (jd >= hebrew_to_jd(i, 7, 1))
@@ -536,7 +536,7 @@ namespace BSLib.Calendar
         {
             jd = (Math.Floor(jd) + 0.5);
             double depoch = (jd - persian_to_jd(475, 1, 1));
-            int cycle = iFloor((depoch / 1029983.0));
+            int cycle = iFloor(depoch / 1029983.0);
             int cyear = _modi(depoch, 1029983.0);
             int ycycle;
             if (cyear == 1029982)

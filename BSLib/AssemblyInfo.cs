@@ -11,5 +11,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("0.31.3.0")]
+[assembly: AssemblyVersion("0.32.6.0")]
 [assembly: CLSCompliant(true)]

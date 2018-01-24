@@ -59,6 +59,23 @@ namespace BSLib
             return res;
         }
 
+        public static bool IsValidInt(string value)
+        {
+            if (string.IsNullOrEmpty(value)) {
+                return false;
+            }
+
+            for (int i = 0; i < value.Length; i++) {
+                if (!IsDigit(value[i])) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        #region Rome numbers
+
         private static int[] RN_N;
         private static string[] RN_S;
 
@@ -93,6 +110,8 @@ namespace BSLib
             }
             return rome;
         }
+
+        #endregion
 
         public static NumberFormatInfo CreateDefaultNumberFormat()
         {

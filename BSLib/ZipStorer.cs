@@ -461,7 +461,7 @@ namespace BSLib
             uint bytesPending = zfe.FileSize;
             while (bytesPending > 0)
             {
-                int bytesRead = inStream.Read(buffer, 0, (int)System.Math.Min(bytesPending, buffer.Length));
+                int bytesRead = inStream.Read(buffer, 0, (int)Math.Min(bytesPending, buffer.Length));
                 stream.Write(buffer, 0, bytesRead);
                 bytesPending -= (uint)bytesRead;
             }

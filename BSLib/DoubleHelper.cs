@@ -39,7 +39,7 @@ namespace BSLib
 		 */
         public static bool Equals(double a, double b)
         {
-            return a == b ? true : System.Math.Abs(a - b) < EPSILON;
+            return a == b ? true : Math.Abs(a - b) < EPSILON;
         }
 
         /**
@@ -56,7 +56,7 @@ namespace BSLib
 		 */
         public static bool Equals(double a, double b, double epsilon)
         {
-            return a == b ? true : System.Math.Abs(a - b) < epsilon;
+            return a == b ? true : Math.Abs(a - b) < epsilon;
         }
 
         /**

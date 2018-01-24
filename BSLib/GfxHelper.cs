@@ -16,8 +16,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-
 namespace BSLib
 {
     /// <summary>
@@ -27,9 +25,9 @@ namespace BSLib
     {
         private static int MakeArgb(int alpha, int red, int green, int blue)
         {
-            //return (int)((ulong)((int)red << 16 | (int)green << 8 | (int)blue | (int)alpha << 24) & unchecked((ulong)-1));
-            return ((int)red << 16 | (int)green << 8 | (int)blue | (int)alpha << 24);
+            return (red << 16 | green << 8 | blue | alpha << 24);
         }
+
         /// <summary>
         /// Blend two colors.
         /// </summary>
@@ -40,7 +38,7 @@ namespace BSLib
         /// <returns> Blended color. </returns>
         public static int Blend(int color1, int color2, float ratio)
         {
-            float rat1 = (float)ratio;
+            float rat1 = ratio;
             float rat2 = (float)1.0 - rat1;
 
             int red1 = (color1 >> 16) & 0xFF;

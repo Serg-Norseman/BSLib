@@ -110,7 +110,7 @@ namespace BSLib.IniFiles
         {
             string lower = name.ToLowerInvariant();
             for (int i = 0; i < sections.Count; i++)
-                if (sections[i].Name == name || (!IniFileEx.CaseSensitive && sections[i].Name.ToLowerInvariant() == lower))
+                if (sections[i].Name == name || (!CaseSensitive && sections[i].Name.ToLowerInvariant() == lower))
                     return sections[i];
             return null;
         }
@@ -215,7 +215,7 @@ namespace BSLib.IniFiles
             {
                 IniFileElement currEl = ParseLine(reader.ReadLine());
 
-                if (IniFileEx.GroupElements) {
+                if (GroupElements) {
                     if (lastEl != null)
                     {
                         if (currEl is IniFileBlankLine && lastEl is IniFileBlankLine) {
@@ -241,14 +241,14 @@ namespace BSLib.IniFiles
         /// <param name="element">Element to write.</param>
         private static void WriteElement(StreamWriter writer, IniFileElement element)
         {
-            if (!IniFileEx.PreserveFormatting)
+            if (!PreserveFormatting)
                 element.FormatDefault();
 
             // do not write if:
             if (!( // 1) element is a blank line AND blank lines are not allowed
-                  (element is IniFileBlankLine && !IniFileEx.AllowBlankLines)
+                  (element is IniFileBlankLine && !AllowBlankLines)
                   // 2) element is an empty value AND empty values are not allowed
-                  || (!IniFileEx.AllowEmptyValues && element is IniFileValue && ((IniFileValue)element).Value == "")))
+                  || (!AllowEmptyValues && element is IniFileValue && ((IniFileValue)element).Value == "")))
                 writer.WriteLine(element.Line);
         }
 
@@ -328,25 +328,25 @@ namespace BSLib.IniFiles
             get
             {
                 if (elements.Count > 0)
-                    if (elements[0] is IniFileCommentary && !(!IniFileEx.SeparateHeader
+                    if (elements[0] is IniFileCommentary && !(!SeparateHeader
                                                               && elements.Count > 1 && !(elements[1] is IniFileBlankLine)))
                         return ((IniFileCommentary)elements[0]).Comment;
                 return "";
             }
             set
             {
-                if (elements.Count > 0 && elements[0] is IniFileCommentary && !(!IniFileEx.SeparateHeader
+                if (elements.Count > 0 && elements[0] is IniFileCommentary && !(!SeparateHeader
                                                                                 && elements.Count > 1 && !(elements[1] is IniFileBlankLine))) {
                     if (value == "") {
                         elements.RemoveAt(0);
-                        if (IniFileEx.SeparateHeader && elements.Count > 0 && elements[0] is IniFileBlankLine)
+                        if (SeparateHeader && elements.Count > 0 && elements[0] is IniFileBlankLine)
                             elements.RemoveAt(0);
                     }
                     else
                         ((IniFileCommentary)elements[0]).Comment = value;
                 }
                 else if (value != "") {
-                    if ((elements.Count == 0 || !(elements[0] is IniFileBlankLine)) && IniFileEx.SeparateHeader)
+                    if ((elements.Count == 0 || !(elements[0] is IniFileBlankLine)) && SeparateHeader)
                         elements.Insert(0, new IniFileBlankLine(1));
                     elements.Insert(0, IniFileCommentary.FromComment(value));
                 }
@@ -382,7 +382,7 @@ namespace BSLib.IniFiles
                         else
                             elements.Add(IniFileCommentary.FromComment(value));
                         if (elements.Count > 2) {
-                            if (!(elements[elements.Count - 2] is IniFileBlankLine) && IniFileEx.SeparateHeader)
+                            if (!(elements[elements.Count - 2] is IniFileBlankLine) && SeparateHeader)
                                 elements.Insert(elements.Count - 1, new IniFileBlankLine(1));
                             else if (value == "")
                                 elements.RemoveAt(elements.Count - 2);

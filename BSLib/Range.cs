@@ -51,7 +51,7 @@ namespace BSLib
 
         public object Clone()
         {
-            return new Range<T>(this.Start, this.End);
+            return new Range<T>(Start, End);
         }
     }
 }

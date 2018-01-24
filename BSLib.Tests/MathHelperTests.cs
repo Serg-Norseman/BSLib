@@ -19,6 +19,12 @@ namespace BSLib
 
             Assert.AreEqual(11, MathHelper.Distance(1, 0, 12, 0));
             Assert.AreEqual(16, MathHelper.Distance(new ExtPoint(1, 1), new ExtPoint(12, 12)));
+
+            Assert.IsTrue(MathHelper.IsValueBetween(15, 0, 20, false));
+            Assert.IsTrue(MathHelper.IsValueBetween(15, 20, 0, false));
+            Assert.IsTrue(MathHelper.IsValueBetween(20, 0, 20, true));
+            Assert.IsFalse(MathHelper.IsValueBetween(20, 0, 20, false));
+            Assert.IsFalse(MathHelper.IsValueBetween(25, 0, 20, false));
         }
     }
 }

@@ -31,7 +31,7 @@ namespace BSLib
 
         public int Square
         {
-            get { return this.GetWidth() * this.GetHeight(); }
+            get { return GetWidth() * GetHeight(); }
         }
 
         public int Width
@@ -125,16 +125,16 @@ namespace BSLib
         {
             ExtRect r = this;
 
-            if (other.Left > this.Left) {
+            if (other.Left > Left) {
                 r.Left = other.Left;
             }
-            if (other.Top > this.Top) {
+            if (other.Top > Top) {
                 r.Top = other.Top;
             }
-            if (other.Right < this.Right) {
+            if (other.Right < Right) {
                 r.Right = other.Right;
             }
-            if (other.Bottom < this.Bottom) {
+            if (other.Bottom < Bottom) {
                 r.Bottom = other.Bottom;
             }
 
@@ -143,12 +143,12 @@ namespace BSLib
 
         public bool IsBorder(int x, int y)
         {
-            return y == this.Top || y == this.Bottom || x == this.Left || x == this.Right;
+            return y == Top || y == Bottom || x == Left || x == Right;
         }
 
         public bool IsInside(ExtRect checkedRect)
         {
-            return checkedRect.Left >= this.Left && checkedRect.Top >= this.Top && checkedRect.Right <= this.Right && checkedRect.Bottom <= this.Bottom;
+            return checkedRect.Left >= Left && checkedRect.Top >= Top && checkedRect.Right <= Right && checkedRect.Bottom <= Bottom;
         }
 
         public ExtPoint GetCenter()
@@ -174,7 +174,7 @@ namespace BSLib
 
         public ExtRect Clone()
         {
-            return ExtRect.Create(Left, Top, Right, Bottom);
+            return Create(Left, Top, Right, Bottom);
         }
     }
 

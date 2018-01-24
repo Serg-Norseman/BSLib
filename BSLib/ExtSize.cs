@@ -30,14 +30,14 @@ namespace BSLib
         public bool IsEmpty
         {
             get {
-                return this.Width == 0 && this.Height == 0;
+                return Width == 0 && Height == 0;
             }
         }
 
         public ExtSize(int width, int height)
         {
-            this.Width = width;
-            this.Height = height;
+            Width = width;
+            Height = height;
         }
 
         public static implicit operator ExtSizeF(ExtSize p)
@@ -71,19 +71,19 @@ namespace BSLib
                 return false;
             }
             ExtSize size = (ExtSize)obj;
-            return size.Width == this.Width && size.Height == this.Height;
+            return size.Width == Width && size.Height == Height;
         }
 
         public override int GetHashCode()
         {
-            return this.Width ^ this.Height;
+            return Width ^ Height;
         }
 
         public override string ToString()
         {
             return string.Concat(new string[] {
-                "{Width=", this.Width.ToString(CultureInfo.CurrentCulture),
-                ", Height=", this.Height.ToString(CultureInfo.CurrentCulture),
+                "{Width=", Width.ToString(CultureInfo.CurrentCulture),
+                ", Height=", Height.ToString(CultureInfo.CurrentCulture),
                 "}"
             });
         }
@@ -100,14 +100,14 @@ namespace BSLib
         public bool IsEmpty
         {
             get {
-                return this.Width == 0f && this.Height == 0f;
+                return Width == 0f && Height == 0f;
             }
         }
 
         public ExtSizeF(float width, float height)
         {
-            this.Width = width;
-            this.Height = height;
+            Width = width;
+            Height = height;
         }
 
         public static ExtSizeF Add(ExtSizeF sz1, ExtSizeF sz2)
@@ -126,7 +126,7 @@ namespace BSLib
                 return false;
             }
             ExtSizeF sizeF = (ExtSizeF)obj;
-            return sizeF.Width == this.Width && sizeF.Height == this.Height && sizeF.GetType().Equals(base.GetType());
+            return sizeF.Width == Width && sizeF.Height == Height && sizeF.GetType().Equals(GetType());
         }
 
         public override int GetHashCode()
@@ -142,8 +142,8 @@ namespace BSLib
         public override string ToString()
         {
             return string.Concat(new string[] {
-                "{Width=", this.Width.ToString(CultureInfo.CurrentCulture),
-                ", Height=", this.Height.ToString(CultureInfo.CurrentCulture),
+                "{Width=", Width.ToString(CultureInfo.CurrentCulture),
+                ", Height=", Height.ToString(CultureInfo.CurrentCulture),
                 "}"
             });
         }

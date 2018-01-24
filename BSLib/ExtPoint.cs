@@ -30,13 +30,13 @@ namespace BSLib
 
         public bool IsEmpty
         {
-            get { return this.X == 0 && this.Y == 0; }
+            get { return X == 0 && Y == 0; }
         }
 
         public ExtPoint(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         public static implicit operator ExtPointF(ExtPoint p)
@@ -70,25 +70,25 @@ namespace BSLib
                 return false;
             }
             ExtPoint point = (ExtPoint)obj;
-            return point.X == this.X && point.Y == this.Y;
+            return point.X == X && point.Y == Y;
         }
 
         public override int GetHashCode()
         {
-            return this.X ^ this.Y;
+            return X ^ Y;
         }
 
         public void Offset(int dx, int dy)
         {
-            this.X += dx;
-            this.Y += dy;
+            X += dx;
+            Y += dy;
         }
 
         public override string ToString()
         {
             return string.Concat(new string[] {
-                "{X=", this.X.ToString(CultureInfo.CurrentCulture),
-                ",Y=", this.Y.ToString(CultureInfo.CurrentCulture),
+                "{X=", X.ToString(CultureInfo.CurrentCulture),
+                ",Y=", Y.ToString(CultureInfo.CurrentCulture),
                 "}"
             });
         }
@@ -109,13 +109,13 @@ namespace BSLib
 
         public bool IsEmpty
         {
-            get { return this.X == 0f && this.Y == 0f; }
+            get { return X == 0f && Y == 0f; }
         }
 
         public ExtPointF(float x, float y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         public static ExtPointF Add(ExtPointF pt, ExtSize sz)
@@ -144,7 +144,7 @@ namespace BSLib
                 return false;
             }
             ExtPointF pointF = (ExtPointF)obj;
-            return pointF.X == this.X && pointF.Y == this.Y && pointF.GetType().Equals(base.GetType());
+            return pointF.X == X && pointF.Y == Y && pointF.GetType().Equals(GetType());
         }
 
         public override int GetHashCode()
@@ -154,15 +154,15 @@ namespace BSLib
 
         public void Offset(float dx, float dy)
         {
-            this.X += dx;
-            this.Y += dy;
+            X += dx;
+            Y += dy;
         }
 
         public override string ToString()
         {
             return string.Format(CultureInfo.CurrentCulture, "{{X={0}, Y={1}}}", new object[] {
-                this.X,
-                this.Y
+                X,
+                Y
             });
         }
     }

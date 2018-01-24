@@ -25,14 +25,14 @@ namespace BSLib
 
         public WeightedMean()
         {
-            this.fResult = 0.0d;
-            this.fSum = 0.0d;
+            fResult = 0.0d;
+            fSum = 0.0d;
         }
 
         public void AddValue(double value, double weight)
         {
-            this.fResult += (value * weight);
-            this.fSum += weight;
+            fResult += (value * weight);
+            fSum += weight;
         }
 
         public double GetResult()

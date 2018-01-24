@@ -978,7 +978,7 @@ namespace BSLib
                 newSize |= newSize >> 16;
                 newSize++;
 
-                newSize = (newSize < 0) ? minCapacity : System.Math.Min(newSize, m_Array.Count >> 1);
+                newSize = (newSize < 0) ? minCapacity : Math.Min(newSize, m_Array.Count >> 1);
 
                 m_MergeBuffer = new T[newSize];
             }

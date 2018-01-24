@@ -86,6 +86,7 @@
     <Compile Include="ListTimSort.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="PriorityQueue.cs" />
+    <Compile Include="ProbabilityTable.cs" />
     <Compile Include="RandomHelper.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="SortHelper.cs" />
