@@ -28,27 +28,32 @@ namespace BSLib
             return (red << 16 | green << 8 | blue | alpha << 24);
         }
 
+        public static void DecomposeARGB(int color, out byte alpha, out byte red, out byte green, out byte blue)
+        {
+            alpha = (byte)((color >> 24) & 0xFF);
+            red = (byte)((color >> 16) & 0xFF);
+            green = (byte)((color >> 8) & 0xFF);
+            blue = (byte)((color >> 0) & 0xFF);
+        }
+
         /// <summary>
         /// Blend two colors.
         /// </summary>
         /// <param name="color1"> First color to blend. </param>
         /// <param name="color2"> Second color to blend. </param>
-        /// <param name="ratio"> Blend ratio. 0.5 will give even blend, 1.0 will return
-        /// color1, 0.0 will return color2 and so on. </param>
+        /// <param name="ratio"> Blend ratio. 0.5 will give even blend, 1.0 will
+        /// return color1, 0.0 will return color2 and so on. </param>
         /// <returns> Blended color. </returns>
         public static int Blend(int color1, int color2, float ratio)
         {
             float rat1 = ratio;
             float rat2 = (float)1.0 - rat1;
 
-            int red1 = (color1 >> 16) & 0xFF;
-            int green1 = (color1 >> 8) & 0xFF;
-            int blue1 = (color1 >> 0) & 0xFF;
-            int alpha1 = (color1 >> 24) & 0xFF;
+            byte red1, green1, blue1, alpha1;
+            DecomposeARGB(color1, out alpha1, out red1, out green1, out blue1);
 
-            int red2 = (color2 >> 16) & 0xFF;
-            int green2 = (color2 >> 8) & 0xFF;
-            int blue2 = (color2 >> 0) & 0xFF;
+            byte red2, green2, blue2, alpha2;
+            DecomposeARGB(color2, out alpha2, out red2, out green2, out blue2);
 
             int color = MakeArgb(alpha1,
                 (byte)(red1 * rat1 + red2 * rat2),
@@ -58,36 +63,44 @@ namespace BSLib
             return color;
         }
 
+        /// <summary>
+        /// Make a color darker.
+        /// </summary>
+        /// <param name="rgb"> Color to make darker. </param>
+        /// <param name="fraction"> Darkness fraction. </param>
+        /// <returns> Darker color. </returns>
         public static int Darker(int rgb, float fraction)
         {
             float factor = (1.0f - fraction);
-            int red = (rgb >> 16) & 0xFF;
-            int green = (rgb >> 8) & 0xFF;
-            int blue = (rgb >> 0) & 0xFF;
-            int alpha = (rgb >> 24) & 0xFF;
+            byte red1, green1, blue1, alpha1;
+            DecomposeARGB(rgb, out alpha1, out red1, out green1, out blue1);
 
-            red = (int) (red * factor);
-            green = (int) (green * factor);
-            blue = (int) (blue * factor);
+            int red = (int) (red1 * factor);
+            int green = (int) (green1 * factor);
+            int blue = (int) (blue1 * factor);
 
             red = (red < 0) ? 0 : red;
             green = (green < 0) ? 0 : green;
             blue = (blue < 0) ? 0 : blue;
 
-            return MakeArgb(alpha, red, green, blue);
+            return MakeArgb(alpha1, red, green, blue);
         }
 
+        /// <summary>
+        /// Make a color lighter.
+        /// </summary>
+        /// <param name="rgb"> Color to make lighter. </param>
+        /// <param name="fraction"> Darkness fraction. </param>
+        /// <returns> Lighter color. </returns>
         public static int Lighter(int rgb, float fraction)
         {
             float factor = (1.0f + fraction);
-            int red = (rgb >> 16) & 0xFF;
-            int green = (rgb >> 8) & 0xFF;
-            int blue = (rgb >> 0) & 0xFF;
-            int alpha = (rgb >> 24) & 0xFF;
+            byte red1, green1, blue1, alpha1;
+            DecomposeARGB(rgb, out alpha1, out red1, out green1, out blue1);
 
-            red = (int) (red * factor);
-            green = (int) (green * factor);
-            blue = (int) (blue * factor);
+            int red = (int) (red1 * factor);
+            int green = (int) (green1 * factor);
+            int blue = (int) (blue1 * factor);
 
             if (red < 0) {
                 red = 0;
@@ -105,7 +118,7 @@ namespace BSLib
                 blue = 255;
             }
 
-            return MakeArgb(alpha, red, green, blue);
+            return MakeArgb(alpha1, red, green, blue);
         }
 
         public static float ZoomToFit(float imgWidth, float imgHeight,

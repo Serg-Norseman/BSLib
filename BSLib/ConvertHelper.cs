@@ -153,12 +153,36 @@ namespace BSLib
             return result;
         }
 
-        public static string AdjustNum(int val, int up)
+        public static string AdjustNumber(int val, int up, char pad = '0')
         {
-            StringBuilder res = new StringBuilder(up);
-            res.Append(val.ToString());
-            while (res.Length < up) res.Insert(0, "0");
-            return res.ToString();
+            string result = Convert.ToString(val);
+            if (result.Length < up) {
+                StringBuilder sb = new StringBuilder(result);
+                while (sb.Length < up) {
+                    sb.Insert(0, pad);
+                }
+                result = sb.ToString();
+            }
+            return result;
+        }
+
+        public static string Repeat(char ch, int repeat)
+        {
+            char[] chars = new char[repeat];
+            for (int i = 0; i < repeat; i++)
+                chars[i] = ch;
+            return new string(chars);
+        }
+
+        public static string UniformName(string val)
+        {
+            if (string.IsNullOrEmpty(val)) {
+                return null;
+            }
+
+            StringBuilder str = new StringBuilder(val.ToLower());
+            str[0] = char.ToUpper(str[0]);
+            return str.ToString();
         }
     }
 }
