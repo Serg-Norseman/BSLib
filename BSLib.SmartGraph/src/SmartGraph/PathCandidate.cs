@@ -17,6 +17,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 using System;
 
 namespace BSLib.SmartGraph
@@ -28,8 +29,8 @@ namespace BSLib.SmartGraph
 
         public PathCandidate(Vertex node, PathCandidate next)
         {
-            this.Node = node;
-            this.Next = next;
+            Node = node;
+            Next = next;
         }
     }
 }

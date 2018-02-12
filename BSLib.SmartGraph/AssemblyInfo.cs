@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+#if !NETSTANDARD
+
 [assembly: AssemblyTitle("BSLib.SmartGraph")]
 [assembly: AssemblyDescription("SmartGraph is the small library for store and manipulations over graphs")]
 [assembly: AssemblyConfiguration("")]
@@ -12,3 +14,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+#endif

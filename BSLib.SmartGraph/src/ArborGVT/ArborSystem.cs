@@ -80,26 +80,26 @@ namespace BSLib.ArborGVT
 
         public Graph Graph
         {
-        	get {
-        		return this.fGraph;
-        	}
-        	set {
-        		if (this.fGraph != value)
-        		{
-        			if (this.fGraph != null)
-        			{
-        				this.fGraph.OnChange -= this.notifyEventHandler;
-        			}
+            get {
+                return this.fGraph;
+            }
+            set {
+                if (this.fGraph != value)
+                {
+                    if (this.fGraph != null)
+                    {
+                        this.fGraph.OnChange -= this.notifyEventHandler;
+                    }
 
-        			this.fGraph = value;
+                    this.fGraph = value;
 
-        			if (this.fGraph != null)
-        			{
-        				this.fGraph.OnChange += this.notifyEventHandler;
-	        			this.syncGraph();
-        			}
-        		}
-        	}
+                    if (this.fGraph != null)
+                    {
+                        this.fGraph.OnChange += this.notifyEventHandler;
+                        this.syncGraph();
+                    }
+                }
+            }
         }
 
         public List<ArborNode> Nodes
@@ -178,37 +178,37 @@ namespace BSLib.ArborGVT
 
         private void syncGraph()
         {
-        	this.fEdges.Clear();
-        	this.fNodes.Clear();
+            this.fEdges.Clear();
+            this.fNodes.Clear();
 
-        	foreach (Vertex vertex in this.fGraph.Vertices)
-        	{
-        		ArborNode node = new ArborNode(vertex.Sign);
-        		vertex.Extensions.Add(node);
+            foreach (Vertex vertex in this.fGraph.Vertices)
+            {
+                ArborNode node = new ArborNode(vertex.Sign);
+                vertex.Extensions.Add(node);
 
-        		this.resetCoords(node);
-        		this.fNodes.Add(node);
-        	}
+                this.resetCoords(node);
+                this.fNodes.Add(node);
+            }
 
-        	foreach (Edge edge in this.fGraph.Edges)
-        	{
-        		ArborNode anSrc = edge.Source.Extensions.Find<ArborNode>();
-        		ArborNode anTgt = edge.Target.Extensions.Find<ArborNode>();
+            foreach (Edge edge in this.fGraph.Edges)
+            {
+                ArborNode anSrc = edge.Source.Extensions.Find<ArborNode>();
+                ArborNode anTgt = edge.Target.Extensions.Find<ArborNode>();
 
-        		ArborEdge arbEdge = new ArborEdge(anSrc, anTgt, 1, ParamStiffness);
-        		edge.Extensions.Add(arbEdge);
-        		this.fEdges.Add(arbEdge);
-        	}
+                ArborEdge arbEdge = new ArborEdge(anSrc, anTgt, 1, ParamStiffness);
+                edge.Extensions.Add(arbEdge);
+                this.fEdges.Add(arbEdge);
+            }
         }
 
         private void notifyEventHandler(object sender, NotifyEventArgs e)
         {
-        	this.syncGraph();
+            this.syncGraph();
         }
 
         public void start()
         {
-        	//this.syncGraph();
+            //this.syncGraph();
 
             if (fOnStart != null) fOnStart(this, new EventArgs());
 
@@ -270,7 +270,7 @@ namespace BSLib.ArborGVT
             double xx = lt.X + (rb.X - lt.X) * ArborSystem.getRndDouble();
             double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.getRndDouble();
 
-        	node.Pt = new ArborPoint(xx, yy);
+            node.Pt = new ArborPoint(xx, yy);
         }
         
         public ArborNode getNode(string sign)
@@ -410,10 +410,10 @@ namespace BSLib.ArborGVT
 
                 if (aX > 1 || aY > 1)
                 {
-                	ArborPoint nbLT = fViewBounds.LeftTop.add(vLT);
-                	ArborPoint nbRB = fViewBounds.RightBottom.add(vRB);
+                    ArborPoint nbLT = fViewBounds.LeftTop.add(vLT);
+                    ArborPoint nbRB = fViewBounds.RightBottom.add(vRB);
 
-                	fViewBounds = new PSBounds(nbLT, nbRB);
+                    fViewBounds = new PSBounds(nbLT, nbRB);
                 }
             }
             catch (Exception ex)

@@ -21,10 +21,7 @@ using System.Text;
 
 namespace BSLib
 {
-    public struct EnumSet<T> : ICloneable where T : struct, IComparable, IFormattable
-        #if !PCL
-        , IConvertible
-        #endif
+    public struct EnumSet<T> : ICloneable<EnumSet<T>> where T : struct, IComparable, IFormattable, IConvertible
     {
         private ulong fData;
 
@@ -160,8 +157,7 @@ namespace BSLib
             return false;
         }
 
-        // ICloneable
-        public object Clone()
+        public EnumSet<T> Clone()
         {
             return new EnumSet<T>(fData);
         }

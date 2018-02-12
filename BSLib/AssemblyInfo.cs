@@ -2,6 +2,8 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+#if !NETSTANDARD
+
 [assembly: AssemblyTitle("BSLib")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
@@ -13,3 +15,5 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("0.32.8.0")]
 [assembly: CLSCompliant(true)]
+
+#endif

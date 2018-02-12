@@ -19,7 +19,6 @@
 using System;
 using System.Globalization;
 using System.Text;
-using System.Threading;
 
 namespace BSLib
 {
@@ -139,7 +138,7 @@ namespace BSLib
                 decSep = ".";
             }
 
-            NumberFormatInfo formatInfo = (NumberFormatInfo)Thread.CurrentThread.CurrentCulture.NumberFormat.Clone();
+            NumberFormatInfo formatInfo = new NumberFormatInfo();
             formatInfo.NumberDecimalSeparator = decSep;
             formatInfo.NumberGroupSeparator = " ";
 

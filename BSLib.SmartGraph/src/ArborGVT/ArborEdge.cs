@@ -14,7 +14,7 @@ namespace BSLib.ArborGVT
 {
     public class ArborEdge : IExtension<GraphObject>
     {
-    	private GraphObject fOwner;
+        private GraphObject fOwner;
 
         public ArborNode Source;
         public ArborNode Target;
@@ -37,14 +37,14 @@ namespace BSLib.ArborGVT
             this.Directed = directed;
         }
 
-		public void Attach(GraphObject owner)
-		{
-			this.fOwner = owner;
-		}
+        public void Attach(GraphObject owner)
+        {
+            this.fOwner = owner;
+        }
 
-		public void Detach(GraphObject owner)
-		{
-			this.fOwner = null;
-		}
+        public void Detach(GraphObject owner)
+        {
+            this.fOwner = null;
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace BSLib.Calendar
     /// Unification of any dates, given a calendar and unknown components for the needs of comparison and sorting.
     /// Works on the basis of algorithms Julian day.
     /// </summary>
-    public struct UDN : ICloneable, IComparable, IComparable<UDN>, IEquatable<UDN>
+    public struct UDN : ICloneable<UDN>, IComparable, IComparable<UDN>, IEquatable<UDN>
     {
         private const int IgnoreYear = 1 << 31;
         private const int IgnoreMonth = 1 << 30;
@@ -144,7 +144,7 @@ namespace BSLib.Calendar
         /// Create a copy of the current object.
         /// </summary>
         /// <returns></returns>
-        public object Clone()
+        public UDN Clone()
         {
             return new UDN(fValue);
         }

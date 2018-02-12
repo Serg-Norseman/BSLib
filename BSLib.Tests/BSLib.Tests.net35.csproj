@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BSLib</RootNamespace>
     <AssemblyName>BSLib.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -90,11 +90,11 @@
     <Compile Include="ZipStorerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BSLib.SmartGraph\BSLib.SmartGraph.csproj">
+    <ProjectReference Include="..\BSLib.SmartGraph\BSLib.SmartGraph.net35.csproj">
       <Project>{ddc8f8cd-b876-4a0e-abbd-861db741ec1e}</Project>
       <Name>BSLib.SmartGraph</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BSLib\BSLib.csproj">
+    <ProjectReference Include="..\BSLib\BSLib.net35.csproj">
       <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
       <Name>BSLib</Name>
     </ProjectReference>

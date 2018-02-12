@@ -38,7 +38,6 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading;
 
 // TODO: other encodings
 // TODO: other eol
@@ -324,7 +323,7 @@ namespace BSLib
 
             // In those files there is only the comma and semicolon as delimiters of values.
             // Therefore, the decimal separator can be only the dot.
-            NumberFormatInfo formatInfo = (NumberFormatInfo)Thread.CurrentThread.CurrentCulture.NumberFormat.Clone();
+            NumberFormatInfo formatInfo = new NumberFormatInfo();
             formatInfo.NumberDecimalSeparator = ".";
             formatInfo.NumberGroupSeparator = "";
 

@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib", "BSLib\BSLib.netstd.csproj", "{F657A1B7-C834-420A-B302-88460E3F6283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Controls", "BSLib.Controls\BSLib.Controls.netstd.csproj", "{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Controls.Samples", "BSLib.Controls.Samples\BSLib.Controls.Samples.netstd.csproj", "{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.SmartGraph", "BSLib.SmartGraph\BSLib.SmartGraph.netstd.csproj", "{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArborSample", "ArborSample\ArborSample.netstd.csproj", "{41E56AD7-9414-436C-BA68-CA974303B663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Tests", "BSLib.Tests\BSLib.Tests.netstd.csproj", "{A8B53A6B-40A6-40BA-A671-03FC911BC37B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F657A1B7-C834-420A-B302-88460E3F6283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F657A1B7-C834-420A-B302-88460E3F6283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F657A1B7-C834-420A-B302-88460E3F6283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F657A1B7-C834-420A-B302-88460E3F6283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41E56AD7-9414-436C-BA68-CA974303B663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41E56AD7-9414-436C-BA68-CA974303B663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41E56AD7-9414-436C-BA68-CA974303B663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41E56AD7-9414-436C-BA68-CA974303B663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Release|Any CPU.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0727615D-960A-4889-A416-5D3F48F0C357}
+	EndGlobalSection
+EndGlobal

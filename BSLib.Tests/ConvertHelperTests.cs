@@ -30,7 +30,7 @@ namespace BSLib
             fval = ConvertHelper.ParseFloat("sdgfdf", 22.2);
             Assert.AreEqual(22.2, fval);
 
-            string st = ConvertHelper.AdjustNum(9, 3);
+            string st = ConvertHelper.AdjustNumber(9, 3);
             Assert.AreEqual("009", st);
         }
 

@@ -20,7 +20,7 @@ using System;
 
 namespace BSLib
 {
-    public struct Range<T> : ICloneable where T : IComparable<T>
+    public struct Range<T> : ICloneable<Range<T>> where T : IComparable<T>
     {
         public readonly T Start;
         public readonly T End;
@@ -49,7 +49,7 @@ namespace BSLib
             return other.Start.CompareTo(End) <= 0;
         }
 
-        public object Clone()
+        public Range<T> Clone()
         {
             return new Range<T>(Start, End);
         }

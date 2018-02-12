@@ -7,6 +7,8 @@
  *  Fork and C# implementation, copyright (c) 2012,2016 by Serg V. Zhdanovskih.
  */
 
+#if !NETSTANDARD
+
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -304,3 +306,5 @@ namespace BSLib.ArborGVT
         }
     }
 }
+
+#endif
