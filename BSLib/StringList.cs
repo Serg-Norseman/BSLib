@@ -173,11 +173,11 @@ namespace BSLib
         {
             if (disposing)
             {
-                //this.fList = null;
-                /*int num = this.fList.Count;
+                //fList = null;
+                /*int num = fList.Count;
                 for (int i = 0; i < num; i++)
                 {
-                    IDisposable inst = this.fList[i].FObject as IDisposable;
+                    IDisposable inst = fList[i].FObject as IDisposable;
                     if (inst != null) inst.Dispose();
                 }*/
             }

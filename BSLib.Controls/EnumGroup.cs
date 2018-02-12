@@ -94,7 +94,7 @@ namespace BSLib.Controls
                 Array strs = Enum.GetValues(value);
                 for (int i = 0; i < strs.Length; i++) {
                     RadioButton obj = new RadioButton();
-                    obj.Width = this.GetMaxTextWidth();
+                    obj.Width = GetMaxTextWidth();
                     fButtons.Add(obj);
                     this.Controls.Add(obj);
                     obj.Text = strs.GetValue(i).GetDescription();

@@ -23,11 +23,11 @@ namespace BSLib.ArborGVT
 
         public Branch(ArborPoint origin, ArborPoint size)
         {
-            this.Origin = origin;
-            this.Size = size;
-            this.Q = new object[4] { null, null, null, null };
-            this.Mass = 0.0;
-            this.Pt = new ArborPoint(0.0, 0.0);
+            Origin = origin;
+            Size = size;
+            Q = new object[4] { null, null, null, null };
+            Mass = 0.0;
+            Pt = new ArborPoint(0.0, 0.0);
         }
     }
 
@@ -44,8 +44,8 @@ namespace BSLib.ArborGVT
 
         public BarnesHutTree(ArborPoint origin, ArborPoint h, double dist)
         {
-            this.fDist = dist;
-            this.fRoot = new Branch(origin, h.sub(origin));
+            fDist = dist;
+            fRoot = new Branch(origin, h.sub(origin));
         }
 
         private static int getQuad(ArborNode i, Branch f)

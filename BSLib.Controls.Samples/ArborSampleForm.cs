@@ -1,19 +1,21 @@
-﻿using System.Windows.Forms;
+﻿// Copyright 2015 by Serg V. Zhdanovskih
+
+using System.Windows.Forms;
 using BSLib.ArborGVT;
 
 namespace ArborSample
 {
-    public partial class SampleForm : Form
+    public partial class ArborSampleForm : Form
     {
         private readonly ToolTip fTip;
         private bool fTipShow;
 
-        public SampleForm()
+        public ArborSampleForm()
         {
             InitializeComponent();
 
-            this.fTip = new ToolTip();
-            this.fTipShow = false;
+            fTip = new ToolTip();
+            fTipShow = false;
 
             arborViewer1.EnergyDebug = true;
             arborViewer1.NodesDragging = true;

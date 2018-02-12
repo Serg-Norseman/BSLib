@@ -38,6 +38,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArborSampleForm.cs" />
+    <Compile Include="ArborSampleForm.Designer.cs">
+      <DependentUpon>ArborSampleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -51,6 +55,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ArborSampleForm.resx">
+      <DependentUpon>ArborSampleForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -59,6 +66,14 @@
     <ProjectReference Include="..\BSLib.Controls\BSLib.Controls.net35.csproj">
       <Project>{3180214e-8bfd-4b0b-ad9b-e298fae67ccb}</Project>
       <Name>BSLib.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSLib.SmartGraph\BSLib.SmartGraph.net35.csproj">
+      <Project>{ddc8f8cd-b876-4a0e-abbd-861db741ec1e}</Project>
+      <Name>BSLib.SmartGraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSLib\BSLib.net35.csproj">
+      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
+      <Name>BSLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

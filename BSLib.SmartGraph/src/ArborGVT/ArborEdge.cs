@@ -25,26 +25,26 @@ namespace BSLib.ArborGVT
 
         public ArborEdge(ArborNode src, ArborNode tgt, double len, double stiffness)
         {
-            this.Source = src;
-            this.Target = tgt;
-            this.Length = len;
-            this.Stiffness = stiffness;
+            Source = src;
+            Target = tgt;
+            Length = len;
+            Stiffness = stiffness;
         }
 
         public ArborEdge(ArborNode src, ArborNode tgt, double len, double stiffness, bool directed)
             : this(src, tgt, len, stiffness)
         {
-            this.Directed = directed;
+            Directed = directed;
         }
 
         public void Attach(GraphObject owner)
         {
-            this.fOwner = owner;
+            fOwner = owner;
         }
 
         public void Detach(GraphObject owner)
         {
-            this.fOwner = null;
+            fOwner = null;
         }
     }
 }

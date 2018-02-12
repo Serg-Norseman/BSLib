@@ -24,8 +24,8 @@ namespace BSLib.ArborGVT
 
         public PSBounds(ArborPoint leftTop, ArborPoint rightBottom)
         {
-            this.LeftTop = leftTop;
-            this.RightBottom = rightBottom;
+            LeftTop = leftTop;
+            RightBottom = rightBottom;
         }
     }
 
@@ -74,29 +74,29 @@ namespace BSLib.ArborGVT
 
         public bool AutoStop
         {
-            get { return this.fAutoStop; }
-            set { this.fAutoStop = value; }
+            get { return fAutoStop; }
+            set { fAutoStop = value; }
         }
 
         public Graph Graph
         {
             get {
-                return this.fGraph;
+                return fGraph;
             }
             set {
-                if (this.fGraph != value)
+                if (fGraph != value)
                 {
-                    if (this.fGraph != null)
+                    if (fGraph != null)
                     {
-                        this.fGraph.OnChange -= this.notifyEventHandler;
+                        fGraph.OnChange -= notifyEventHandler;
                     }
 
-                    this.fGraph = value;
+                    fGraph = value;
 
-                    if (this.fGraph != null)
+                    if (fGraph != null)
                     {
-                        this.fGraph.OnChange += this.notifyEventHandler;
-                        this.syncGraph();
+                        fGraph.OnChange += notifyEventHandler;
+                        syncGraph();
                     }
                 }
             }
@@ -104,25 +104,25 @@ namespace BSLib.ArborGVT
 
         public List<ArborNode> Nodes
         {
-            get { return this.fNodes; }
+            get { return fNodes; }
         }
 
         public List<ArborEdge> Edges
         {
-            get { return this.fEdges; }
+            get { return fEdges; }
         }
 
         public event EventHandler OnStart
         {
             add
             {
-                this.fOnStart = value;
+                fOnStart = value;
             }
             remove
             {
-                if (this.fOnStart == value)
+                if (fOnStart == value)
                 {
-                    this.fOnStart = null;
+                    fOnStart = null;
                 }
             }
         }
@@ -131,84 +131,84 @@ namespace BSLib.ArborGVT
         {
             add
             {
-                this.fOnStop = value;
+                fOnStop = value;
             }
             remove
             {
-                if (this.fOnStop == value)
+                if (fOnStop == value)
                 {
-                    this.fOnStop = null;
+                    fOnStop = null;
                 }
             }
         }
 
         public double StopThreshold
         {
-            get { return this.fStopThreshold; }
-            set { this.fStopThreshold = value; }
+            get { return fStopThreshold; }
+            set { fStopThreshold = value; }
         }
 
         #endregion
 
         public ArborSystem(double repulsion, double stiffness, double friction, IArborRenderer renderer)
         {
-            this.fAutoStop = true;
-            this.fBusy = false;
-            this.fNames = new Hashtable();
-            this.fNodes = new List<ArborNode>();
-            this.fEdges = new List<ArborEdge>();
-            this.fRenderer = renderer;
-            this.fPrevTime = DateTime.FromBinary(0);
-            this.fStopThreshold = /*0.05*/ 0.7;
-            this.fTimer = null;
+            fAutoStop = true;
+            fBusy = false;
+            fNames = new Hashtable();
+            fNodes = new List<ArborNode>();
+            fEdges = new List<ArborEdge>();
+            fRenderer = renderer;
+            fPrevTime = DateTime.FromBinary(0);
+            fStopThreshold = /*0.05*/ 0.7;
+            fTimer = null;
 
-            this.ParamRepulsion = repulsion;
-            this.ParamStiffness = stiffness;
-            this.ParamFriction = friction;
+            ParamRepulsion = repulsion;
+            ParamStiffness = stiffness;
+            ParamFriction = friction;
         }
 
         public void Dispose()
         {
-            if (!this.fDisposed)
+            if (!fDisposed)
             {
-                this.stop();
-                this.fDisposed = true;
+                stop();
+                fDisposed = true;
             }
         }
 
         private void syncGraph()
         {
-            this.fEdges.Clear();
-            this.fNodes.Clear();
+            fEdges.Clear();
+            fNodes.Clear();
 
-            foreach (Vertex vertex in this.fGraph.Vertices)
+            foreach (Vertex vertex in fGraph.Vertices)
             {
                 ArborNode node = new ArborNode(vertex.Sign);
                 vertex.Extensions.Add(node);
 
-                this.resetCoords(node);
-                this.fNodes.Add(node);
+                resetCoords(node);
+                fNodes.Add(node);
             }
 
-            foreach (Edge edge in this.fGraph.Edges)
+            foreach (Edge edge in fGraph.Edges)
             {
                 ArborNode anSrc = edge.Source.Extensions.Find<ArborNode>();
                 ArborNode anTgt = edge.Target.Extensions.Find<ArborNode>();
 
                 ArborEdge arbEdge = new ArborEdge(anSrc, anTgt, 1, ParamStiffness);
                 edge.Extensions.Add(arbEdge);
-                this.fEdges.Add(arbEdge);
+                fEdges.Add(arbEdge);
             }
         }
 
         private void notifyEventHandler(object sender, NotifyEventArgs e)
         {
-            this.syncGraph();
+            syncGraph();
         }
 
         public void start()
         {
-            //this.syncGraph();
+            //syncGraph();
 
             if (fOnStart != null) fOnStart(this, new EventArgs());
 
@@ -223,7 +223,7 @@ namespace BSLib.ArborGVT
             fTimer = new System.Timers.Timer();
             fTimer.AutoReset = true;
             fTimer.Interval = ParamTimeout;
-            fTimer.Elapsed += this.tickTimer;
+            fTimer.Elapsed += tickTimer;
             fTimer.Start();
         }
 
@@ -241,7 +241,7 @@ namespace BSLib.ArborGVT
 
         public ArborNode addNode(string sign, double x, double y)
         {
-            ArborNode node = this.getNode(sign);
+            ArborNode node = getNode(sign);
             if (node != null) return node;
 
             node = new ArborNode(sign);
@@ -255,18 +255,18 @@ namespace BSLib.ArborGVT
 
         public ArborNode addNode(string sign)
         {
-            ArborPoint lt = this.fGraphBounds.LeftTop;
-            ArborPoint rb = this.fGraphBounds.RightBottom;
+            ArborPoint lt = fGraphBounds.LeftTop;
+            ArborPoint rb = fGraphBounds.RightBottom;
             double xx = lt.X + (rb.X - lt.X) * ArborSystem.getRndDouble();
             double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.getRndDouble();
 
-            return this.addNode(sign, xx, yy);
+            return addNode(sign, xx, yy);
         }
 
         private void resetCoords(ArborNode node)
         {
-            ArborPoint lt = this.fGraphBounds.LeftTop;
-            ArborPoint rb = this.fGraphBounds.RightBottom;
+            ArborPoint lt = fGraphBounds.LeftTop;
+            ArborPoint rb = fGraphBounds.RightBottom;
             double xx = lt.X + (rb.X - lt.X) * ArborSystem.getRndDouble();
             double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.getRndDouble();
 
@@ -280,11 +280,11 @@ namespace BSLib.ArborGVT
 
         public ArborEdge addEdge(string srcSign, string tgtSign, double len = 1.0)
         {
-            ArborNode src = this.getNode(srcSign);
-            src = (src != null) ? src : this.addNode(srcSign);
+            ArborNode src = getNode(srcSign);
+            src = (src != null) ? src : addNode(srcSign);
 
-            ArborNode tgt = this.getNode(tgtSign);
-            tgt = (tgt != null) ? tgt : this.addNode(tgtSign);
+            ArborNode tgt = getNode(tgtSign);
+            tgt = (tgt != null) ? tgt : addNode(tgtSign);
 
             ArborEdge x = null;
             if (src != null && tgt != null)
@@ -310,9 +310,9 @@ namespace BSLib.ArborGVT
 
         public void setScreenSize(int width, int height)
         {
-            this.fScreenWidth = width;
-            this.fScreenHeight = height;
-            this.updateViewBounds();
+            fScreenWidth = width;
+            fScreenHeight = height;
+            updateViewBounds();
         }
 
         public ArborPoint toScreen(ArborPoint pt)
@@ -320,8 +320,8 @@ namespace BSLib.ArborGVT
             if (fViewBounds == null) return ArborPoint.Null;
 
             ArborPoint vd = fViewBounds.RightBottom.sub(fViewBounds.LeftTop);
-            double sx = margins[3] + pt.sub(fViewBounds.LeftTop).div(vd.X).X * (this.fScreenWidth - (margins[1] + margins[3]));
-            double sy = margins[0] + pt.sub(fViewBounds.LeftTop).div(vd.Y).Y * (this.fScreenHeight - (margins[0] + margins[2]));
+            double sx = margins[3] + pt.sub(fViewBounds.LeftTop).div(vd.X).X * (fScreenWidth - (margins[1] + margins[3]));
+            double sy = margins[0] + pt.sub(fViewBounds.LeftTop).div(vd.Y).Y * (fScreenHeight - (margins[0] + margins[2]));
             return new ArborPoint(sx, sy);
         }
 
@@ -330,19 +330,19 @@ namespace BSLib.ArborGVT
             if (fViewBounds == null) return ArborPoint.Null;
 
             ArborPoint vd = fViewBounds.RightBottom.sub(fViewBounds.LeftTop);
-            double x = (sx - margins[3]) / (this.fScreenWidth - (margins[1] + margins[3])) * vd.X + fViewBounds.LeftTop.X;
-            double y = (sy - margins[0]) / (this.fScreenHeight - (margins[0] + margins[2])) * vd.Y + fViewBounds.LeftTop.Y;
+            double x = (sx - margins[3]) / (fScreenWidth - (margins[1] + margins[3])) * vd.X + fViewBounds.LeftTop.X;
+            double y = (sy - margins[0]) / (fScreenHeight - (margins[0] + margins[2])) * vd.Y + fViewBounds.LeftTop.Y;
             return new ArborPoint(x, y);
         }
 
         public ArborNode getNearest(int sx, int sy)
         {
-            ArborPoint x = this.fromScreen(sx, sy);
+            ArborPoint x = fromScreen(sx, sy);
 
             ArborNode resNode = null;
             double minDist = +1.0;
 
-            foreach (ArborNode node in this.fNodes)
+            foreach (ArborNode node in fNodes)
             {
                 ArborPoint z = node.Pt;
                 if (z.exploded())
@@ -358,7 +358,7 @@ namespace BSLib.ArborGVT
                 }
             }
 
-            //minDist = this.toScreen(resNode.Pt).sub(this.toScreen(x)).magnitude();
+            //minDist = toScreen(resNode.Pt).sub(toScreen(x)).magnitude();
             return resNode;
         }
 
@@ -367,7 +367,7 @@ namespace BSLib.ArborGVT
             ArborPoint lt = new ArborPoint(-1, -1);
             ArborPoint rb = new ArborPoint(1, 1);
 
-            foreach (ArborNode node in this.fNodes)
+            foreach (ArborNode node in fNodes)
             {
                 ArborPoint pt = node.Pt;
                 if (pt.exploded()) continue;
@@ -387,14 +387,14 @@ namespace BSLib.ArborGVT
             ArborPoint cent = lt.add(sz.div(2));
             ArborPoint d = new ArborPoint(Math.Max(sz.X, 4.0), Math.Max(sz.Y, 4.0)).div(2);
 
-            this.fGraphBounds = new PSBounds(cent.sub(d), cent.add(d));
+            fGraphBounds = new PSBounds(cent.sub(d), cent.add(d));
         }
 
         private void updateViewBounds()
         {
             try
             {
-                this.updateGraphBounds();
+                updateGraphBounds();
 
                 if (fViewBounds == null)
                 {
@@ -405,8 +405,8 @@ namespace BSLib.ArborGVT
                 ArborPoint vLT = fGraphBounds.LeftTop.sub(fViewBounds.LeftTop).mul(Mag);
                 ArborPoint vRB = fGraphBounds.RightBottom.sub(fViewBounds.RightBottom).mul(Mag);
 
-                double aX = vLT.magnitude() * this.fScreenWidth;
-                double aY = vRB.magnitude() * this.fScreenHeight;
+                double aX = vLT.magnitude() * fScreenWidth;
+                double aY = vRB.magnitude() * fScreenHeight;
 
                 if (aX > 1 || aY > 1)
                 {
@@ -436,21 +436,21 @@ namespace BSLib.ArborGVT
                 }
             }
 
-            if (this.fBusy) return;
-            this.fBusy = true;
+            if (fBusy) return;
+            fBusy = true;
             try
             {
-                this.updatePhysics();
-                this.updateViewBounds();
+                updatePhysics();
+                updateViewBounds();
 
                 if (fRenderer != null)
                 {
                     fRenderer.Invalidate();
                 }
 
-                if (this.fAutoStop)
+                if (fAutoStop)
                 {
-                    if (EnergyMean <= this.fStopThreshold)
+                    if (EnergyMean <= fStopThreshold)
                     {
                         if (fPrevTime == DateTime.FromBinary(0))
                         {
@@ -459,7 +459,7 @@ namespace BSLib.ArborGVT
                         TimeSpan ts = DateTime.Now - fPrevTime;
                         if (ts.TotalMilliseconds > 1000)
                         {
-                            this.stop();
+                            stop();
                         }
                     }
                     else
@@ -472,7 +472,7 @@ namespace BSLib.ArborGVT
             {
                 Debug.WriteLine("ArborSystem.tickTimer(): " + ex.Message);
             }
-            this.fBusy = false;
+            fBusy = false;
         }
 
         private void updatePhysics()
@@ -488,16 +488,16 @@ namespace BSLib.ArborGVT
 
                 if (ParamStiffness > 0)
                 {
-                    this.applySprings();
+                    applySprings();
                 }
 
                 // euler integrator
                 if (ParamRepulsion > 0)
                 {
-                    this.applyBarnesHutRepulsion();
+                    applyBarnesHutRepulsion();
                 }
 
-                this.updateVelocityAndPosition(ParamDt);
+                updateVelocityAndPosition(ParamDt);
             }
             catch (Exception ex)
             {

@@ -37,33 +37,33 @@ namespace BSLib.ArborGVT
 
         public ArborNode(string sign)
         {
-            this.Sign = sign;
+            Sign = sign;
 
-            this.Fixed = false;
-            this.Mass = 1;
-            this.Pt = ArborPoint.Null;
+            Fixed = false;
+            Mass = 1;
+            Pt = ArborPoint.Null;
 
             #if !NETSTANDARD1_6
-            this.Color = Color.Gray;
+            Color = Color.Gray;
             #endif
 
-            this.V = new ArborPoint(0, 0);
-            this.F = new ArborPoint(0, 0);
+            V = new ArborPoint(0, 0);
+            F = new ArborPoint(0, 0);
         }
 
         internal void applyForce(ArborPoint a)
         {
-            this.F = this.F.add(a.div(this.Mass));
+            F = F.add(a.div(Mass));
         }
 
         public void Attach(GraphObject owner)
         {
-            this.fOwner = owner;
+            fOwner = owner;
         }
 
         public void Detach(GraphObject owner)
         {
-            this.fOwner = null;
+            fOwner = null;
         }
     }
 }

@@ -33,19 +33,19 @@ namespace BSLib.ArborGVT
 
         public bool EnergyDebug
         {
-            get { return this.fEnergyDebug; }
-            set { this.fEnergyDebug = value; }
+            get { return fEnergyDebug; }
+            set { fEnergyDebug = value; }
         }
 
         public bool NodesDragging
         {
-            get { return this.fNodesDragging; }
-            set { this.fNodesDragging = value; }
+            get { return fNodesDragging; }
+            set { fNodesDragging = value; }
         }
 
         public ArborSystem Sys
         {
-            get { return this.fSys; }
+            get { return fSys; }
         }
 
         public ArborViewer()
@@ -58,36 +58,36 @@ namespace BSLib.ArborGVT
             base.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             base.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-            this.fGraph = new Graph();
+            fGraph = new Graph();
 
             // repulsion - отталкивание, stiffness - тугоподвижность, friction - сила трения
-            this.fSys = new ArborSystem(10000, 500/*1000*/, 0.1, this);
-            this.fSys.setScreenSize(this.Width, this.Height);
-            this.fSys.AutoStop = false;
-            this.fSys.Graph = this.fGraph;
+            fSys = new ArborSystem(10000, 500/*1000*/, 0.1, this);
+            fSys.setScreenSize(Width, Height);
+            fSys.AutoStop = false;
+            fSys.Graph = fGraph;
 
-            this.fEnergyDebug = false;
-            this.fDrawFont = new Font("Calibri", 9);
+            fEnergyDebug = false;
+            fDrawFont = new Font("Calibri", 9);
 
-            this.fStrFormat = new StringFormat();
-            this.fStrFormat.Alignment = StringAlignment.Center;
-            this.fStrFormat.LineAlignment = StringAlignment.Center;
+            fStrFormat = new StringFormat();
+            fStrFormat.Alignment = StringAlignment.Center;
+            fStrFormat.LineAlignment = StringAlignment.Center;
 
-            this.fBlackBrush = new SolidBrush(Color.Black);
-            this.fWhiteBrush = new SolidBrush(Color.White);
-            this.fDragged = null;
-            this.fNodesDragging = false;
+            fBlackBrush = new SolidBrush(Color.Black);
+            fWhiteBrush = new SolidBrush(Color.White);
+            fDragged = null;
+            fNodesDragging = false;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.fSys.Dispose();
-                this.fDrawFont.Dispose();
-                this.fWhiteBrush.Dispose();
-                this.fBlackBrush.Dispose();
-                this.fStrFormat.Dispose();
+                fSys.Dispose();
+                fDrawFont.Dispose();
+                fWhiteBrush.Dispose();
+                fBlackBrush.Dispose();
+                fStrFormat.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -96,8 +96,8 @@ namespace BSLib.ArborGVT
         {
             base.OnResize(e);
 
-            this.fSys.setScreenSize(this.Width, this.Height);
-            this.Invalidate();
+            fSys.setScreenSize(Width, Height);
+            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -110,9 +110,9 @@ namespace BSLib.ArborGVT
 
                 foreach (ArborNode node in fSys.Nodes)
                 {
-                    node.Box = this.getNodeRect(gfx, node);
+                    node.Box = getNodeRect(gfx, node);
                     gfx.FillRectangle(new SolidBrush(node.Color), node.Box);
-                    gfx.DrawString(node.Sign, fDrawFont, this.fWhiteBrush, node.Box, this.fStrFormat);
+                    gfx.DrawString(node.Sign, fDrawFont, fWhiteBrush, node.Box, fStrFormat);
                 }
 
                 using (Pen grayPen = new Pen(Color.Gray, 1))
@@ -138,10 +138,10 @@ namespace BSLib.ArborGVT
                     }
                 }
 
-                if (this.fEnergyDebug)
+                if (fEnergyDebug)
                 {
                     string energy = "max=" + fSys.EnergyMax.ToString("0.00000") + ", mean=" + fSys.EnergyMean.ToString("0.00000");
-                    gfx.DrawString(energy, fDrawFont, this.fBlackBrush, 10, 10);
+                    gfx.DrawString(energy, fDrawFont, fBlackBrush, 10, 10);
                 }
             }
             catch (Exception ex)
@@ -194,21 +194,21 @@ namespace BSLib.ArborGVT
 
         public void start()
         {
-            this.fSys.start();
+            fSys.start();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            if (!this.Focused) base.Focus();
+            if (!Focused) base.Focus();
 
-            if (this.fNodesDragging)
+            if (fNodesDragging)
             {
-                this.fDragged = this.getNodeByCoord(e.X, e.Y);
+                fDragged = getNodeByCoord(e.X, e.Y);
 
-                if (this.fDragged != null)
+                if (fDragged != null)
                 {
-                    this.fDragged.Fixed = true;
+                    fDragged.Fixed = true;
                 }
             }
         }
@@ -217,11 +217,11 @@ namespace BSLib.ArborGVT
         {
             base.OnMouseUp(e);
 
-            if (this.fNodesDragging && this.fDragged != null)
+            if (fNodesDragging && fDragged != null)
             {
-                this.fDragged.Fixed = false;
-                //this.fDragged.Mass = 1000;
-                this.fDragged = null;
+                fDragged.Fixed = false;
+                //fDragged.Mass = 1000;
+                fDragged = null;
             }
         }
 
@@ -229,9 +229,9 @@ namespace BSLib.ArborGVT
         {
             base.OnMouseMove(e);
 
-            if (this.fNodesDragging && this.fDragged != null)
+            if (fNodesDragging && fDragged != null)
             {
-                this.fDragged.Pt = fSys.fromScreen(e.X, e.Y);
+                fDragged.Pt = fSys.fromScreen(e.X, e.Y);
             }
         }
 

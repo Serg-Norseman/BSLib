@@ -20,13 +20,13 @@ namespace BSLib.ArborGVT
 
         public ArborPoint(double x, double y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         public bool isNull()
         {
-            return (double.IsNaN(this.X) && double.IsNaN(this.Y));
+            return (double.IsNaN(X) && double.IsNaN(Y));
         }
 
         public static ArborPoint newRnd(double a = 5)
@@ -36,42 +36,42 @@ namespace BSLib.ArborGVT
 
         public bool exploded()
         {
-            return (double.IsNaN(this.X) || double.IsNaN(this.Y));
+            return (double.IsNaN(X) || double.IsNaN(Y));
         }
 
         public ArborPoint add(ArborPoint a)
         {
-            return new ArborPoint(this.X + a.X, this.Y + a.Y);
+            return new ArborPoint(X + a.X, Y + a.Y);
         }
 
         public ArborPoint sub(ArborPoint a)
         {
-            return new ArborPoint(this.X - a.X, this.Y - a.Y);
+            return new ArborPoint(X - a.X, Y - a.Y);
         }
 
         public ArborPoint mul(double a)
         {
-            return new ArborPoint(this.X * a, this.Y * a);
+            return new ArborPoint(X * a, Y * a);
         }
 
         public ArborPoint div(double a)
         {
-            return new ArborPoint(this.X / a, this.Y / a);
+            return new ArborPoint(X / a, Y / a);
         }
 
         public double magnitude()
         {
-            return Math.Sqrt(this.X * this.X + this.Y * this.Y);
+            return Math.Sqrt(X * X + Y * Y);
         }
 
         public double magnitudeSquare()
         {
-            return this.X * this.X + this.Y * this.Y;
+            return X * X + Y * Y;
         }
 
         public ArborPoint normalize()
         {
-            return this.div(this.magnitude());
+            return div(magnitude());
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ArborSample
 {
-    partial class SampleForm
+    partial class ArborSampleForm
     {
         /// <summary>
         /// Designer variable used to keep track of non-visual components.
