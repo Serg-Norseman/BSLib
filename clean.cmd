@@ -9,9 +9,6 @@ rmdir .\BSLib.Controls\obj /s /q
 rmdir .\BSLib.Controls.Samples\bin /s /q
 rmdir .\BSLib.Controls.Samples\obj /s /q
 
-rmdir .\ArborSample\bin /s /q
-rmdir .\ArborSample\obj /s /q
-
 rmdir .\BSLib.SmartGraph\bin /s /q
 rmdir .\BSLib.SmartGraph\obj /s /q
 

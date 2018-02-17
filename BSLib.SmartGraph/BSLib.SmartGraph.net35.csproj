@@ -52,25 +52,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="src\ArborGVT\ArborEdge.cs" />
-    <Compile Include="src\ArborGVT\ArborNode.cs" />
-    <Compile Include="src\ArborGVT\ArborPoint.cs" />
-    <Compile Include="src\ArborGVT\ArborSystem.cs" />
-    <Compile Include="src\ArborGVT\ArborViewer.cs">
+    <Compile Include="ArborGVT\ArborEdge.cs" />
+    <Compile Include="ArborGVT\ArborNode.cs" />
+    <Compile Include="ArborGVT\ArborPoint.cs" />
+    <Compile Include="ArborGVT\ArborSystem.cs" />
+    <Compile Include="ArborGVT\ArborViewer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="src\ArborGVT\BarnesHutTree.cs" />
-    <Compile Include="src\ArborGVT\IArborRenderer.cs" />
-    <Compile Include="src\Extensions\ExtensionCollection.cs" />
-    <Compile Include="src\Extensions\IExtensibleObject.cs" />
-    <Compile Include="src\Extensions\IExtension.cs" />
-    <Compile Include="src\Extensions\IExtensionCollection.cs" />
-    <Compile Include="src\SmartGraph\Edge.cs" />
-    <Compile Include="src\SmartGraph\Graph.cs" />
-    <Compile Include="src\SmartGraph\GraphObject.cs" />
-    <Compile Include="src\SmartGraph\GraphvizWriter.cs" />
-    <Compile Include="src\SmartGraph\PathCandidate.cs" />
-    <Compile Include="src\SmartGraph\Vertex.cs" />
+    <Compile Include="ArborGVT\BarnesHutTree.cs" />
+    <Compile Include="ArborGVT\IArborRenderer.cs" />
+    <Compile Include="Extensions\ExtensionCollection.cs" />
+    <Compile Include="Extensions\IExtensibleObject.cs" />
+    <Compile Include="Extensions\IExtension.cs" />
+    <Compile Include="Extensions\IExtensionCollection.cs" />
+    <Compile Include="SmartGraph\Edge.cs" />
+    <Compile Include="SmartGraph\Graph.cs" />
+    <Compile Include="SmartGraph\GraphObject.cs" />
+    <Compile Include="SmartGraph\GraphvizWriter.cs" />
+    <Compile Include="SmartGraph\PathCandidate.cs" />
+    <Compile Include="SmartGraph\Vertex.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
