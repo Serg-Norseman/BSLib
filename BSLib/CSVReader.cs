@@ -38,8 +38,8 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 
-// TODO: other encodings
 // TODO: other eol
 namespace BSLib
 {
@@ -50,10 +50,15 @@ namespace BSLib
     {
         private const string NEWLINE = "\r\n";
 
+        public const string COMMA_SEPARATOR = ",";
+        public const string SEMICOLON_SEPARATOR = ";";
+
         /// <summary>
         /// This reader will read all of the CSV data
         /// </summary>
         private readonly BinaryReader fReader;
+
+        private readonly string fSeparator;
 
         #region Instance control
 
@@ -61,48 +66,65 @@ namespace BSLib
         /// Read CSV-formatted data from a file
         /// </summary>
         /// <param name="csvFileName">Name of the CSV file</param>
-        public static CSVReader CreateFromFile(string csvFileName)
+        public static CSVReader CreateFromFile(string csvFileName, Encoding encoding, string separator = COMMA_SEPARATOR)
         {
             if (csvFileName == null)
                 throw new ArgumentNullException("csvFileName", @"Null FileInfo passed to CSVReader");
 
-            return new CSVReader(new BinaryReader(File.OpenRead(csvFileName)));
+            return new CSVReader(new BinaryReader(File.OpenRead(csvFileName), encoding), separator);
         }
 
         /// <summary>
         /// Read CSV-formatted data from a string
         /// </summary>
         /// <param name="csvData">String containing CSV data</param>
-        public static CSVReader CreateFromString(string csvData)
+        public static CSVReader CreateFromString(string csvData, string separator = COMMA_SEPARATOR)
         {
             if (csvData == null)
                 throw new ArgumentNullException("csvData", @"Null string passed to CSVReader");
 
-            return new CSVReader(new BinaryReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData))));
+            return new CSVReader(new BinaryReader(new MemoryStream(Encoding.UTF8.GetBytes(csvData))), separator);
         }
 
         /// <summary>
         /// Read CSV-formatted data from a TextReader
         /// </summary>
         /// <param name="reader">TextReader that's reading CSV-formatted data</param>
-        public static CSVReader CreateFromTextReader(TextReader reader)
+        public static CSVReader CreateFromTextReader(TextReader reader, string separator = COMMA_SEPARATOR)
         {
             if (reader == null)
                 throw new ArgumentNullException("reader", @"Null TextReader passed to CSVReader");
 
-            return new CSVReader(new BinaryReader(new MemoryStream(Encoding.UTF8.GetBytes(reader.ReadToEnd()))));
+            return new CSVReader(new BinaryReader(new MemoryStream(Encoding.UTF8.GetBytes(reader.ReadToEnd()))), separator);
+        }
+
+        /// <summary>
+        /// Read a CSV file into a table
+        /// </summary>
+        /// <param name="filename">Filename of CSV file</param>
+        /// <param name="headerRow">True if the first row contains column names</param>
+        /// <returns>System.Data.DataTable object that contains the CSV data</returns>
+        public static DataTable ReadCSVFile(string filename, Encoding encoding, bool headerRow, string separator = COMMA_SEPARATOR)
+        {
+            using (CSVReader reader = CreateFromFile(filename, encoding, separator))
+                return reader.CreateDataTable(headerRow);
+        }
+
+        public CSVReader(BinaryReader reader, string separator)
+        {
+            if (reader == null)
+                throw new ArgumentNullException("reader", @"Null BinaryReader passed to CSVReader");
+
+            fReader = reader;
+            fSeparator = separator;
         }
 
         /// <summary>
         /// Read CSV-formatted data from a BinaryReader
         /// </summary>
         /// <param name="reader">TextReader that's reading CSV-formatted data</param>
-        public CSVReader(BinaryReader reader)
+        public CSVReader(BinaryReader reader) : this(reader, COMMA_SEPARATOR)
         {
-            if (reader == null)
-                throw new ArgumentNullException("reader", @"Null BinaryReader passed to CSVReader");
-
-            fReader = reader;
         }
 
         public void Dispose()
@@ -114,18 +136,6 @@ namespace BSLib
             } catch {
                 // dummy
             }
-        }
-
-        /// <summary>
-        /// Read a CSV file into a table
-        /// </summary>
-        /// <param name="filename">Filename of CSV file</param>
-        /// <param name="headerRow">True if the first row contains column names</param>
-        /// <returns>System.Data.DataTable object that contains the CSV data</returns>
-        public static DataTable ReadCSVFile(string filename, bool headerRow)
-        {
-            using (CSVReader reader = CreateFromFile(filename))
-                return reader.CreateDataTable(headerRow);
         }
 
         #endregion
@@ -170,6 +180,9 @@ namespace BSLib
         /// <returns>The next object in the currentLine string</returns>
         private object ReadNextObject()
         {
+            string sep = fSeparator;
+            string quoted_sep = "\""+sep;
+            
             if (currentLine == null)
                 return null;
 
@@ -184,10 +197,10 @@ namespace BSLib
             {
                 // Check if we've hit the end of the string
                 if ((!quoted && i == len) // non-quoted strings end with a comma or end of line
-                    || (!quoted && currentLine.Substring(i, 1) == ",")
+                    || (!quoted && currentLine.Substring(i, 1) == sep)
                     // quoted strings end with a quote followed by a comma or end of line
                     || (quoted && i == len - 1 && currentLine.EndsWith("\""))
-                    || (quoted && currentLine.Substring(i, 2) == "\","))
+                    || (quoted && currentLine.Substring(i, 2) == quoted_sep))
                     foundEnd = true;
                 else
                     i++;
