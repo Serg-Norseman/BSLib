@@ -38,9 +38,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading;
 
-// TODO: other eol
 namespace BSLib
 {
     /// <summary>
@@ -48,7 +46,9 @@ namespace BSLib
     /// </summary>
     public sealed class CSVReader : IDisposable
     {
-        private const string NEWLINE = "\r\n";
+        private const char NEWLINE_CR = '\r';
+        private const char NEWLINE_LF = '\n';
+        private const string NEWLINE_CRLF = "\r\n";
 
         public const string COMMA_SEPARATOR = ",";
         public const string SEMICOLON_SEPARATOR = ";";
@@ -157,15 +157,14 @@ namespace BSLib
             StringBuilder builder = new StringBuilder();
 
             // Read the next line
-            while ((fReader.BaseStream.Position < fReader.BaseStream.Length) && (!builder.ToString().EndsWith(NEWLINE)))
+            while (fReader.BaseStream.Position < fReader.BaseStream.Length)
             {
                 char c = fReader.ReadChar();
+                if (c == NEWLINE_LF) break;
                 builder.Append(c);
             }
 
-            currentLine = builder.ToString();
-            if (currentLine.EndsWith(NEWLINE))
-                currentLine = currentLine.Remove(currentLine.IndexOf(NEWLINE), NEWLINE.Length);
+            currentLine = builder.ToString().TrimEnd(); // remove CR
 
             // Build the list of objects in the line
             List<object> objects = new List<object>();

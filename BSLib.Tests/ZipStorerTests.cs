@@ -16,7 +16,7 @@ namespace BSLib
             string fileName = TestStubs.GetTempFilePath("test.zip");
 
             using (ZipStorer zip = ZipStorer.Create(fileName, "test")) {
-                using (MemoryStream csvStream = new MemoryStream(Encoding.ASCII.GetBytes(TestStubs.CSVData))) {
+                using (MemoryStream csvStream = new MemoryStream(Encoding.ASCII.GetBytes(TestStubs.CSVData_CRLF))) {
                     zip.AddStream(ZipStorer.Compression.Deflate, "csv_file.csv", csvStream, DateTime.Now, "");
                 }
 
@@ -44,7 +44,7 @@ namespace BSLib
                     csvStream.Seek(0, SeekOrigin.Begin);
                     using (var reader = new StreamReader(csvStream, Encoding.ASCII)) {
                         string text = reader.ReadToEnd();
-                        Assert.AreEqual(TestStubs.CSVData, text);
+                        Assert.AreEqual(TestStubs.CSVData_CRLF, text);
                     }
                 }
             }

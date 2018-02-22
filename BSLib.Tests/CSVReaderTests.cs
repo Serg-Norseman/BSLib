@@ -8,9 +8,9 @@ namespace BSLib
     public class CSVReaderTests
     {
         [Test]
-        public void Test_Common()
+        public void Test_Common_CRLF()
         {
-            using (CSVReader csv = CSVReader.CreateFromString(TestStubs.CSVData)) {
+            using (CSVReader csv = CSVReader.CreateFromString(TestStubs.CSVData_CRLF)) {
                 List<object> row;
 
                 row = csv.ReadRow(); // header
@@ -43,7 +43,7 @@ namespace BSLib
                 Assert.IsNull(row);
             }
 
-            using (CSVReader csv = CSVReader.CreateFromString(TestStubs.CSVData)) {
+            using (CSVReader csv = CSVReader.CreateFromString(TestStubs.CSVData_CRLF)) {
                 DataTable tbl = csv.CreateDataTable(true);
                 Assert.AreEqual(4, tbl.Rows.Count);
                 Assert.AreEqual(4, tbl.Columns.Count);
@@ -71,6 +71,43 @@ namespace BSLib
                 Assert.AreEqual("omega", row[1]);
                 Assert.AreEqual(21.5f, row[2]);
                 Assert.AreEqual(1.02f, row[3]);
+            }
+        }
+
+        [Test]
+        public void Test_Common_LF()
+        {
+            using (CSVReader csv = CSVReader.CreateFromString(TestStubs.CSVData_LF)) {
+                List<object> row;
+
+                row = csv.ReadRow(); // header
+
+                row = csv.ReadRow();
+                Assert.AreEqual(12, row[0]);
+                Assert.AreEqual("alpha", row[1]);
+                Assert.AreEqual(12.5f, row[2]);
+                Assert.AreEqual(15.4f, row[3]);
+
+                row = csv.ReadRow();
+                Assert.AreEqual(15, row[0]);
+                Assert.AreEqual("beta", row[1]);
+                Assert.AreEqual(15.4f, row[2]);
+                Assert.AreEqual(3.7f, row[3]);
+
+                row = csv.ReadRow();
+                Assert.AreEqual(2100, row[0]);
+                Assert.AreEqual("gamma delta", row[1]);
+                Assert.AreEqual(21.5f, row[2]);
+                Assert.AreEqual(1.02f, row[3]);
+
+                row = csv.ReadRow();
+                Assert.AreEqual(91000, row[0]);
+                Assert.AreEqual("omega", row[1]);
+                Assert.AreEqual(21.5f, row[2]);
+                Assert.AreEqual(1.02f, row[3]);
+
+                row = csv.ReadRow();
+                Assert.IsNull(row);
             }
         }
     }
