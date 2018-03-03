@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace />
     <PackageId>BSLib</PackageId>
-    <Version>0.32.8</Version>
+    <Version>0.33.9.0</Version>
     <Authors>Sergey V. Zhdanovskih</Authors>
     <Company />
     <Product>BSLib</Product>

@@ -66,6 +66,7 @@
     <Compile Include="CSVReader.cs" />
     <Compile Include="DateHelper.cs" />
     <Compile Include="DoubleHelper.cs" />
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="EnumSet.cs" />
     <Compile Include="ExpCalculator.cs" />
     <Compile Include="ExtList.cs" />

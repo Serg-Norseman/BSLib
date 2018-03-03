@@ -25,6 +25,38 @@ namespace BSLib
     /// </summary>
     public static class Algorithms
     {
+        public static float CheckBounds(float value, float min, float max)
+        {
+            if (value < min) {
+                value = min;
+            }
+            if (value > max) {
+                value = max;
+            }
+            return value;
+        }
+
+        public static int CheckBounds(int value, int min, int max)
+        {
+            if (value < min) {
+                value = min;
+            }
+            if (value > max) {
+                value = max;
+            }
+            return value;
+        }
+
+        public static int IndexOf<T>(T[] array, T value)
+        {
+            for (int i = 0; i < array.Length; i++) {
+                if (array[i].Equals(value)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         /// <summary>
         /// Swaps two objects
         /// </summary>
