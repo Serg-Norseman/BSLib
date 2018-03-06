@@ -12,6 +12,9 @@ rmdir .\BSLib.Controls.Samples\obj /s /q
 rmdir .\BSLib.SmartGraph\bin /s /q
 rmdir .\BSLib.SmartGraph\obj /s /q
 
+rmdir .\BSLib.Linguistics\bin /s /q
+rmdir .\BSLib.Linguistics\obj /s /q
+
 rmdir .\BSLib.Tests\bin /s /q
 rmdir .\BSLib.Tests\obj /s /q
 rmdir .\BSLib.Tests\OpenCover /s /q
