@@ -11,6 +11,7 @@
     <Description />
     <Copyright>Copyright © 2007-2018 Sergey V. Zhdanovskih</Copyright>
     <NeutralLanguage />
+    <AssemblyName>BSLib</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

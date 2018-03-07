@@ -11,6 +11,7 @@
     <Description></Description>
     <Copyright>Copyright © 2015,2018 Sergey V. Zhdanovskih</Copyright>
     <NeutralLanguage />
+    <AssemblyName>BSLib.Linguistics</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

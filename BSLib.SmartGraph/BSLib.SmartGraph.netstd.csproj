@@ -11,6 +11,7 @@
     <Description>SmartGraph is the small library for store and manipulations over graphs</Description>
     <Copyright>Copyright © 2011-2016 by Serg V. Zhdanovskih</Copyright>
     <NeutralLanguage />
+    <AssemblyName>BSLib.SmartGraph</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
