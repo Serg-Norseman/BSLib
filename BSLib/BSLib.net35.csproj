@@ -74,6 +74,7 @@
     <Compile Include="ExtPoint.cs" />
     <Compile Include="ExtRect.cs" />
     <Compile Include="ExtSize.cs" />
+    <Compile Include="FileHelper.cs" />
     <Compile Include="GfxHelper.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="IndistinctMatching.cs" />

@@ -75,6 +75,8 @@
     <Compile Include="ExtListTests.cs" />
     <Compile Include="ExtMarginsTests.cs" />
     <Compile Include="ExtRectTests.cs" />
+    <Compile Include="FileHelperTests.cs" />
+    <Compile Include="GfxHelperTests.cs" />
     <Compile Include="IndistinctMatchingTests.cs" />
     <Compile Include="IniFileTests.cs" />
     <Compile Include="MathHelperTests.cs" />
