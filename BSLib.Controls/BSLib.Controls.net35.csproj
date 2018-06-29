@@ -44,6 +44,13 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="EnumGroup.cs" />
     <Compile Include="RadioGroup.cs" />
+    <Compile Include="Validation\NumericFieldValidator.cs" />
+    <Compile Include="Validation\RequiredFieldValidator.cs" />
+    <Compile Include="Validation\ValidatableControlConverter.cs" />
+    <Compile Include="Validation\ValidatorBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validation" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

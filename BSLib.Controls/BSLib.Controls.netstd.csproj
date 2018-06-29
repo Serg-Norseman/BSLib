@@ -49,15 +49,20 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="EnumGroup.cs" />
-    <Compile Include="RadioGroup.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="RadioGroup.cs" />
+    <Compile Include="Validation\NumericFieldValidator.cs" />
+    <Compile Include="Validation\RequiredFieldValidator.cs" />
+    <Compile Include="Validation\ValidatableControlConverter.cs" />
+    <Compile Include="Validation\ValidatorBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSLib\BSLib.netstd.csproj">
       <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
       <Name>BSLib.netstd</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validation" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
