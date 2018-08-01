@@ -21,3 +21,9 @@ rmdir .\BSLib.Tests\OpenCover /s /q
 
 rmdir .\UDNTest\bin /s /q
 rmdir .\UDNTest\obj /s /q
+
+rmdir .\BSLib.DataViz.Model\bin /s /q
+rmdir .\BSLib.DataViz.Model\obj /s /q
+
+rmdir .\BSLib.DataViz.WFControls\bin /s /q
+rmdir .\BSLib.DataViz.WFControls\obj /s /q

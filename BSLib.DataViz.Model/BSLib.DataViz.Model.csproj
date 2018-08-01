@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
-    <ProjectGuid>{D28680CF-06BA-4B0A-A9F0-FB45EB9CE92A}</ProjectGuid>
+    <ProjectGuid>{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>BSLib.Linguistics</RootNamespace>
-    <AssemblyName>BSLib.Linguistics</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <RootNamespace>BSLib.DataViz.Model</RootNamespace>
+    <AssemblyName>BSLib.DataViz.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,14 +36,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Morpher.cs" />
-    <Compile Include="BaseMorpher.cs" />
+    <Compile Include="TreeMap\MapItem.cs" />
+    <Compile Include="TreeMap\MapRect.cs" />
+    <Compile Include="TreeMap\TreemapModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BSLib\BSLib.net35.csproj">
-      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
-      <Name>BSLib</Name>
-    </ProjectReference>
+    <Folder Include="TreeMap" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

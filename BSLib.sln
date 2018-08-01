@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Tests", "BSLib.Tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Linguistics", "BSLib.Linguistics\BSLib.Linguistics.csproj", "{D28680CF-06BA-4B0A-A9F0-FB45EB9CE92A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.DataViz.Model", "BSLib.DataViz.Model\BSLib.DataViz.Model.csproj", "{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.DataViz.WFControls", "BSLib.DataViz.WFControls\BSLib.DataViz.WFControls.csproj", "{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,5 +50,13 @@ Global
 		{D28680CF-06BA-4B0A-A9F0-FB45EB9CE92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D28680CF-06BA-4B0A-A9F0-FB45EB9CE92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D28680CF-06BA-4B0A-A9F0-FB45EB9CE92A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -32,5 +32,11 @@
 /UDNTest/bin/
 /UDNTest/obj/
 
+/BSLib.DataViz.Model/bin/
+/BSLib.DataViz.Model/obj/
+
+/BSLib.DataViz.WFControls/bin/
+/BSLib.DataViz.WFControls/obj/
+
 /temp/
 /gource-bslib.cmd
