@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="DropDownControl.cs" />
     <Compile Include="EnumGroup.cs" />
+    <Compile Include="OptionsPicker.cs" />
     <Compile Include="RadioGroup.cs" />
     <Compile Include="Validation\NumericFieldValidator.cs" />
     <Compile Include="Validation\RequiredFieldValidator.cs" />
