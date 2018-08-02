@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 using BSLib.DataViz.TreeMap;
 
@@ -54,18 +55,41 @@ namespace BSLib.DataViz.TreeMap
             }
         }
 
+        private Bitmap fBackBuffer;
         private readonly TreemapModel fModel;
         private readonly ToolTip fToolTip;
         private string fHint;
+
+        private Color fLowerHighlight = Color.Red;
+        private Color fUpperHighlight = Color.Yellow;
+
+        private Pen fBorderPen;
+        private Pen fLowerPen;
+        private Pen fUpperPen;
+
+        private MapItem fLowerHoveredItem;
+        private MapItem fUpperHoveredItem;
+
+        private bool fMouseoverHighlight;
+
 
         public TreemapModel Model
         {
             get { return fModel; }
         }
 
+        public bool MouseoverHighlight
+        {
+            get { return fMouseoverHighlight; }
+            set { fMouseoverHighlight = value; }
+        }
+
+
         public TreeMapViewer()
         {
-            DoubleBuffered = true;
+            base.DoubleBuffered = true;
+            base.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            base.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
             int w = 1200;
             int h = 800;
@@ -77,11 +101,18 @@ namespace BSLib.DataViz.TreeMap
             fToolTip.InitialDelay = 250;
             fToolTip.ReshowDelay = 50;
             fToolTip.ShowAlways = true;
+
+            fBorderPen = new Pen(Color.Black);
+            fLowerPen = new Pen(fLowerHighlight);
+            fUpperPen = new Pen(fUpperHighlight, 2);
+
+            fBackBuffer = null;
         }
 
         public void UpdateView()
         {
             fModel.CalcLayout(new MapRect(0, 0, Width, Height));
+            fBackBuffer = null;
             Invalidate();
         }
 
@@ -90,7 +121,8 @@ namespace BSLib.DataViz.TreeMap
             base.OnMouseMove(e);
 
             string hint = "";
-            MapItem item = fModel.FindByCoord(e.X, e.Y);
+            MapItem upperItem = null;
+            MapItem item = fModel.FindByCoord(e.X, e.Y, out upperItem);
             if (item != null) {
                 hint = item.Name;
             }
@@ -98,6 +130,12 @@ namespace BSLib.DataViz.TreeMap
             if (fHint != hint) {
                 fHint = hint;
                 fToolTip.Show(hint, this, e.X, e.Y, 3000);
+            }
+
+            if (fMouseoverHighlight && (fUpperHoveredItem != upperItem || fLowerHoveredItem != item)) {
+                fUpperHoveredItem = upperItem;
+                fLowerHoveredItem = item;
+                Invalidate();
             }
         }
 
@@ -112,31 +150,61 @@ namespace BSLib.DataViz.TreeMap
         {
             base.OnPaint(e);
 
-            using (var borderPen = new Pen(Color.Black)) {
-                DrawItems(e.Graphics, fModel.GetItems(), borderPen);
+            Graphics gfx = e.Graphics;
+
+            if (fBackBuffer == null) {
+                fBackBuffer = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
+
+                using (var backGfx = Graphics.FromImage(fBackBuffer)) {
+                    var items = fModel.GetItems();
+                    if (items.Count > 0) {
+                        DrawItems(backGfx, items);
+                    } else {
+                        backGfx.FillRectangle(new SolidBrush(Color.Silver), 0, 0, Width, Height);
+                    }
+                }
+            }
+
+            gfx.DrawImage(fBackBuffer, 0, 0);
+
+            if (fMouseoverHighlight) {
+                if (fUpperHoveredItem != null) {
+                    var rect = fUpperHoveredItem.Bounds;
+                    gfx.DrawRectangle(fUpperPen, rect.X, rect.Y, rect.W, rect.H);
+                }
+
+                if (fLowerHoveredItem != null) {
+                    var rect = fLowerHoveredItem.Bounds;
+                    gfx.DrawRectangle(fLowerPen, rect.X, rect.Y, rect.W, rect.H);
+                }
             }
         }
 
-        private void DrawItems(Graphics gfx, List<MapItem> items, Pen borderPen)
+        private void DrawItems(Graphics gfx, List<MapItem> items)
         {
-            foreach (MapItem item in items) {
-                DrawItem(gfx, item, borderPen);
+            int num = items.Count;
+            for (int i = 0; i < num; i++) {
+                MapItem item = items[i];
+                DrawItem(gfx, item, fBorderPen);
 
                 if (!item.IsLeaf()) {
-                    DrawItems(gfx, item.Items, borderPen);
+                    DrawItems(gfx, item.Items);
                 }
             }
         }
 
         protected virtual void DrawItem(Graphics gfx, MapItem item, Pen borderPen)
         {
-            MapRect rect = item.Bounds;
-
-            if (item.IsLeaf()) {
-                gfx.FillRectangle(new SolidBrush(((SimpleItem)item).Color), (int)rect.X, (int)rect.Y, (int)rect.W, (int)rect.H);
+            var rect = item.Bounds;
+            if (rect.W < 2 || rect.H < 2) {
+                return;
             }
 
-            gfx.DrawRectangle(borderPen, (int)rect.X, (int)rect.Y, (int)rect.W, (int)rect.H);
+            if (item.IsLeaf()) {
+                gfx.FillRectangle(new SolidBrush(((SimpleItem)item).Color), rect.X, rect.Y, rect.W, rect.H);
+            }
+
+            gfx.DrawRectangle(borderPen, rect.X, rect.Y, rect.W, rect.H);
         }
     }
 }

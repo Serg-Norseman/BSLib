@@ -109,15 +109,19 @@ namespace BSLib.DataViz.TreeMap
                 fCalcSize = fSize;
             } else {
                 double tempSum = 0;
-                foreach (MapItem item in fItems) {
+
+                int num = fItems.Count;
+                for (int i = 0; i < num; i++) {
+                    MapItem item = fItems[i];
                     item.CalculateSize();
                     tempSum += item.fCalcSize;
                 }
+
                 fCalcSize = tempSum;
             }
         }
 
-        public void SetBounds(double x, double y, double w, double h)
+        public void SetBounds(float x, float y, float w, float h)
         {
             fBounds.SetRect(x, y, w, h);
         }
@@ -134,16 +138,17 @@ namespace BSLib.DataViz.TreeMap
 
         public MapItem FindByCoord(int x, int y)
         {
-            bool res = Contains(x, y);
-            if (!res) {
+            if (!fBounds.Contains(x, y)) {
                 return null;
             }
 
-            if (fItems.Count <= 0) {
+            int num = fItems.Count;
+            if (num <= 0) {
                 return this;
             }
 
-            foreach (MapItem item in fItems) {
+            for (int i = 0; i < num; i++) {
+                MapItem item = fItems[i];
                 MapItem found = item.FindByCoord(x, y);
                 if (found != null) {
                     return found;

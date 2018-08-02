@@ -24,24 +24,26 @@ namespace BSLib.DataViz.TreeMap
 {
     public sealed class MapRect
     {
-        public double X, Y, W, H;
+        public float X, Y, W, H;
 
         public MapRect()
             : this(0, 0, 0, 0)
         {
         }
 
-        public MapRect(double x, double y, double w, double h)
+        public MapRect(float x, float y, float w, float h)
         {
             SetRect(x, y, w, h);
         }
 
-        public double GetAspectRatio()
+        public float GetAspectRatio()
         {
-            return Math.Max(W / H, H / W);
+            float wh = W / H;
+            float hw = H / W;
+            return (wh > hw) ? wh : hw;
         }
 
-        public void SetRect(double x, double y, double w, double h)
+        public void SetRect(float x, float y, float w, float h)
         {
             X = x;
             Y = y;

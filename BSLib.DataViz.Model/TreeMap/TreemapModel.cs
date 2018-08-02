@@ -78,9 +78,28 @@ namespace BSLib.DataViz.TreeMap
 
         public MapItem FindByCoord(int x, int y)
         {
-            foreach (MapItem item in fItems) {
+            int num = fItems.Count;
+            for (int i = 0; i < num; i++) {
+                MapItem item = fItems[i];
                 MapItem found = item.FindByCoord(x, y);
                 if (found != null) {
+                    return found;
+                }
+            }
+
+            return null;
+        }
+
+        public MapItem FindByCoord(int x, int y, out MapItem upperItem)
+        {
+            upperItem = null;
+
+            int num = fItems.Count;
+            for (int i = 0; i < num; i++) {
+                MapItem item = fItems[i];
+                MapItem found = item.FindByCoord(x, y);
+                if (found != null) {
+                    upperItem = item;
                     return found;
                 }
             }
@@ -95,7 +114,9 @@ namespace BSLib.DataViz.TreeMap
         public void CalcLayout(MapRect bounds)
         {
             // calculate all true sizes for treemap
-            foreach (MapItem item in fItems) {
+            int num = fItems.Count;
+            for (int i = 0; i < num; i++) {
+                MapItem item = fItems[i];
                 item.CalculateSize();
             }
 
@@ -105,27 +126,31 @@ namespace BSLib.DataViz.TreeMap
 
         public void CalcRecursiveLayout(List<MapItem> itemsList, MapRect bounds)
         {
-            if (itemsList == null || itemsList.Count <= 0) {
-                return;
-            }
+            if (itemsList == null) return;
+
+            int itemsNum = itemsList.Count;
+            if (itemsNum <= 0) return;
 
             // calculate sum for current level
             double sum = 0;
-            foreach (MapItem item in itemsList) {
+            for (int i = 0; i < itemsNum; i++) {
+                MapItem item = itemsList[i];
                 sum += item.GetCalcSize();
             }
 
             // calculate relative sizes for current level
             double totalArea = bounds.W * bounds.H;
-            foreach (MapItem item in itemsList) {
+            for (int i = 0; i < itemsNum; i++) {
+                MapItem item = itemsList[i];
                 item.Ratio = (totalArea / sum * item.GetCalcSize());
             }
 
             itemsList.Sort(ItemsCompare);
 
-            CalcLayout(itemsList, 0, itemsList.Count - 1, bounds);
+            CalcLayout(itemsList, 0, itemsNum - 1, bounds);
 
-            foreach (MapItem item in itemsList) {
+            for (int i = 0; i < itemsNum; i++) {
+                MapItem item = itemsList[i];
                 if (!item.IsLeaf()) {
                     CalcRecursiveLayout(item.Items, item.Bounds);
                 }
@@ -165,7 +190,10 @@ namespace BSLib.DataViz.TreeMap
 
             double max = double.MinValue;
             for (int i = start; i <= end; i++) {
-                max = Math.Max(max, items[i].Bounds.GetAspectRatio());
+                double aspectRatio = items[i].Bounds.GetAspectRatio();
+                if (max < aspectRatio) {
+                    max = aspectRatio;
+                }
             }
             return max;
         }
@@ -175,18 +203,17 @@ namespace BSLib.DataViz.TreeMap
             bool isHorizontal = bounds.W > bounds.H;
             double total = bounds.W * bounds.H;
 
-            // GetTotalSize(Ratio)
-            double rowSize = 0;
+            double rowTotalRatio = 0;
             for (int i = start; i <= end; i++) {
-                rowSize += items[i].Ratio;
+                rowTotalRatio += items[i].Ratio;
             }
 
-            double rowRatio = rowSize / total;
-            double offset = 0;
+            float rowRatio = (float)(rowTotalRatio / total);
+            float offset = 0;
 
             for (int i = start; i <= end; i++) {
                 MapRect r = new MapRect();
-                double ratio = items[i].Ratio / rowSize;
+                float ratio = (float)(items[i].Ratio / rowTotalRatio);
 
                 if (isHorizontal) {
                     r.X = bounds.X;
