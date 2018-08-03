@@ -17,6 +17,7 @@
  */
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -91,6 +92,20 @@ namespace BSLib
                 detectEncoding = true;
 
             return new StreamReader(src, encodingSource, detectEncoding);
+        }
+
+        public static string FileSizeToStr(long fileSize)
+        {
+            string[] sizes = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+
+            double len = fileSize;
+            int order = 0;
+            while (len >= 1024 && order < sizes.Length - 1) {
+                order++;
+                len = len / 1024;
+            }
+
+            return string.Format(CultureInfo.InvariantCulture.NumberFormat, "{0:0.##} {1}", len, sizes[order]);
         }
     }
 }
