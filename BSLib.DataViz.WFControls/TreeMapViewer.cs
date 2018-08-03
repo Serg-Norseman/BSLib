@@ -27,6 +27,19 @@ using BSLib.DataViz.TreeMap;
 
 namespace BSLib.DataViz.TreeMap
 {
+    public class HintRequestEventArgs : EventArgs
+    {
+        public MapItem MapItem { get; private set; }
+        public string Hint { get; set; }
+
+        public HintRequestEventArgs(MapItem mapItem)
+        {
+            MapItem = mapItem;
+        }
+    }
+
+    public delegate void HintRequestEventHandler(object sender, HintRequestEventArgs args);
+
     public sealed class SimpleItem : MapItem
     {
         public Color Color;
@@ -84,6 +97,8 @@ namespace BSLib.DataViz.TreeMap
             set { fMouseoverHighlight = value; }
         }
 
+        public event HintRequestEventHandler OnHintRequest;
+
 
         public TreeMapViewer()
         {
@@ -116,6 +131,16 @@ namespace BSLib.DataViz.TreeMap
             Invalidate();
         }
 
+        private string HintRequest(MapItem mapItem)
+        {
+            var onHintRequest = OnHintRequest;
+            if (onHintRequest == null) return mapItem.Name;
+
+            HintRequestEventArgs args = new HintRequestEventArgs(mapItem);
+            onHintRequest(this, args);
+            return args.Hint;
+        }
+
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -124,7 +149,7 @@ namespace BSLib.DataViz.TreeMap
             MapItem upperItem = null;
             MapItem item = fModel.FindByCoord(e.X, e.Y, out upperItem);
             if (item != null) {
-                hint = item.Name;
+                hint = HintRequest(item);
             }
 
             if (fHint != hint) {
