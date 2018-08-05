@@ -44,8 +44,8 @@ namespace BSLib.DataViz.TreeMap
     {
         public Color Color;
 
-        public SimpleItem(string name, double size)
-            : base(name, size)
+        public SimpleItem(MapItem parent, string name, double size)
+            : base(parent, name, size)
         {
         }
     }
@@ -62,16 +62,19 @@ namespace BSLib.DataViz.TreeMap
             {
             }
 
-            public override MapItem newItem(string name, double size)
+            public override MapItem newItem(MapItem parent, string name, double size)
             {
-                return new SimpleItem(name, size);
+                return new SimpleItem(parent, name, size);
             }
         }
 
         private Bitmap fBackBuffer;
-        private readonly TreemapModel fModel;
-        private readonly ToolTip fToolTip;
+        private MapItem fCurrentItem;
         private string fHint;
+        private readonly TreemapModel fModel;
+        private MapItem fRootItem;
+        private readonly ToolTip fToolTip;
+        private MapItem fUpperItem;
 
         private Color fLowerHighlight = Color.Red;
         private Color fUpperHighlight = Color.Yellow;
@@ -86,6 +89,11 @@ namespace BSLib.DataViz.TreeMap
         private bool fMouseoverHighlight;
 
 
+        public MapItem CurrentItem
+        {
+            get { return fCurrentItem; }
+        }
+
         public TreemapModel Model
         {
             get { return fModel; }
@@ -95,6 +103,22 @@ namespace BSLib.DataViz.TreeMap
         {
             get { return fMouseoverHighlight; }
             set { fMouseoverHighlight = value; }
+        }
+
+        public MapItem RootItem
+        {
+            get { return fRootItem; }
+            set {
+                if (fRootItem != value) {
+                    fRootItem = value;
+                    UpdateView();
+                }
+            }
+        }
+
+        public MapItem UpperItem
+        {
+            get { return fUpperItem; }
         }
 
         public event HintRequestEventHandler OnHintRequest;
@@ -124,9 +148,16 @@ namespace BSLib.DataViz.TreeMap
             fBackBuffer = null;
         }
 
+        private List<MapItem> GetRootList()
+        {
+            return (fRootItem == null) ? fModel.GetItems() : fRootItem.Items;
+        }
+
         public void UpdateView()
         {
-            fModel.CalcLayout(new MapRect(0, 0, Width, Height));
+            List<MapItem> itemsList = GetRootList();
+            fModel.CalcLayout(itemsList, new MapRect(0, 0, Width, Height));
+
             fBackBuffer = null;
             Invalidate();
         }
@@ -145,11 +176,13 @@ namespace BSLib.DataViz.TreeMap
         {
             base.OnMouseMove(e);
 
+            List<MapItem> itemsList = GetRootList();
+
             string hint = "";
-            MapItem upperItem = null;
-            MapItem item = fModel.FindByCoord(e.X, e.Y, out upperItem);
-            if (item != null) {
-                hint = HintRequest(item);
+            fUpperItem = null;
+            fCurrentItem = fModel.FindByCoord(itemsList, e.X, e.Y, out fUpperItem);
+            if (fCurrentItem != null) {
+                hint = HintRequest(fCurrentItem);
             }
 
             if (fHint != hint) {
@@ -157,9 +190,9 @@ namespace BSLib.DataViz.TreeMap
                 fToolTip.Show(hint, this, e.X, e.Y, 3000);
             }
 
-            if (fMouseoverHighlight && (fUpperHoveredItem != upperItem || fLowerHoveredItem != item)) {
-                fUpperHoveredItem = upperItem;
-                fLowerHoveredItem = item;
+            if (fMouseoverHighlight && (fUpperHoveredItem != fUpperItem || fLowerHoveredItem != fCurrentItem)) {
+                fUpperHoveredItem = fUpperItem;
+                fLowerHoveredItem = fCurrentItem;
                 Invalidate();
             }
         }
@@ -181,9 +214,9 @@ namespace BSLib.DataViz.TreeMap
                 fBackBuffer = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
 
                 using (var backGfx = Graphics.FromImage(fBackBuffer)) {
-                    var items = fModel.GetItems();
-                    if (items.Count > 0) {
-                        DrawItems(backGfx, items);
+                    List<MapItem> itemsList = GetRootList();
+                    if (itemsList.Count > 0) {
+                        DrawItems(backGfx, itemsList);
                     } else {
                         backGfx.FillRectangle(new SolidBrush(Color.Silver), 0, 0, Width, Height);
                     }

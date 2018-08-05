@@ -33,6 +33,7 @@ namespace BSLib.DataViz.TreeMap
         private readonly List<MapItem> fItems;
         private string fName;
         private int fOrder = 0;
+        private MapItem fParent;
         private double fRatio;
         private double fSize;
 
@@ -58,6 +59,11 @@ namespace BSLib.DataViz.TreeMap
         {
             get { return fOrder; }
             set { fOrder = value; }
+        }
+
+        public MapItem Parent
+        {
+            get { return fParent; }
         }
 
         public double Ratio
@@ -89,10 +95,11 @@ namespace BSLib.DataViz.TreeMap
             fBounds = new MapRect();
         }
 
-        public MapItem(string name, double size)
+        public MapItem(MapItem parent, string name, double size)
         {
             fItems = new List<MapItem>();
             fName = name;
+            fParent = parent;
             fSize = size;
             fBounds = new MapRect();
             fCalcSize = 0;

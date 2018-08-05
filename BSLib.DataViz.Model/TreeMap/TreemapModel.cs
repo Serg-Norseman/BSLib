@@ -54,11 +54,11 @@ namespace BSLib.DataViz.TreeMap
             fItems.Clear();
         }
 
-        public abstract MapItem newItem(string name, double size);
+        public abstract MapItem newItem(MapItem parent, string name, double size);
 
         public MapItem CreateItem(MapItem parent, string name, double size)
         {
-            MapItem result = newItem(name, size);
+            MapItem result = newItem(parent, name, size);
             if (parent == null) {
                 fItems.Add(result);
             } else {
@@ -92,11 +92,16 @@ namespace BSLib.DataViz.TreeMap
 
         public MapItem FindByCoord(int x, int y, out MapItem upperItem)
         {
+            return FindByCoord(fItems, x, y, out upperItem);
+        }
+
+        public MapItem FindByCoord(List<MapItem> itemsList, int x, int y, out MapItem upperItem)
+        {
             upperItem = null;
 
-            int num = fItems.Count;
+            int num = itemsList.Count;
             for (int i = 0; i < num; i++) {
-                MapItem item = fItems[i];
+                MapItem item = itemsList[i];
                 MapItem found = item.FindByCoord(x, y);
                 if (found != null) {
                     upperItem = item;
@@ -113,15 +118,24 @@ namespace BSLib.DataViz.TreeMap
         /// <param name="bounds">The bounding rectangle for the layout.</param>
         public void CalcLayout(MapRect bounds)
         {
+            CalcLayout(fItems, bounds);
+        }
+
+        /// <summary>
+        /// Arrange the items in the given MapModel to fill the given rectangle.
+        /// </summary>
+        /// <param name="bounds">The bounding rectangle for the layout.</param>
+        public void CalcLayout(List<MapItem> itemsList, MapRect bounds)
+        {
             // calculate all true sizes for treemap
-            int num = fItems.Count;
+            int num = itemsList.Count;
             for (int i = 0; i < num; i++) {
-                MapItem item = fItems[i];
+                MapItem item = itemsList[i];
                 item.CalculateSize();
             }
 
             // calculate bounds of item for all levels
-            CalcRecursiveLayout(fItems, bounds);
+            CalcRecursiveLayout(itemsList, bounds);
         }
 
         public void CalcRecursiveLayout(List<MapItem> itemsList, MapRect bounds)
