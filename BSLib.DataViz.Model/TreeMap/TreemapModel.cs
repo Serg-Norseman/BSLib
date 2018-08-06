@@ -226,7 +226,7 @@ namespace BSLib.DataViz.TreeMap
             float offset = 0;
 
             for (int i = start; i <= end; i++) {
-                MapRect r = new MapRect();
+                MapRect r = new MapRect(0, 0, 0, 0);
                 float ratio = (float)(items[i].Ratio / rowTotalRatio);
 
                 if (isHorizontal) {

@@ -22,18 +22,16 @@ using System;
 
 namespace BSLib.DataViz.TreeMap
 {
-    public sealed class MapRect
+    public struct MapRect
     {
         public float X, Y, W, H;
 
-        public MapRect()
-            : this(0, 0, 0, 0)
-        {
-        }
-
         public MapRect(float x, float y, float w, float h)
         {
-            SetRect(x, y, w, h);
+            X = x;
+            Y = y;
+            W = w;
+            H = h;
         }
 
         public float GetAspectRatio()

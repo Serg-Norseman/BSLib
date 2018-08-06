@@ -174,8 +174,6 @@ namespace BSLib.DataViz.TreeMap
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            base.OnMouseMove(e);
-
             List<MapItem> itemsList = GetRootList();
 
             string hint = "";
@@ -195,6 +193,8 @@ namespace BSLib.DataViz.TreeMap
                 fLowerHoveredItem = fCurrentItem;
                 Invalidate();
             }
+
+            base.OnMouseMove(e);
         }
 
         protected override void OnResize(EventArgs e)

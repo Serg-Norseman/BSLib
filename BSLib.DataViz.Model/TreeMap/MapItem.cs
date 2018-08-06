@@ -92,7 +92,7 @@ namespace BSLib.DataViz.TreeMap
         {
             fSize = size;
             fOrder = order;
-            fBounds = new MapRect();
+            fBounds = new MapRect(0, 0, 0, 0);
         }
 
         public MapItem(MapItem parent, string name, double size)
@@ -101,7 +101,7 @@ namespace BSLib.DataViz.TreeMap
             fName = name;
             fParent = parent;
             fSize = size;
-            fBounds = new MapRect();
+            fBounds = new MapRect(0, 0, 0, 0);
             fCalcSize = 0;
         }
 
