@@ -155,11 +155,16 @@ namespace BSLib.DataViz.TreeMap
 
         public void UpdateView()
         {
-            List<MapItem> itemsList = GetRootList();
-            fModel.CalcLayout(itemsList, new MapRect(0, 0, Width, Height));
+            try {
+                if (Width != 0 && Height != 0) {
+                    List<MapItem> itemsList = GetRootList();
+                    fModel.CalcLayout(itemsList, new MapRect(0, 0, Width, Height));
 
-            fBackBuffer = null;
-            Invalidate();
+                    fBackBuffer = null;
+                    Invalidate();
+                }
+            } catch {
+            }
         }
 
         private string HintRequest(MapItem mapItem)
