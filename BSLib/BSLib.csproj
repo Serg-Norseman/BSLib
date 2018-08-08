@@ -92,6 +92,7 @@
     <Compile Include="ProbabilityTable.cs" />
     <Compile Include="RandomHelper.cs" />
     <Compile Include="Range.cs" />
+    <Compile Include="ReflectionHelper.cs" />
     <Compile Include="SortHelper.cs" />
     <Compile Include="StringList.cs" />
     <Compile Include="StringTokenizer.cs" />

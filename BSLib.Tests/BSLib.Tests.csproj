@@ -83,6 +83,7 @@
     <Compile Include="MathHelperTests.cs" />
     <Compile Include="RandomHelperTests.cs" />
     <Compile Include="RangesTests.cs" />
+    <Compile Include="ReflectionHelperTests.cs" />
     <Compile Include="SmartGraphTests.cs" />
     <Compile Include="SortHelperTests.cs" />
     <Compile Include="StringListTests.cs" />
