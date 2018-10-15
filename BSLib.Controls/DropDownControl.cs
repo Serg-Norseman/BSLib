@@ -46,18 +46,49 @@ namespace BSLib.Controls
         private Size fStoredSize;
         private string fText;
 
-        public event EventHandler PropertyChanged;
-
         protected DropDownState DropState
         {
             get { return fDropState; }
         }
 
+        public Size AnchorSize
+        {
+            get { return fAnchorSize; }
+            set {
+                fAnchorSize = value;
+                Invalidate();
+            }
+        }
+
+        public Rectangle AnchorClientBounds
+        {
+            get { return fAnchorClientBounds; }
+        }
+
+        [DefaultValue(false)]
+        protected bool DesignView
+        {
+            get { return fDesignView; }
+            set {
+                if (fDesignView == value) return;
+
+                fDesignView = value;
+                if (fDesignView) {
+                    Size = fStoredSize;
+                } else {
+                    fStoredSize = Size;
+                    Size = fAnchorSize;
+                }
+
+            }
+        }
+
+        public event EventHandler PropertyChanged;
+
         public new string Text
         {
             get { return fText; }
-            set
-            {
+            set {
                 fText = value;
                 Invalidate();
             }
@@ -76,8 +107,7 @@ namespace BSLib.Controls
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -101,47 +131,10 @@ namespace BSLib.Controls
             fDropDownItem = dropDownItem;
         }
 
-        public Size AnchorSize
-        {
-            get { return fAnchorSize; }
-            set
-            {
-                fAnchorSize = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue(false)]
-        protected bool DesignView
-        {
-            get { return fDesignView; }
-            set
-            {
-                if (fDesignView == value) return;
-
-                fDesignView = value;
-                if (fDesignView)
-                {
-                    Size = fStoredSize;
-                }
-                else
-                {
-                    fStoredSize = Size;
-                    Size = fAnchorSize;
-                }
-
-            }
-        }
-
         protected void OnPropertyChanged()
         {
             if (PropertyChanged != null)
                 PropertyChanged(null, null);
-        }
-
-        public Rectangle AnchorClientBounds
-        {
-            get { return fAnchorClientBounds; }
         }
 
         protected override void OnResize(EventArgs e)
@@ -173,8 +166,7 @@ namespace BSLib.Controls
 
         protected virtual bool CanDrop
         {
-            get
-            {
+            get {
                 if (fDropContainer != null) {
                     return false;
                 } else {

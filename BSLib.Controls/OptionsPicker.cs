@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -25,8 +26,8 @@ namespace BSLib.Controls
 {
     public class OptionsPicker : DropDownControl
     {
-        private System.ComponentModel.IContainer components;
         private CheckedListBox fCheckedListBox;
+        private IContainer fComponents;
 
         public event EventHandler OptionsChanged;
 
@@ -46,15 +47,6 @@ namespace BSLib.Controls
             }
         }
 
-        private void RecreateItems(string[] items)
-        {
-            int num = items.Length;
-            fCheckedListBox.Items.AddRange(items);
-            for (int i = 0; i < num; i++) {
-                fCheckedListBox.SetItemChecked(i, false);
-            }
-        }
-
         public OptionsPicker()
         {
             InitializeComponent();
@@ -63,16 +55,15 @@ namespace BSLib.Controls
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
+            if (disposing && (fComponents != null)) {
+                fComponents.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            fComponents = new Container();
             SuspendLayout();
 
             fCheckedListBox = new CheckedListBox();
@@ -82,7 +73,8 @@ namespace BSLib.Controls
             fCheckedListBox.Size = new Size(243, 181);
             fCheckedListBox.TabIndex = 0;
             fCheckedListBox.CheckOnClick = true;
-            fCheckedListBox.SelectedValueChanged += listView1_SelectedValue;
+            fCheckedListBox.IntegralHeight = false;
+            fCheckedListBox.SelectedValueChanged += CheckedListBox_SelectedValueChanged;
 
             AnchorSize = new Size(244, 21);
             AutoScaleDimensions = new SizeF(8F, 16F);
@@ -94,7 +86,7 @@ namespace BSLib.Controls
             ResumeLayout(false);
         }
 
-        private void listView1_SelectedValue(object sender, EventArgs e)
+        private void CheckedListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             if (DropState == DropDownState.Dropping || DropState == DropDownState.Closing) return;
 
@@ -113,6 +105,15 @@ namespace BSLib.Controls
 
             if (OptionsChanged != null)
                 OptionsChanged(null, null);
+        }
+
+        private void RecreateItems(string[] items)
+        {
+            int num = items.Length;
+            fCheckedListBox.Items.AddRange(items);
+            for (int i = 0; i < num; i++) {
+                fCheckedListBox.SetItemChecked(i, false);
+            }
         }
 
         protected override void OnResize(EventArgs e)
