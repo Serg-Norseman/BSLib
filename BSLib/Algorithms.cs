@@ -88,5 +88,17 @@ namespace BSLib
             value1 = value2;
             value2 = temp;
         }
+
+        // Returns: value if flag is true, 0 otherwise
+        public static int Optional(bool flag, int value)
+        {
+            return -Convert.ToInt32(flag) & value;
+        }
+
+        // Returns: v1 if flag is true, v2 otherwise
+        public static int IfElse(bool flag, int v1, int v2)
+        {
+            return (-Convert.ToInt32(flag) & v1) | ((Convert.ToInt32(flag) - 1) & v2);
+        }
     }
 }
