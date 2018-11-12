@@ -164,7 +164,7 @@ namespace BSLib.SmartGraph
         {
             using (Graph graph = new Graph())
             {
-                ArborViewer.createSample(graph);
+                ArborSystem.CreateSample(graph);
 
                 Vertex vertex = graph.FindVertex("1");
                 graph.FindPathTree(vertex);

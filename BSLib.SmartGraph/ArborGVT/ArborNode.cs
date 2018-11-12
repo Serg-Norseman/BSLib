@@ -7,10 +7,6 @@
  *  Fork and C# implementation, copyright (c) 2012,2016 by Serg V. Zhdanovskih.
  */
 
-#if !NETSTANDARD1_6
-using System.Drawing;
-#endif
-
 using BSLib.Extensions;
 using BSLib.SmartGraph;
 
@@ -27,11 +23,6 @@ namespace BSLib.ArborGVT
         public double Mass;
         public ArborPoint Pt;
 
-        #if !NETSTANDARD1_6
-        public Color Color;
-        public RectangleF Box;
-        #endif
-
         internal ArborPoint V;
         internal ArborPoint F;
 
@@ -43,12 +34,8 @@ namespace BSLib.ArborGVT
             Mass = 1;
             Pt = ArborPoint.Null;
 
-            #if !NETSTANDARD1_6
-            Color = Color.Gray;
-            #endif
-
-            V = new ArborPoint(0, 0);
-            F = new ArborPoint(0, 0);
+            V = ArborPoint.Zero;
+            F = ArborPoint.Zero;
         }
 
         internal void applyForce(ArborPoint a)

@@ -27,7 +27,7 @@ namespace BSLib.ArborGVT
             Size = size;
             Q = new object[4] { null, null, null, null };
             Mass = 0.0;
-            Pt = new ArborPoint(0.0, 0.0);
+            Pt = ArborPoint.Zero;
         }
     }
 
@@ -45,6 +45,7 @@ namespace BSLib.ArborGVT
         public BarnesHutTree(ArborPoint origin, ArborPoint h, double dist)
         {
             fDist = dist;
+            //fDist = dist * dist;
             fRoot = new Branch(origin, h.sub(origin));
         }
 
@@ -174,10 +175,12 @@ namespace BSLib.ArborGVT
 
                         k = m.Pt.sub(ptx);
                         kMag = k.magnitude();
+                        //kMag = k.magnitudeSquare();
 
                         l = Math.Max(1, kMag);
                         i = ((kMag > 0) ? k : ArborPoint.newRnd(1)).normalize();
                         m.applyForce(i.mul(repulsion * massx).div(l * l));
+                        //m.applyForce(i.mul(repulsion * massx).div(l));
                     }
                     else
                     {
@@ -187,8 +190,10 @@ namespace BSLib.ArborGVT
 
                         k = m.Pt.sub(ptx);
                         kMag = k.magnitude();
+                        //kMag = k.magnitudeSquare();
 
                         double h = Math.Sqrt(branch.Size.X * branch.Size.Y);
+                        //double h = branch.Size.X * branch.Size.Y;
                         if (h / kMag > fDist)
                         {
                             f.Enqueue(branch.Q[QNe]);
@@ -201,6 +206,7 @@ namespace BSLib.ArborGVT
                             l = Math.Max(1, kMag);
                             i = ((kMag > 0) ? k : ArborPoint.newRnd(1)).normalize();
                             m.applyForce(i.mul(repulsion * massx).div(l * l));
+                            //m.applyForce(i.mul(repulsion * massx).div(l));
                         }
                     }
                 }

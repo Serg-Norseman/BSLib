@@ -14,6 +14,7 @@ namespace BSLib.ArborGVT
     public struct ArborPoint
     {
         public static readonly ArborPoint Null = new ArborPoint(double.NaN, double.NaN);
+        public static readonly ArborPoint Zero = new ArborPoint(0.0f, 0.0f);
 
         public double X;
         public double Y;

@@ -27,3 +27,10 @@ rmdir .\BSLib.DataViz.Model\obj /s /q
 
 rmdir .\BSLib.DataViz.WFControls\bin /s /q
 rmdir .\BSLib.DataViz.WFControls\obj /s /q
+
+rmdir .\BSLib.ArborX.DemoWF\bin /s /q
+rmdir .\BSLib.ArborX.DemoWF\obj /s /q
+rmdir .\BSLib.ArborX.DemoWF\ProfilingSessions /s /q
+
+rmdir .\BSLib.ArborX.DemoUWP\bin /s /q
+rmdir .\BSLib.ArborX.DemoUWP\obj /s /q

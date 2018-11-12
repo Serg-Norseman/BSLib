@@ -11,8 +11,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Timers;
-
 using BSLib.SmartGraph;
 
 namespace BSLib.ArborGVT
@@ -29,10 +27,8 @@ namespace BSLib.ArborGVT
         }
     }
 
-    public sealed class ArborSystem : IDisposable
+    public abstract class ArborSystem : BaseObject
     {
-        private static readonly int DEBUG_PROFILER_LIMIT = 0;//2000;
-
         private static readonly Random _random = new Random();
 
         private readonly int[] margins = new int[4] { 20, 20, 20, 20 };
@@ -40,11 +36,9 @@ namespace BSLib.ArborGVT
 
         private bool fAutoStop;
         private bool fBusy;
-        private bool fDisposed;
         private readonly List<ArborEdge> fEdges;
         private Graph fGraph;
         private PSBounds fGraphBounds;
-        private int fIterationsCounter;
         private readonly Hashtable fNames;
         private readonly List<ArborNode> fNodes;
         private EventHandler fOnStart;
@@ -54,7 +48,6 @@ namespace BSLib.ArborGVT
         private int fScreenHeight;
         private int fScreenWidth;
         private double fStopThreshold;
-        private Timer fTimer;
         private PSBounds fViewBounds;
 
         public double EnergySum = 0;
@@ -158,23 +151,25 @@ namespace BSLib.ArborGVT
             fNodes = new List<ArborNode>();
             fEdges = new List<ArborEdge>();
             fRenderer = renderer;
-            fPrevTime = DateTime.FromBinary(0);
             fStopThreshold = /*0.05*/ 0.7;
-            fTimer = null;
 
             ParamRepulsion = repulsion;
             ParamStiffness = stiffness;
             ParamFriction = friction;
         }
 
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            if (!fDisposed)
+            if (disposing)
             {
                 stop();
-                fDisposed = true;
             }
+            base.Dispose(disposing);
         }
+
+        protected abstract void StartTimer();
+
+        protected abstract void StopTimer();
 
         private void syncGraph()
         {
@@ -183,7 +178,7 @@ namespace BSLib.ArborGVT
 
             foreach (Vertex vertex in fGraph.Vertices)
             {
-                ArborNode node = new ArborNode(vertex.Sign);
+                ArborNode node = CreateNode(vertex.Sign);
                 vertex.Extensions.Add(node);
 
                 resetCoords(node);
@@ -195,7 +190,7 @@ namespace BSLib.ArborGVT
                 ArborNode anSrc = edge.Source.Extensions.Find<ArborNode>();
                 ArborNode anTgt = edge.Target.Extensions.Find<ArborNode>();
 
-                ArborEdge arbEdge = new ArborEdge(anSrc, anTgt, 1, ParamStiffness);
+                ArborEdge arbEdge = CreateEdge(anSrc, anTgt, 1, ParamStiffness);
                 edge.Extensions.Add(arbEdge);
                 fEdges.Add(arbEdge);
             }
@@ -212,31 +207,26 @@ namespace BSLib.ArborGVT
 
             if (fOnStart != null) fOnStart(this, new EventArgs());
 
-            if (fTimer != null)
-            {
-                return;
-            }
             fPrevTime = DateTime.FromBinary(0);
 
-            fIterationsCounter = 0;
-
-            fTimer = new System.Timers.Timer();
-            fTimer.AutoReset = true;
-            fTimer.Interval = ParamTimeout;
-            fTimer.Elapsed += tickTimer;
-            fTimer.Start();
+            StartTimer();
         }
 
         public void stop()
         {
-            if (fTimer != null)
-            {
-                fTimer.Stop();
-                fTimer.Dispose();
-                fTimer = null;
-            }
+            StopTimer();
 
             if (fOnStop != null) fOnStop(this, new EventArgs());
+        }
+
+        protected virtual ArborNode CreateNode(string sign)
+        {
+            return new ArborNode(sign);
+        }
+
+        protected virtual ArborEdge CreateEdge(ArborNode src, ArborNode tgt, double len, double stiffness, bool directed = false)
+        {
+            return new ArborEdge(src, tgt, len, stiffness, directed);
         }
 
         public ArborNode addNode(string sign, double x, double y)
@@ -244,7 +234,7 @@ namespace BSLib.ArborGVT
             ArborNode node = getNode(sign);
             if (node != null) return node;
 
-            node = new ArborNode(sign);
+            node = CreateNode(sign);
             node.Pt = new ArborPoint(x, y);
 
             fNames.Add(sign, node);
@@ -301,7 +291,7 @@ namespace BSLib.ArborGVT
 
             if (x == null)
             {
-                x = new ArborEdge(src, tgt, len, ParamStiffness);
+                x = CreateEdge(src, tgt, len, ParamStiffness);
                 fEdges.Add(x);
             }
 
@@ -342,8 +332,9 @@ namespace BSLib.ArborGVT
             ArborNode resNode = null;
             double minDist = +1.0;
 
-            foreach (ArborNode node in fNodes)
+            for (int i = 0, nodesCount = fNodes.Count; i < nodesCount; i++)
             {
+                ArborNode node = fNodes[i];
                 ArborPoint z = node.Pt;
                 if (z.exploded())
                 {
@@ -358,7 +349,6 @@ namespace BSLib.ArborGVT
                 }
             }
 
-            //minDist = toScreen(resNode.Pt).sub(toScreen(x)).magnitude();
             return resNode;
         }
 
@@ -367,8 +357,9 @@ namespace BSLib.ArborGVT
             ArborPoint lt = new ArborPoint(-1, -1);
             ArborPoint rb = new ArborPoint(1, 1);
 
-            foreach (ArborNode node in fNodes)
+            for (int i = 0, nodesCount = fNodes.Count; i < nodesCount; i++)
             {
+                ArborNode node = fNodes[i];
                 ArborPoint pt = node.Pt;
                 if (pt.exploded()) continue;
 
@@ -382,7 +373,7 @@ namespace BSLib.ArborGVT
             lt.Y -= 1.2;
             rb.X += 1.2;
             rb.Y += 1.2;
-            
+
             ArborPoint sz = rb.sub(lt);
             ArborPoint cent = lt.add(sz.div(2));
             ArborPoint d = new ArborPoint(Math.Max(sz.X, 4.0), Math.Max(sz.Y, 4.0)).div(2);
@@ -422,20 +413,8 @@ namespace BSLib.ArborGVT
             }
         }
 
-        private void tickTimer(object sender, ElapsedEventArgs e)
+        protected void TickTimer()
         {
-            if (DEBUG_PROFILER_LIMIT > 0)
-            {
-                if (fIterationsCounter >= DEBUG_PROFILER_LIMIT)
-                {
-                    return;
-                }
-                else
-                {
-                    fIterationsCounter++;
-                }
-            }
-
             if (fBusy) return;
             fBusy = true;
             try
@@ -480,10 +459,11 @@ namespace BSLib.ArborGVT
             try
             {
                 // tend particles
-                foreach (ArborNode p in fNodes)
+                for (int i = 0, nodesCount = fNodes.Count; i < nodesCount; i++)
                 {
-                    p.V.X = 0;
-                    p.V.Y = 0;
+                    ArborPoint pV = fNodes[i].V;
+                    pV.X = 0;
+                    pV.Y = 0;
                 }
 
                 if (ParamStiffness > 0)
@@ -509,21 +489,26 @@ namespace BSLib.ArborGVT
         {
             BarnesHutTree bht = new BarnesHutTree(fGraphBounds.LeftTop, fGraphBounds.RightBottom, ParamTheta);
 
-            foreach (ArborNode node in fNodes)
+            int nodesCount = fNodes.Count;
+            for (int i = 0; i < nodesCount; i++)
             {
+                ArborNode node = fNodes[i];
                 bht.insert(node);
             }
 
-            foreach (ArborNode node in fNodes)
+            for (int i = 0; i < nodesCount; i++)
             {
+                ArborNode node = fNodes[i];
                 bht.applyForces(node, ParamRepulsion);
             }
         }
 
         private void applySprings()
         {
-            foreach (ArborEdge edge in fEdges)
+            for (int i = 0, edgesCount = fEdges.Count; i < edgesCount; i++)
             {
+                ArborEdge edge = fEdges[i];
+
                 ArborPoint s = edge.Target.Pt.sub(edge.Source.Pt);
                 double sMag = s.magnitude();
 
@@ -550,16 +535,19 @@ namespace BSLib.ArborGVT
             double eMax = 0;
 
             // calc center drift
-            ArborPoint rr = new ArborPoint(0, 0);
-            foreach (ArborNode node in fNodes)
+            ArborPoint rr = ArborPoint.Zero;
+            for (int i = 0; i < size; i++)
             {
+                ArborNode node = fNodes[i];
                 rr = rr.sub(node.Pt);
             }
             ArborPoint drift = rr.div(size);
 
             // main updates loop
-            foreach (ArborNode node in fNodes)
+            for (int i = 0; i < size; i++)
             {
+                ArborNode node = fNodes[i];
+
                 // apply center drift
                 node.applyForce(drift);
 
@@ -573,7 +561,7 @@ namespace BSLib.ArborGVT
                 // update velocities
                 if (node.Fixed)
                 {
-                    node.V = new ArborPoint(0, 0);
+                    node.V = ArborPoint.Zero;
                 }
                 else
                 {
@@ -606,6 +594,51 @@ namespace BSLib.ArborGVT
         internal static double getRndDouble()
         {
             return _random.NextDouble();
+        }
+
+        public static void CreateSample(Graph graph)
+        {
+            graph.BeginUpdate();
+
+            graph.AddVertex("1")/*.Mass = 50*/;
+
+            graph.AddDirectedEdge("1", "4"/*, 10*/);
+            graph.AddDirectedEdge("1", "12"/*, 10*/);
+            graph.AddDirectedEdge("4", "21");
+            graph.AddDirectedEdge("4", "23"/*, 20*/);
+            graph.AddDirectedEdge("7", "34");
+            graph.AddDirectedEdge("7", "13");
+            graph.AddDirectedEdge("7", "44");
+            graph.AddDirectedEdge("12", "25");
+            graph.AddDirectedEdge("12", "24");
+            graph.AddDirectedEdge("23", "50");
+            graph.AddDirectedEdge("23", "53");
+            graph.AddDirectedEdge("24", "6");
+            graph.AddDirectedEdge("24", "42"/*, 20*/);
+            graph.AddDirectedEdge("25", "94");
+            graph.AddDirectedEdge("25", "66");
+            graph.AddDirectedEdge("32", "47");
+            graph.AddDirectedEdge("32", "84");
+            graph.AddDirectedEdge("42", "32");
+            graph.AddDirectedEdge("42", "7");
+            graph.AddDirectedEdge("50", "72");
+            graph.AddDirectedEdge("50", "65");
+            graph.AddDirectedEdge("53", "67");
+            graph.AddDirectedEdge("53", "68");
+            graph.AddDirectedEdge("66", "79");
+            graph.AddDirectedEdge("66", "80");
+            graph.AddDirectedEdge("67", "88");
+            graph.AddDirectedEdge("67", "83");
+            graph.AddDirectedEdge("68", "77");
+            graph.AddDirectedEdge("68", "91");
+            graph.AddDirectedEdge("80", "99");
+            graph.AddDirectedEdge("80", "97");
+            graph.AddDirectedEdge("88", "110");
+            graph.AddDirectedEdge("88", "104");
+            graph.AddDirectedEdge("91", "106");
+            graph.AddDirectedEdge("91", "100");
+
+            graph.EndUpdate();
         }
     }
 }

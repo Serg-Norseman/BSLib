@@ -56,15 +56,8 @@
     <Compile Include="ArborGVT\ArborNode.cs" />
     <Compile Include="ArborGVT\ArborPoint.cs" />
     <Compile Include="ArborGVT\ArborSystem.cs" />
-    <Compile Include="ArborGVT\ArborViewer.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ArborGVT\BarnesHutTree.cs" />
     <Compile Include="ArborGVT\IArborRenderer.cs" />
-    <Compile Include="Extensions\ExtensionCollection.cs" />
-    <Compile Include="Extensions\IExtensibleObject.cs" />
-    <Compile Include="Extensions\IExtension.cs" />
-    <Compile Include="Extensions\IExtensionCollection.cs" />
     <Compile Include="SmartGraph\Edge.cs" />
     <Compile Include="SmartGraph\Graph.cs" />
     <Compile Include="SmartGraph\GraphObject.cs" />
@@ -74,8 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSLib\BSLib.csproj">

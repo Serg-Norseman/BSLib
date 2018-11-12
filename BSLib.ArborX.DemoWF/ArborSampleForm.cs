@@ -3,7 +3,7 @@
 using System.Windows.Forms;
 using BSLib.ArborGVT;
 
-namespace ArborSample
+namespace BSLib.ArborX.DemoWF
 {
     public partial class ArborSampleForm : Form
     {
@@ -20,13 +20,13 @@ namespace ArborSample
             arborViewer1.EnergyDebug = true;
             arborViewer1.NodesDragging = true;
 
-            ArborViewer.createSample(arborViewer1.Sys.Graph);
-            arborViewer1.start();
+            ArborSystem.CreateSample(arborViewer1.Sys.Graph);
+            arborViewer1.Start();
         }
 
         private void ArborViewer1MouseMove(object sender, MouseEventArgs e)
         {
-            ArborNode resNode = arborViewer1.getNodeByCoord(e.X, e.Y);
+            ArborNode resNode = arborViewer1.GetNodeByCoords(e.X, e.Y);
 
             if (resNode == null) {
                 if (fTipShow) {

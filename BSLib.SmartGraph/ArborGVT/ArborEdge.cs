@@ -23,17 +23,12 @@ namespace BSLib.ArborGVT
         public double Stiffness;
         public bool Directed;
 
-        public ArborEdge(ArborNode src, ArborNode tgt, double len, double stiffness)
+        public ArborEdge(ArborNode src, ArborNode tgt, double len, double stiffness, bool directed = false)
         {
             Source = src;
             Target = tgt;
             Length = len;
             Stiffness = stiffness;
-        }
-
-        public ArborEdge(ArborNode src, ArborNode tgt, double len, double stiffness, bool directed)
-            : this(src, tgt, len, stiffness)
-        {
             Directed = directed;
         }
 

@@ -69,6 +69,10 @@
     <Compile Include="EnumHelper.cs" />
     <Compile Include="EnumSet.cs" />
     <Compile Include="ExpCalculator.cs" />
+    <Compile Include="Extensions\ExtensionCollection.cs" />
+    <Compile Include="Extensions\IExtensibleObject.cs" />
+    <Compile Include="Extensions\IExtension.cs" />
+    <Compile Include="Extensions\IExtensionCollection.cs" />
     <Compile Include="ExtList.cs" />
     <Compile Include="ExtMargins.cs" />
     <Compile Include="ExtPoint.cs" />
@@ -102,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Calendar" />
+    <Folder Include="Extensions" />
     <Folder Include="IniFiles" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

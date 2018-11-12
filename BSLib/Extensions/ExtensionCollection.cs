@@ -1,14 +1,34 @@
-﻿using System;
+﻿/*
+ *  "BSLib".
+ *  Copyright (C) 2009-2018 by Sergey V. Zhdanovskih.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Collections.ObjectModel;
 
 namespace BSLib.Extensions
 {
-    public sealed class ExtensionCollection<T, X> : IExtensionCollection<T, X> where T : IExtensibleObject<T> where X : IExtension<T>
+    public sealed class ExtensionCollection<T, X> : IExtensionCollection<T, X>
+        where T : class, IExtensibleObject<T>
+        where X : class, IExtension<T>
     {
         private T fOwner;
         private X[] fItems;
         private int fSize;
-        private object fSyncRoot;
+        private readonly object fSyncRoot;
 
         public ExtensionCollection(T owner)
         {
@@ -24,8 +44,7 @@ namespace BSLib.Extensions
         public int Count
         {
             get {
-                lock (fSyncRoot)
-                {
+                lock (fSyncRoot) {
                     return fSize;
                 }
             }
@@ -36,14 +55,11 @@ namespace BSLib.Extensions
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            lock (fSyncRoot)
-            {
+            lock (fSyncRoot) {
                 int newSize = fSize + 1;
-                if (newSize > fItems.Length)
-                {
+                if (newSize > fItems.Length) {
                     X[] array = new X[newSize];
-                    if (fSize > 0)
-                    {
+                    if (fSize > 0) {
                         Array.Copy(fItems, 0, array, 0, fSize);
                     }
                     fItems = array;
@@ -57,17 +73,14 @@ namespace BSLib.Extensions
 
         public bool Remove(X item)
         {
-            lock (fSyncRoot)
-            {
+            lock (fSyncRoot) {
                 int index = IndexOf(item);
-                if (index < 0)
-                    return false;
+                if (index < 0) return false;
 
                 fItems[index].Detach(fOwner);
 
                 fSize--;
-                if (index < fSize)
-                {
+                if (index < fSize) {
                     Array.Copy(fItems, index + 1, fItems, index, fSize - index);
                 }
                 fItems[fSize] = default(X);
@@ -78,10 +91,8 @@ namespace BSLib.Extensions
 
         private int IndexOf(X item)
         {
-            for (int i = 0; i < fSize; i++)
-            {
-                if (Equals(fItems[i], item))
-                {
+            for (int i = 0; i < fSize; i++) {
+                if (Equals(fItems[i], item)) {
                     return i;
                 }
             }
@@ -90,20 +101,16 @@ namespace BSLib.Extensions
 
         public bool Contains(X item)
         {
-            lock (fSyncRoot)
-            {
+            lock (fSyncRoot) {
                 return (IndexOf(item) >= 0);
             }
         }
 
         public void Clear()
         {
-            lock (fSyncRoot)
-            {
-                if (fSize > 0)
-                {
-                    for (int i = 0; i < fSize; i++)
-                    {
+            lock (fSyncRoot) {
+                if (fSize > 0) {
+                    for (int i = 0; i < fSize; i++) {
                         fItems[i].Detach(fOwner);
                     }
 
@@ -116,13 +123,10 @@ namespace BSLib.Extensions
 
         public E Find<E>()
         {
-            lock (fSyncRoot)
-            {
-                for (int i = 0; i < fSize; i++)
-                {
+            lock (fSyncRoot) {
+                for (int i = 0; i < fSize; i++) {
                     IExtension<T> item = fItems[i];
-                    if (item is E)
-                        return (E)item;
+                    if (item is E) return (E)item;
                 }
             }
 
@@ -131,15 +135,12 @@ namespace BSLib.Extensions
 
         public Collection<E> FindAll<E>()
         {
-            Collection<E> result = new Collection<E>();
+            var result = new Collection<E>();
 
-            lock (fSyncRoot)
-            {
-                for (int i = 0; i < fSize; i++)
-                {
+            lock (fSyncRoot) {
+                for (int i = 0; i < fSize; i++) {
                     IExtension<T> item = fItems[i];
-                    if (item is E)
-                        result.Add((E)item);
+                    if (item is E) result.Add((E)item);
                 }
             }
 
