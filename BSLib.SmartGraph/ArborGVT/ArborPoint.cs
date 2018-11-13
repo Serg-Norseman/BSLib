@@ -25,54 +25,54 @@ namespace BSLib.ArborGVT
             Y = y;
         }
 
-        public bool isNull()
+        public bool IsNull()
         {
             return (double.IsNaN(X) && double.IsNaN(Y));
         }
 
-        public static ArborPoint newRnd(double a = 5)
+        public static ArborPoint NewRandom(double a = 5.0f)
         {
-            return new ArborPoint(2 * a * (ArborSystem.getRndDouble() - 0.5), 2 * a * (ArborSystem.getRndDouble() - 0.5));
+            return new ArborPoint(2.0f * a * (ArborSystem.GetRndDouble() - 0.5f), 2.0f * a * (ArborSystem.GetRndDouble() - 0.5f));
         }
 
-        public bool exploded()
+        public bool IsExploded()
         {
             return (double.IsNaN(X) || double.IsNaN(Y));
         }
 
-        public ArborPoint add(ArborPoint a)
+        public ArborPoint Add(ArborPoint a)
         {
             return new ArborPoint(X + a.X, Y + a.Y);
         }
 
-        public ArborPoint sub(ArborPoint a)
+        public ArborPoint Sub(ArborPoint a)
         {
             return new ArborPoint(X - a.X, Y - a.Y);
         }
 
-        public ArborPoint mul(double a)
+        public ArborPoint Mul(double a)
         {
             return new ArborPoint(X * a, Y * a);
         }
 
-        public ArborPoint div(double a)
+        public ArborPoint Div(double a)
         {
             return new ArborPoint(X / a, Y / a);
         }
 
-        public double magnitude()
+        public double Magnitude()
         {
             return Math.Sqrt(X * X + Y * Y);
         }
 
-        public double magnitudeSquare()
+        public double MagnitudeSquare()
         {
             return X * X + Y * Y;
         }
 
-        public ArborPoint normalize()
+        public ArborPoint Normalize()
         {
-            return div(magnitude());
+            return Div(Magnitude());
         }
     }
 }

@@ -7,6 +7,7 @@
  *  Fork and C# implementation, copyright (c) 2012,2016 by Serg V. Zhdanovskih.
  */
 
+using System;
 using BSLib.Extensions;
 using BSLib.SmartGraph;
 
@@ -23,11 +24,17 @@ namespace BSLib.ArborGVT
         public double Stiffness;
         public bool Directed;
 
-        public ArborEdge(ArborNode src, ArborNode tgt, double len, double stiffness, bool directed = false)
+        public ArborEdge(ArborNode source, ArborNode target, double length, double stiffness, bool directed = false)
         {
-            Source = src;
-            Target = tgt;
-            Length = len;
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (target == null)
+                throw new ArgumentNullException("target");
+
+            Source = source;
+            Target = target;
+            Length = length;
             Stiffness = stiffness;
             Directed = directed;
         }

@@ -65,6 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArborGVT\ArborEdgeTests.cs" />
+    <Compile Include="ArborGVT\ArborNodeTests.cs" />
+    <Compile Include="ArborGVT\ArborPointTests.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BitHelperTests.cs" />
     <Compile Include="CalendarTests.cs" />
@@ -102,6 +105,9 @@
       <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
       <Name>BSLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ArborGVT" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

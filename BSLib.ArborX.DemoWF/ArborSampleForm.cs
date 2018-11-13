@@ -20,13 +20,13 @@ namespace BSLib.ArborX.DemoWF
             arborViewer1.EnergyDebug = true;
             arborViewer1.NodesDragging = true;
 
-            ArborSystem.CreateSample(arborViewer1.Sys.Graph);
-            arborViewer1.Start();
+            ArborSystem.CreateSample(arborViewer1.System.Graph);
+            arborViewer1.System.Start();
         }
 
         private void ArborViewer1MouseMove(object sender, MouseEventArgs e)
         {
-            ArborNode resNode = arborViewer1.GetNodeByCoords(e.X, e.Y);
+            ArborNode resNode = arborViewer1.System.GetNearestNode(e.X, e.Y);
 
             if (resNode == null) {
                 if (fTipShow) {

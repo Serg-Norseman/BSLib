@@ -15,7 +15,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Timers;
 using System.Windows.Forms;
-
 using BSLib.ArborGVT;
 using BSLib.SmartGraph;
 
@@ -51,7 +50,7 @@ namespace BSLib.ArborX.DemoWF
         {
             fTimer = new System.Timers.Timer();
             fTimer.AutoReset = true;
-            fTimer.Interval = ParamTimeout;
+            fTimer.Interval = TimerInterval;
             fTimer.Elapsed += TimerElapsed;
             fTimer.Start();
         }
@@ -70,9 +69,10 @@ namespace BSLib.ArborX.DemoWF
             return new ArborNodeEx(sign);
         }
 
-        protected override ArborEdge CreateEdge(ArborNode src, ArborNode tgt, double len, double stiffness, bool directed = false)
+        protected override ArborEdge CreateEdge(ArborNode source, ArborNode target, double length, double stiffness,
+                                                bool directed = false)
         {
-            return new ArborEdge(src, tgt, len, stiffness, directed);
+            return new ArborEdge(source, target, length, stiffness, directed);
         }
     }
 
@@ -80,13 +80,12 @@ namespace BSLib.ArborX.DemoWF
     {
         private ArborNode fDragged;
         private bool fEnergyDebug;
-        private Graph fGraph;
         private bool fNodesDragging;
 
         private readonly Font fDrawFont;
         private readonly Pen fLinePen;
         private readonly StringFormat fStrFormat;
-        private readonly ArborSystem fSys;
+        private readonly ArborSystem fSystem;
         private readonly SolidBrush fBlackBrush;
         private readonly SolidBrush fWhiteBrush;
 
@@ -102,9 +101,9 @@ namespace BSLib.ArborX.DemoWF
             set { fNodesDragging = value; }
         }
 
-        public ArborSystem Sys
+        public ArborSystem System
         {
-            get { return fSys; }
+            get { return fSystem; }
         }
 
         public ArborViewer()
@@ -116,13 +115,11 @@ namespace BSLib.ArborX.DemoWF
             base.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             base.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-            fGraph = new Graph();
-
             // repulsion - отталкивание, stiffness - тугоподвижность, friction - сила трения
-            fSys = new ArborSystemEx(10000.0f, 500.0f/*1000.0f*/, 0.1f, this);
-            fSys.setScreenSize(Width, Height);
-            fSys.AutoStop = true;
-            fSys.Graph = fGraph;
+            fSystem = new ArborSystemEx(10000.0f, 500.0f /*1000.0f*/, 0.1f, this);
+            fSystem.SetViewSize(Width, Height);
+            fSystem.AutoStop = true;
+            fSystem.Graph = new Graph();
 
             fDragged = null;
             fEnergyDebug = false;
@@ -145,7 +142,7 @@ namespace BSLib.ArborX.DemoWF
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                fSys.Dispose();
+                fSystem.Dispose();
                 fDrawFont.Dispose();
                 fLinePen.Dispose();
                 fWhiteBrush.Dispose();
@@ -159,7 +156,7 @@ namespace BSLib.ArborX.DemoWF
         {
             base.OnResize(e);
 
-            fSys.setScreenSize(Width, Height);
+            fSystem.SetViewSize(Width, Height);
             Invalidate();
         }
 
@@ -169,34 +166,33 @@ namespace BSLib.ArborX.DemoWF
                 Graphics gfx = e.Graphics;
                 gfx.SmoothingMode = SmoothingMode.AntiAlias;
 
-                for (int i = 0, edgesCount = fSys.Edges.Count; i < edgesCount; i++) {
-                    ArborEdge edge = fSys.Edges[i];
+                for (int i = 0, edgesCount = fSystem.Edges.Count; i < edgesCount; i++) {
+                    ArborEdge edge = fSystem.Edges[i];
 
-                    var srcNode = edge.Source as ArborNodeEx;
-                    var tgtNode = edge.Target as ArborNodeEx;
+                    var sourceNode = (ArborNodeEx)edge.Source;
+                    var targetNode = (ArborNodeEx)edge.Target;
 
-                    ArborPoint pt1 = fSys.toScreen(srcNode.Pt);
-                    ArborPoint pt2 = fSys.toScreen(tgtNode.Pt);
+                    ArborPoint pt1 = fSystem.GetViewCoords(sourceNode.Pt);
+                    ArborPoint pt2 = fSystem.GetViewCoords(targetNode.Pt);
 
-                    ArborPoint tail = IntersectLineBox(pt1, pt2, srcNode.Box);
-                    ArborPoint head = (tail.isNull()) ? ArborPoint.Null : IntersectLineBox(tail, pt2, tgtNode.Box);
+                    ArborPoint tail = IntersectLineBox(pt1, pt2, sourceNode.Box);
+                    ArborPoint head = (tail.IsNull()) ? ArborPoint.Null : IntersectLineBox(tail, pt2, targetNode.Box);
 
-                    if (!head.isNull() && !tail.isNull()) {
+                    if (!head.IsNull() && !tail.IsNull()) {
                         gfx.DrawLine(fLinePen, (int)tail.X, (int)tail.Y, (int)head.X, (int)head.Y);
                     }
                 }
 
-                for (int i = 0, nodesCount = fSys.Nodes.Count; i < nodesCount; i++) {
-                    ArborNode node = fSys.Nodes[i];
-                    var xnode = node as ArborNodeEx;
+                for (int i = 0, nodesCount = fSystem.Nodes.Count; i < nodesCount; i++) {
+                    ArborNodeEx node = (ArborNodeEx)fSystem.Nodes[i];
 
-                    xnode.Box = GetNodeRect(gfx, node);
-                    gfx.FillRectangle(new SolidBrush(xnode.Color), xnode.Box);
-                    gfx.DrawString(node.Sign, fDrawFont, fWhiteBrush, xnode.Box, fStrFormat);
+                    node.Box = GetNodeRect(gfx, node);
+                    gfx.FillRectangle(new SolidBrush(node.Color), node.Box);
+                    gfx.DrawString(node.Sign, fDrawFont, fWhiteBrush, node.Box, fStrFormat);
                 }
 
                 if (fEnergyDebug) {
-                    string energy = "max=" + fSys.EnergyMax.ToString("0.00000") + ", mean=" + fSys.EnergyMean.ToString("0.00000");
+                    string energy = "max=" + fSystem.EnergyMax.ToString("0.00000") + ", mean=" + fSystem.EnergyMean.ToString("0.00000");
                     gfx.DrawString(energy, fDrawFont, fBlackBrush, 10, 10);
                 }
             } catch (Exception ex) {
@@ -207,12 +203,12 @@ namespace BSLib.ArborX.DemoWF
         public static ArborPoint IntersectLineLine(ArborPoint p1, ArborPoint p2, ArborPoint p3, ArborPoint p4)
         {
             double denom = ((p4.Y - p3.Y) * (p2.X - p1.X) - (p4.X - p3.X) * (p2.Y - p1.Y));
-            if (denom == 0f) return ArborPoint.Null; // lines are parallel
+            if (denom == 0.0f) return ArborPoint.Null; // lines are parallel
 
             double ua = ((p4.X - p3.X) * (p1.Y - p3.Y) - (p4.Y - p3.Y) * (p1.X - p3.X)) / denom;
             double ub = ((p2.X - p1.X) * (p1.Y - p3.Y) - (p2.Y - p1.Y) * (p1.X - p3.X)) / denom;
 
-            if (ua < 0f || ua > 1f || ub < 0f || ub > 1f) return ArborPoint.Null;
+            if (ua < 0.0f || ua > 1.0f || ub < 0.0f || ub > 1.0f) return ArborPoint.Null;
 
             return new ArborPoint(p1.X + ua * (p2.X - p1.X), p1.Y + ua * (p2.Y - p1.Y));
         }
@@ -232,23 +228,18 @@ namespace BSLib.ArborX.DemoWF
             ArborPoint pt;
 
             pt = IntersectLineLine(p1, p2, tl, tr);
-            if (!pt.isNull()) return pt;
+            if (!pt.IsNull()) return pt;
 
             pt = IntersectLineLine(p1, p2, tr, br);
-            if (!pt.isNull()) return pt;
+            if (!pt.IsNull()) return pt;
 
             pt = IntersectLineLine(p1, p2, br, bl);
-            if (!pt.isNull()) return pt;
+            if (!pt.IsNull()) return pt;
 
             pt = IntersectLineLine(p1, p2, bl, tl);
-            if (!pt.isNull()) return pt;
+            if (!pt.IsNull()) return pt;
 
             return ArborPoint.Null;
-        }
-
-        public void Start()
-        {
-            fSys.start();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -257,7 +248,7 @@ namespace BSLib.ArborX.DemoWF
             if (!Focused) base.Focus();
 
             if (fNodesDragging) {
-                fDragged = GetNodeByCoords(e.X, e.Y);
+                fDragged = fSystem.GetNearestNode(e.X, e.Y);
 
                 if (fDragged != null) {
                     fDragged.Fixed = true;
@@ -271,7 +262,6 @@ namespace BSLib.ArborX.DemoWF
 
             if (fNodesDragging && fDragged != null) {
                 fDragged.Fixed = false;
-                //fDragged.Mass = 1000;
                 fDragged = null;
             }
         }
@@ -281,32 +271,18 @@ namespace BSLib.ArborX.DemoWF
             base.OnMouseMove(e);
 
             if (fNodesDragging && fDragged != null) {
-                fDragged.Pt = fSys.fromScreen(e.X, e.Y);
+                fDragged.Pt = fSystem.GetModelCoords(e.X, e.Y);
             }
         }
 
         public RectangleF GetNodeRect(Graphics gfx, ArborNode node)
         {
             SizeF tsz = gfx.MeasureString(node.Sign, fDrawFont);
-            float w = tsz.Width + 10;
-            float h = tsz.Height + 4;
-            ArborPoint pt = fSys.toScreen(node.Pt);
-            pt.X = Math.Floor(pt.X);
-            pt.Y = Math.Floor(pt.Y);
+            float w = tsz.Width + 10.0f;
+            float h = tsz.Height + 4.0f;
+            ArborPoint pt = fSystem.GetViewCoords(node.Pt);
 
-            return new RectangleF((float)pt.X - w / 2, (float)pt.Y - h / 2, w, h);
-        }
-
-        public ArborNode GetNodeByCoords(int x, int y)
-        {
-            return fSys.getNearest(x, y);
-
-            /*foreach (ArborNode node in fSys.Nodes) {
-                if (node.Box.Contains(x, y)) {
-                    return node;
-                }
-            }
-            return null;*/
+            return new RectangleF((float)pt.X - w / 2.0f, (float)pt.Y - h / 2.0f, w, h);
         }
     }
 }

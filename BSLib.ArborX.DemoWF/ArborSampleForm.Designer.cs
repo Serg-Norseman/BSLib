@@ -32,14 +32,15 @@
             this.arborViewer1.TabStop = true;
             this.arborViewer1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ArborViewer1MouseMove);
             // 
-            // SampleForm
+            // ArborSampleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(894, 587);
             this.Controls.Add(this.arborViewer1);
             this.KeyPreview = true;
-            this.Name = "SampleForm";
+            this.Name = "ArborSampleForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SampleForm";
             this.ResumeLayout(false);
         }

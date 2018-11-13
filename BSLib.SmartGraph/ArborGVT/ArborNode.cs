@@ -31,16 +31,16 @@ namespace BSLib.ArborGVT
             Sign = sign;
 
             Fixed = false;
-            Mass = 1;
+            Mass = 1.0f;
             Pt = ArborPoint.Null;
 
             V = ArborPoint.Zero;
             F = ArborPoint.Zero;
         }
 
-        internal void applyForce(ArborPoint a)
+        internal void ApplyForce(ArborPoint a)
         {
-            F = F.add(a.div(Mass));
+            F = F.Add(a.Div(Mass));
         }
 
         public void Attach(GraphObject owner)
