@@ -135,6 +135,7 @@ namespace BSLib.ArborX.DemoUWP
             fStrFormat.HorizontalAlignment = CanvasHorizontalAlignment.Center;
             fStrFormat.VerticalAlignment = CanvasVerticalAlignment.Center;
             fStrFormat.FontSize = 9;
+            fStrFormat.WordWrapping = CanvasWordWrapping.NoWrap;
 
             fBlackBrush = new SolidColorBrush(Colors.Black);
             fWhiteBrush = new SolidColorBrush(Colors.White);
@@ -174,7 +175,7 @@ namespace BSLib.ArborX.DemoUWP
         {
             try {
                 var gfx = args.DrawingSession;
-                //gfx.SmoothingMode = SmoothingMode.AntiAlias;
+                gfx.Antialiasing = CanvasAntialiasing.Antialiased;
 
                 for (int i = 0, edgesCount = fSystem.Edges.Count; i < edgesCount; i++) {
                     ArborEdge edge = fSystem.Edges[i];

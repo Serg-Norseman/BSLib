@@ -98,7 +98,7 @@ namespace BSLib.ArborGVT
                             gst.Insert(0, h);
                         } else {
                             ArborPoint l = branch.Size.Div(2);
-                            ArborPoint n = new ArborPoint(branch.Origin.X, branch.Origin.Y);
+                            ArborPoint n = branch.Origin;
 
                             if (qd == QSe || qd == QSw) {
                                 n.Y += l.Y;
@@ -117,10 +117,10 @@ namespace BSLib.ArborGVT
                             branch = fp as Branch;
 
                             if (o.Pt.X == h.Pt.X && o.Pt.Y == h.Pt.Y) {
-                                double k = l.X * 0.08f;
-                                double i = l.Y * 0.08f;
-                                o.Pt.X = Math.Min(n.X + l.X, Math.Max(n.X, o.Pt.X - k / 2 + ArborSystem.GetRndDouble() * k));
-                                o.Pt.Y = Math.Min(n.Y + l.Y, Math.Max(n.Y, o.Pt.Y - i / 2 + ArborSystem.GetRndDouble() * i));
+                                double lX = l.X * 0.08f;
+                                double lY = l.Y * 0.08f;
+                                o.Pt.X = Math.Min(n.X + l.X, Math.Max(n.X, o.Pt.X - lX / 2 + ArborSystem.GetRndDouble() * lX));
+                                o.Pt.Y = Math.Min(n.Y + l.Y, Math.Max(n.Y, o.Pt.Y - lY / 2 + ArborSystem.GetRndDouble() * lY));
                             }
 
                             gst.Add(o);
@@ -147,7 +147,7 @@ namespace BSLib.ArborGVT
                     double l, kMag, massx;
 
                     if (obj is ArborNode) {
-                        ArborNode node = (obj as ArborNode);
+                        ArborNode node = (ArborNode)obj;
                         massx = node.Mass;
                         ptx = node.Pt;
 
@@ -160,7 +160,7 @@ namespace BSLib.ArborGVT
                         m.ApplyForce(i.Mul(repulsion * massx).Div(l * l));
                         //m.applyForce(i.mul(repulsion * massx).div(l));
                     } else {
-                        Branch branch = (obj as Branch);
+                        Branch branch = (Branch)obj;
                         massx = branch.Mass;
                         ptx = branch.Pt.Div(massx);
 

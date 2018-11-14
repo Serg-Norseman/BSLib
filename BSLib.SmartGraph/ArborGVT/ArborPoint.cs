@@ -11,7 +11,7 @@ using System;
 
 namespace BSLib.ArborGVT
 {
-    public struct ArborPoint
+    public struct ArborPoint : IEquatable<ArborPoint>
     {
         public static readonly ArborPoint Null = new ArborPoint(double.NaN, double.NaN);
         public static readonly ArborPoint Zero = new ArborPoint(0.0f, 0.0f);
@@ -23,6 +23,20 @@ namespace BSLib.ArborGVT
         {
             X = x;
             Y = y;
+        }
+
+        public bool Equals(ArborPoint other)
+        {
+            return other.X == X && other.Y == Y;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ArborPoint) {
+                ArborPoint other = (ArborPoint)obj;
+                return other.X == X && other.Y == Y;
+            }
+            return false;
         }
 
         public bool IsNull()

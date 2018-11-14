@@ -77,12 +77,12 @@ namespace BSLib.SmartGraph
 
         #region Properties
 
-        public IEnumerable<Vertex> Vertices
+        public IList<Vertex> Vertices
         {
             get { return fVerticesList; }
         }
 
-        public IEnumerable<Edge> Edges
+        public IList<Edge> Edges
         {
             get { return fEdgesList; }
         }
@@ -139,7 +139,8 @@ namespace BSLib.SmartGraph
 
         public void Clear()
         {
-            foreach (Vertex vertex in fVerticesList) {
+            for (int i = 0, verticesCount = fVerticesList.Count; i < verticesCount; i++) {
+                Vertex vertex = fVerticesList[i];
                 vertex.EdgeIn = null;
                 vertex.EdgesOut.Clear();
             }
@@ -303,10 +304,11 @@ namespace BSLib.SmartGraph
                 return;
 
             // reset path tree
-            foreach (Vertex node in fVerticesList) {
-                node.Dist = int.MaxValue;
-                node.Visited = false;
-                node.EdgeIn = null;
+            for (int i = 0, verticesCount = fVerticesList.Count; i < verticesCount; i++) {
+                Vertex vertex = fVerticesList[i];
+                vertex.Dist = int.MaxValue;
+                vertex.Visited = false;
+                vertex.EdgeIn = null;
             }
 
             // init root
@@ -324,7 +326,10 @@ namespace BSLib.SmartGraph
                 int nodeDist = topNode.Dist;
                 topNode.Visited = false;
 
-                foreach (Edge link in topNode.EdgesOut) {
+                var edgesOut = topNode.EdgesOut;
+                for (int i = 0, edgesOutCount = edgesOut.Count; i < edgesOutCount; i++) {
+                    Edge link = edgesOut[i];
+
                     Vertex target = link.Target;
                     int newDist = nodeDist + link.Cost;
 

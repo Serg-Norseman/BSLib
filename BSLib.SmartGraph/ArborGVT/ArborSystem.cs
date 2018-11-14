@@ -211,15 +211,21 @@ namespace BSLib.ArborGVT
             fEdges.Clear();
             fNodes.Clear();
 
-            foreach (Vertex vertex in fGraph.Vertices) {
-                ArborNode node = CreateNode(vertex.Sign);
-                vertex.Extensions.Add(node);
+            var vertices = fGraph.Vertices;
+            for (int i = 0, verticesCount = vertices.Count; i < verticesCount; i++) {
+                Vertex vertex = vertices[i];
 
-                ResetNodeCoords(node);
+                ArborNode node = CreateNode(vertex.Sign);
+                node.Pt = NewRandomPoint();
+
+                vertex.Extensions.Add(node);
                 fNodes.Add(node);
             }
 
-            foreach (Edge edge in fGraph.Edges) {
+            var edges = fGraph.Edges;
+            for (int i = 0, edgesCount = edges.Count; i < edgesCount; i++) {
+                Edge edge = edges[i];
+
                 ArborNode anSrc = edge.Source.Extensions.Find<ArborNode>();
                 ArborNode anTgt = edge.Target.Extensions.Find<ArborNode>();
 
@@ -266,13 +272,13 @@ namespace BSLib.ArborGVT
             return new ArborEdge(source, target, length, stiffness, directed);
         }
 
-        public ArborNode AddNode(string sign, double x, double y)
+        public ArborNode AddNode(string sign, ArborPoint pt)
         {
             ArborNode node = GetNode(sign);
             if (node != null) return node;
 
             node = CreateNode(sign);
-            node.Pt = new ArborPoint(x, y);
+            node.Pt = pt;
 
             fNames.Add(sign, node);
             fNodes.Add(node);
@@ -282,22 +288,18 @@ namespace BSLib.ArborGVT
 
         public ArborNode AddNode(string sign)
         {
-            ArborPoint lt = fGraphBounds.LeftTop;
-            ArborPoint rb = fGraphBounds.RightBottom;
-            double xx = lt.X + (rb.X - lt.X) * ArborSystem.GetRndDouble();
-            double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.GetRndDouble();
-
-            return AddNode(sign, xx, yy);
+            ArborPoint pt = NewRandomPoint();
+            return AddNode(sign, pt);
         }
 
-        private void ResetNodeCoords(ArborNode node)
+        private ArborPoint NewRandomPoint()
         {
             ArborPoint lt = fGraphBounds.LeftTop;
             ArborPoint rb = fGraphBounds.RightBottom;
-            double xx = lt.X + (rb.X - lt.X) * ArborSystem.GetRndDouble();
-            double yy = lt.Y + (rb.Y - lt.Y) * ArborSystem.GetRndDouble();
-
-            node.Pt = new ArborPoint(xx, yy);
+            ArborPoint dt = rb.Sub(lt);
+            double x = lt.X + (dt.X * ArborSystem.GetRndDouble());
+            double y = lt.Y + (dt.Y * ArborSystem.GetRndDouble());
+            return new ArborPoint(x, y);
         }
 
         public ArborNode GetNode(string sign)
@@ -315,7 +317,8 @@ namespace BSLib.ArborGVT
 
             ArborEdge result = null;
             if (src != null && tgt != null) {
-                foreach (ArborEdge edge in fEdges) {
+                for (int i = 0, edgesCount = fEdges.Count; i < edgesCount; i++) {
+                    ArborEdge edge = fEdges[i];
                     if (edge.Source == src && edge.Target == tgt) {
                         result = edge;
                         break;
@@ -343,9 +346,9 @@ namespace BSLib.ArborGVT
             if (fViewBounds == null) return ArborPoint.Null;
 
             ArborPoint vd = fViewBounds.RightBottom.Sub(fViewBounds.LeftTop);
-            double sx = Margins[3] + pt.Sub(fViewBounds.LeftTop).Div(vd.X).X * (fViewWidth - (Margins[1] + Margins[3]));
-            double sy = Margins[0] + pt.Sub(fViewBounds.LeftTop).Div(vd.Y).Y * (fViewHeight - (Margins[0] + Margins[2]));
-            return new ArborPoint(sx, sy);
+            double x = Margins[3] + pt.Sub(fViewBounds.LeftTop).Div(vd.X).X * (fViewWidth - (Margins[1] + Margins[3]));
+            double y = Margins[0] + pt.Sub(fViewBounds.LeftTop).Div(vd.Y).Y * (fViewHeight - (Margins[0] + Margins[2]));
+            return new ArborPoint(x, y);
         }
 
         public ArborPoint GetModelCoords(double viewX, double viewY)

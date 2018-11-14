@@ -21,7 +21,9 @@ namespace BSLib.ArborGVT
             Assert.AreEqual(null, node.Data);
             Assert.AreEqual(false, node.Fixed);
             Assert.AreEqual(1.0f, node.Mass);
-            Assert.AreEqual(ArborPoint.Null, node.Pt);
+
+            node.Pt = ArborPoint.Zero;
+            Assert.AreEqual(ArborPoint.Zero, node.Pt);
         }
     }
 }
