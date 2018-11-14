@@ -15,20 +15,20 @@ using BSLib.SmartGraph;
 
 namespace BSLib.ArborGVT
 {
-    internal class PSBounds
-    {
-        public ArborPoint LeftTop = ArborPoint.Null;
-        public ArborPoint RightBottom = ArborPoint.Null;
-
-        public PSBounds(ArborPoint leftTop, ArborPoint rightBottom)
-        {
-            LeftTop = leftTop;
-            RightBottom = rightBottom;
-        }
-    }
-
     public abstract class ArborSystem : BaseObject
     {
+        private class PSBounds
+        {
+            public ArborPoint LeftTop = ArborPoint.Null;
+            public ArborPoint RightBottom = ArborPoint.Null;
+
+            public PSBounds(ArborPoint leftTop, ArborPoint rightBottom)
+            {
+                LeftTop = leftTop;
+                RightBottom = rightBottom;
+            }
+        }
+
         private static readonly Random _random = new Random();
         private static readonly int[] Margins = new int[4] { 20, 20, 20, 20 };
 

@@ -204,9 +204,9 @@ namespace BSLib.Calendar
         private static int CompareVal(int l, int r)
         {
             int result = 0;
-            if (0 == (IgnoreYear & l))
+            if ((IgnoreYear & l) == 0)
             {
-                if (0 == (IgnoreYear & r))
+                if ((IgnoreYear & r) == 0)
                 {
                     result = Math.Sign(((int) (ValueMask & l)) - ((int) (ValueMask & r)));
                 }
@@ -215,13 +215,13 @@ namespace BSLib.Calendar
                     result = 1;
                 }
             }
-            else if (0 == (IgnoreYear & r))
+            else if ((IgnoreYear & r) == 0)
             {
                 result = -1;
             }
-            else if (0 == (IgnoreMonth & l))
+            else if ((IgnoreMonth & l) == 0)
             {
-                if (0 == (IgnoreMonth & r))
+                if ((IgnoreMonth & r) == 0)
                 {
                     result = Math.Sign(((int) (ValueMask & l)) - ((int) (ValueMask & r)));
                 }
@@ -230,13 +230,13 @@ namespace BSLib.Calendar
                     result = 1;
                 }
             }
-            else if (0 == (IgnoreMonth & r))
+            else if ((IgnoreMonth & r) == 0)
             {
                 result = -1;
             }
-            else if (0 == (IgnoreDay & l))
+            else if ((IgnoreDay & l) == 0)
             {
-                if (0 == (IgnoreDay & r))
+                if ((IgnoreDay & r) == 0)
                 {
                     result = Math.Sign(((int) (ValueMask & l)) - ((int) (ValueMask & r)));
                 }
@@ -245,11 +245,11 @@ namespace BSLib.Calendar
                     result = 1;
                 }
             }
-            else if (0 == (IgnoreDay & r))
+            else if ((IgnoreDay & r) == 0)
             {
                 result = -1;
             }
-            if (0 == result)
+            if (result == 0)
             {
                 /*
                  * Here we got equal JDNs-UDNs. Now we need to do an additional processing of `ApproximateDate`,
@@ -284,32 +284,32 @@ namespace BSLib.Calendar
                  * | A   | 1          | ~ A |                                                   |
                  * +-----+------------+-----+---------------------------------------------------+
                  */
-                if (0 != (DateBefore & l))
+                if ((DateBefore & l) != 0)
                 {
-                    result = (0 != (DateBefore & r)) ? 0 : -1;
+                    result = ((DateBefore & r) != 0) ? 0 : -1;
                 }
-                else if (0 != (DateAfter & l))
+                else if ((DateAfter & l) != 0)
                 {
-                    result = (0 != (DateAfter & r)) ? 0 : 1;
+                    result = ((DateAfter & r) != 0) ? 0 : 1;
                 }
-                else if (0 != (ApproximateDate & l))
+                else if ((ApproximateDate & l) != 0)
                 {
-                    if (0 != (ApproximateDate & r))
+                    if ((ApproximateDate & r) != 0)
                     {
                         result = 0;
                     }
                     else
                     {
-                        result = (0 != (DateBefore & r)) ? 1 : -1;
+                        result = ((DateBefore & r) != 0) ? 1 : -1;
                     }
                 }
-                else if (0 != (DateAfter & r))
+                else if ((DateAfter & r) != 0)
                 {
                     result = -1;
                 }
                 else
                 {
-                    result = (0 != ((DateBefore | ApproximateDate) & r)) ? 1 : 0;
+                    result = (((DateBefore | ApproximateDate) & r) != 0) ? 1 : 0;
                 }
             }
             return result;
@@ -367,8 +367,7 @@ namespace BSLib.Calendar
             int uMonth = Math.Max(UnknownMonth + 1, month);
             int uDay = Math.Max(UnknownDay + 1, day);
 
-            switch (calendar)
-            {
+            switch (calendar) {
                 case UDNCalendarType.ctGregorian:
                     result = CalendarConverter.gregorian_to_jd2(uYear, uMonth, uDay); // fixed
                     break;
@@ -386,16 +385,13 @@ namespace BSLib.Calendar
                     break;
             }
 
-            if (UnknownYear == year)
-            {
+            if (UnknownYear == year) {
                 result |= IgnoreYear;
             }
-            if (UnknownMonth + 1 > month)
-            {
+            if (UnknownMonth + 1 > month) {
                 result |= IgnoreMonth;
             }
-            if (UnknownDay + 1 > day)
-            {
+            if (UnknownDay + 1 > day) {
                 result |= IgnoreDay;
             }
 
@@ -494,7 +490,7 @@ namespace BSLib.Calendar
         /// throws an exception.</returns>
         public static UDN CreateBetween(UDN left, UDN right)
         {
-            if ((0 != (IgnoreYear & left.fValue)) || (0 != (IgnoreYear & right.fValue)))
+            if (((IgnoreYear & left.fValue) != 0) || ((IgnoreYear & right.fValue) != 0))
             {
                 throw new Exception("`Between` member requires dates with valid years");
             }
@@ -531,21 +527,21 @@ namespace BSLib.Calendar
         /// <returns>True if this date has valid year (`IgnoreYear` flag isn't set) and false otherwise.</returns>
         public bool HasKnownYear()
         {
-            return 0 == (IgnoreYear & fValue);
+            return (IgnoreYear & fValue) == 0;
         }
 
         /// <summary>Checks month part of this date.</summary>
         /// <returns>True if this date has valid month (`IgnoreMonth` flag isn't set) and false otherwise.</returns>
         public bool HasKnownMonth()
         {
-            return 0 == (IgnoreMonth & fValue);
+            return (IgnoreMonth & fValue) == 0;
         }
 
         /// <summary>Checks day part of this date.</summary>
         /// <returns>True if this date has valid day (`IgnoreDay` flag isn't set) and false otherwise.</returns>
         public bool HasKnownDay()
         {
-            return 0 == (IgnoreDay & fValue);
+            return (IgnoreDay & fValue) == 0;
         }
 
         /// <summary>Checks if this date defines an approximate date.</summary>
@@ -553,21 +549,21 @@ namespace BSLib.Calendar
         /// </returns>
         public bool IsApproximateDate()
         {
-            return 0 != (ApproximateDate & fValue);
+            return (ApproximateDate & fValue) != 0;
         }
 
         /// <summary>Checks if this date defines a "date before".</summary>
         /// <returns>True if this date is a "date before" (`DateBefore` flag is set) and false otherwise.</returns>
         public bool IsDateBefore()
         {
-            return 0 != (DateBefore & fValue);
+            return (DateBefore & fValue) != 0;
         }
 
         /// <summary>Checks if this date defines a "date after".</summary>
         /// <returns>True if this date is a "date after" (`DateAfter` flag is set) and false otherwise.</returns>
         public bool IsDateAfter()
         {
-            return 0 != (DateAfter & fValue);
+            return (DateAfter & fValue) != 0;
         }
 
         public bool IsEmpty()
