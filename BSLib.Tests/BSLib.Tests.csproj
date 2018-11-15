@@ -83,6 +83,7 @@
     <Compile Include="GfxHelperTests.cs" />
     <Compile Include="IndistinctMatchingTests.cs" />
     <Compile Include="IniFileTests.cs" />
+    <Compile Include="Linguistics\BaseMorpherTests.cs" />
     <Compile Include="MathHelperTests.cs" />
     <Compile Include="RandomHelperTests.cs" />
     <Compile Include="RangesTests.cs" />
@@ -92,11 +93,16 @@
     <Compile Include="StringListTests.cs" />
     <Compile Include="StringTokenizerTests.cs" />
     <Compile Include="TestStubs.cs" />
+    <Compile Include="TestUtils.cs" />
     <Compile Include="TypeHandlerTests.cs" />
     <Compile Include="UDNTests.cs" />
     <Compile Include="ZipStorerTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BSLib.Linguistics\BSLib.Linguistics.csproj">
+      <Project>{d28680cf-06ba-4b0a-a9f0-fb45eb9ce92a}</Project>
+      <Name>BSLib.Linguistics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BSLib.SmartGraph\BSLib.SmartGraph.csproj">
       <Project>{ddc8f8cd-b876-4a0e-abbd-861db741ec1e}</Project>
       <Name>BSLib.SmartGraph</Name>
@@ -108,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ArborGVT" />
+    <Folder Include="Linguistics" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

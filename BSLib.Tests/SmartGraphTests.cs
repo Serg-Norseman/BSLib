@@ -101,7 +101,7 @@ namespace BSLib.SmartGraph
         }
 
         [Test]
-        public void Graph_Tests()
+        public void Test_Graph()
         {
             Vertex vertex = new Vertex();
             Assert.IsNotNull(vertex);
@@ -118,6 +118,11 @@ namespace BSLib.SmartGraph
             Assert.AreEqual(1, edge.Cost);
             Assert.AreEqual(vertex, edge.Source);
             Assert.AreEqual(vertex2, edge.Target);
+            Assert.AreEqual(null, edge.Value);
+
+            Edge idg = edge;
+            Assert.AreEqual(vertex, idg.Source);
+            Assert.AreEqual(vertex2, idg.Target);
 
             Assert.AreNotEqual(0, edge.CompareTo(new Edge(vertex, vertex2, 1, null)));
             Assert.Throws(typeof(ArgumentException), () => { edge.CompareTo(null); });
@@ -138,6 +143,11 @@ namespace BSLib.SmartGraph
                 vert1 = graph.AddVertex("test", null);
                 Assert.IsNotNull(vert1);
 
+                // the second node with the same signature is not added
+                vert2 = graph.AddVertex("test", null);
+                Assert.IsNotNull(vert2);
+                Assert.AreEqual(vert1, vert2);
+
                 vert2 = graph.FindVertex("test");
                 Assert.AreEqual(vert1, vert2);
 
@@ -149,13 +159,26 @@ namespace BSLib.SmartGraph
                 Assert.IsNotNull(edge3);
                 graph.DeleteEdge(edge3);
 
-                edge3 = graph.AddDirectedEdge("1", "2", 1, null);
-                Assert.IsNotNull(edge3);
+                edge3 = graph.AddDirectedEdge("1", "2", 1, null, false);
+                Assert.IsNull(edge3);
 
                 bool res = graph.AddUndirectedEdge(vert1, vert2, 1, null, null);
                 Assert.AreEqual(true, res);
 
+                graph.DeleteVertex(vert1); // "src", will be deleted subordinate edges
+
+                foreach (Vertex vtx in graph.Vertices) {
+                }
+
+                foreach (Edge edg in graph.Edges) {
+                }
+
                 graph.Clear();
+
+                graph.DeleteVertex(null); // no exception
+                graph.DeleteEdge(null); // no exception
+
+                graph.FindPathTree(null); // nothing will happen
             }
         }
 
@@ -171,6 +194,44 @@ namespace BSLib.SmartGraph
 
                 IEnumerable<Edge> path = graph.GetPath(graph.FindVertex("110"));
                 // 110, 88, 67, 53, 23, 4, 1
+            }
+        }
+
+        [Test]
+        public void Test_GraphvizWriter()
+        {
+            using (Graph graph = new Graph())
+            {
+                Vertex vert1 = graph.AddVertex("test", null);
+                Assert.IsNotNull(vert1);
+
+                Vertex vert2 = graph.AddVertex("test2");
+                Assert.IsNotNull(vert2);
+
+                vert1 = graph.AddVertex("src", null);
+                vert2 = graph.AddVertex("tgt", null);
+                Edge edge3 = graph.AddDirectedEdge("src", "tgt", 1, null);
+                Assert.IsNotNull(edge3);
+
+                edge3 = graph.AddDirectedEdge("1", "2", 1, null, false);
+                Assert.IsNull(edge3);
+
+                bool res = graph.AddUndirectedEdge(vert1, vert2, 1, null, null);
+                Assert.AreEqual(true, res);
+
+                string fileName = TestUtils.GetTempFilePath("test.gvf");
+                string[] options = { "ratio=auto" };
+                var gvw = new GraphvizWriter("testGraph", options);
+
+                foreach (Vertex vtx in graph.Vertices) {
+                    gvw.WriteNode(vtx.Sign, "name", "filled", "black", "box");
+                }
+
+                foreach (Edge edg in graph.Edges) {
+                    gvw.WriteEdge(edg.Source.Sign, edg.Target.Sign);
+                }
+
+                gvw.SaveFile(fileName);
             }
         }
     }

@@ -35,6 +35,17 @@ namespace BSLib
         }
 
         [Test]
+        public void Test_UniformName()
+        {
+            string st = "ivan";
+            st = ConvertHelper.UniformName(st);
+            Assert.AreEqual("Ivan", st);
+
+            st = ConvertHelper.UniformName(null);
+            Assert.AreEqual(null, st);
+        }
+
+        [Test]
         public void RomeNumbers_Tests()
         {
             Assert.AreEqual("VI", ConvertHelper.GetRome(6), "RomeTest_00");
