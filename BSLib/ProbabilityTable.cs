@@ -20,7 +20,7 @@ using System.Collections.Generic;
 
 namespace BSLib
 {
-    public sealed class ProbabilityTable<T> //where T : class
+    public sealed class ProbabilityTable<T>
     {
         private sealed class Pair
         {

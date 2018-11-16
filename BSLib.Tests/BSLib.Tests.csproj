@@ -86,6 +86,8 @@
     <Compile Include="IniFileTests.cs" />
     <Compile Include="Linguistics\BaseMorpherTests.cs" />
     <Compile Include="MathHelperTests.cs" />
+    <Compile Include="PriorityQueueTests.cs" />
+    <Compile Include="ProbabilityTableTests.cs" />
     <Compile Include="RandomHelperTests.cs" />
     <Compile Include="RangesTests.cs" />
     <Compile Include="ReflectionHelperTests.cs" />

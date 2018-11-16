@@ -36,5 +36,38 @@ namespace BSLib.Linguistics
             //Assert.AreEqual("атому", RusDeclension.GetDeclension("атом", DeclensionCase.Dative));
             //Assert.AreEqual("лугу", RusDeclension.GetDeclension("луг", DeclensionCase.Dative));
         }
+
+        [Test]
+        public void Test_Morpher_MorphAdjective()
+        {
+            Assert.AreEqual("хороший", Morpher.MorphAdjective("хороший", DeclensionCase.Nominative, Number.nSingle, DeclensionGender.Masculine));
+            Assert.AreEqual("хорошего", Morpher.MorphAdjective("хороший", DeclensionCase.Genitive, Number.nSingle, DeclensionGender.Masculine));
+            Assert.AreEqual("хорошему", Morpher.MorphAdjective("хороший", DeclensionCase.Dative, Number.nSingle, DeclensionGender.Masculine));
+            //Assert.AreEqual("хороший", Morpher.MorphAdjective("хороший", DeclensionCase.Accusative, Number.nSingle, DeclensionGender.Masculine));
+            Assert.AreEqual("хорошим", Morpher.MorphAdjective("хороший", DeclensionCase.Instrumental, Number.nSingle, DeclensionGender.Masculine));
+            Assert.AreEqual("хорошем", Morpher.MorphAdjective("хороший", DeclensionCase.Prepositional, Number.nSingle, DeclensionGender.Masculine));
+        }
+
+        [Test]
+        public void Test_Morpher_MorphNoun()
+        {
+            Assert.AreEqual("предмет", Morpher.MorphNoun("предмет", DeclensionCase.Nominative, Number.nSingle, DeclensionGender.Masculine, false, true));
+            Assert.AreEqual("предмета", Morpher.MorphNoun("предмет", DeclensionCase.Genitive, Number.nSingle, DeclensionGender.Masculine, false, true));
+            Assert.AreEqual("предмету", Morpher.MorphNoun("предмет", DeclensionCase.Dative, Number.nSingle, DeclensionGender.Masculine, false, true));
+            //Assert.AreEqual("предмет", Morpher.MorphNoun("предмет", DeclensionCase.Accusative, Number.nSingle, DeclensionGender.Masculine, false, true));
+            Assert.AreEqual("предметом", Morpher.MorphNoun("предмет", DeclensionCase.Instrumental, Number.nSingle, DeclensionGender.Masculine, false, true));
+            Assert.AreEqual("предмете", Morpher.MorphNoun("предмет", DeclensionCase.Prepositional, Number.nSingle, DeclensionGender.Masculine, false, true));
+        }
+
+        [Test]
+        public void Test_Morpher_Pluralize()
+        {
+            string[] nounForms = new string[] { "монета", "монеты", "монет" };
+            Assert.AreEqual("монета", Morpher.Pluralize(1, nounForms));
+            Assert.AreEqual("монеты", Morpher.Pluralize(2, nounForms));
+            Assert.AreEqual("монеты", Morpher.Pluralize(22, nounForms));
+            Assert.AreEqual("монет", Morpher.Pluralize(5, nounForms));
+            Assert.AreEqual("монет", Morpher.Pluralize(11, nounForms));
+        }
     }
 }
