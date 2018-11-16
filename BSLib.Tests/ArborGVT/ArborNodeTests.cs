@@ -25,5 +25,15 @@ namespace BSLib.ArborGVT
             node.Pt = ArborPoint.Zero;
             Assert.AreEqual(ArborPoint.Zero, node.Pt);
         }
+
+        [Test]
+        public void Test_ApplyForce()
+        {
+            var node = new ArborNode("x");
+            Assert.IsNotNull(node);
+            //internal...
+            //node.F = new ArborPoint(3.0f, 4.0f);
+            //node.ApplyForce(...);
+        }
     }
 }

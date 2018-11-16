@@ -7,14 +7,18 @@ namespace BSLib
     public class ConvertHelperTests
     {
         [Test]
-        public void ConvHelper_Tests()
+        public void Test_ParseInt()
         {
             int ival = ConvertHelper.ParseInt("495", 0);
             Assert.AreEqual(495, ival);
 
             ival = ConvertHelper.ParseInt("asdfa", 11);
             Assert.AreEqual(11, ival);
+        }
 
+        [Test]
+        public void Test_ParseFloat()
+        {
             Assert.AreEqual(11.05, ConvertHelper.ParseFloat(null, 11.05, false));
             Assert.AreEqual(11.05, ConvertHelper.ParseFloat("495,575", 11.05, false)); // badVal -> defVal
 
@@ -29,7 +33,11 @@ namespace BSLib
 
             fval = ConvertHelper.ParseFloat("sdgfdf", 22.2);
             Assert.AreEqual(22.2, fval);
+        }
 
+        [Test]
+        public void Test_AdjustNumber()
+        {
             string st = ConvertHelper.AdjustNumber(9, 3);
             Assert.AreEqual("009", st);
         }
@@ -46,7 +54,7 @@ namespace BSLib
         }
 
         [Test]
-        public void RomeNumbers_Tests()
+        public void Test_GetRome()
         {
             Assert.AreEqual("VI", ConvertHelper.GetRome(6), "RomeTest_00");
             Assert.AreEqual("VIII", ConvertHelper.GetRome(8), "RomeTest_01");
@@ -66,7 +74,11 @@ namespace BSLib
         {
             Assert.IsFalse(ConvertHelper.IsDigit('F'), "IsDigit(F)");
             Assert.IsTrue(ConvertHelper.IsDigit('9'), "IsDigit(9)");
+        }
 
+        [Test]
+        public void Test_IsDigits()
+        {
             Assert.IsFalse(ConvertHelper.IsDigits("f09"), "IsDigits(f09)");
             Assert.IsTrue(ConvertHelper.IsDigits("99"), "IsDigits(99)");
         }

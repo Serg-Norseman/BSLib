@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlgorithmsTests.cs" />
     <Compile Include="ArborGVT\ArborEdgeTests.cs" />
     <Compile Include="ArborGVT\ArborNodeTests.cs" />
     <Compile Include="ArborGVT\ArborPointTests.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="TestUtils.cs" />
     <Compile Include="TypeHandlerTests.cs" />
     <Compile Include="UDNTests.cs" />
+    <Compile Include="WeightedMeanTests.cs" />
     <Compile Include="ZipStorerTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -346,8 +346,8 @@ namespace BSLib.ArborGVT
             if (fViewBounds == null) return ArborPoint.Null;
 
             ArborPoint vd = fViewBounds.RightBottom.Sub(fViewBounds.LeftTop);
-            double x = Margins[3] + pt.Sub(fViewBounds.LeftTop).Div(vd.X).X * (fViewWidth - (Margins[1] + Margins[3]));
-            double y = Margins[0] + pt.Sub(fViewBounds.LeftTop).Div(vd.Y).Y * (fViewHeight - (Margins[0] + Margins[2]));
+            double x = Margins[3] + (pt.Sub(fViewBounds.LeftTop).Div(vd.X).X * (fViewWidth - (Margins[1] + Margins[3])));
+            double y = Margins[0] + (pt.Sub(fViewBounds.LeftTop).Div(vd.Y).Y * (fViewHeight - (Margins[0] + Margins[2])));
             return new ArborPoint(x, y);
         }
 
@@ -356,8 +356,8 @@ namespace BSLib.ArborGVT
             if (fViewBounds == null) return ArborPoint.Null;
 
             ArborPoint vd = fViewBounds.RightBottom.Sub(fViewBounds.LeftTop);
-            double x = (viewX - Margins[3]) / (fViewWidth - (Margins[1] + Margins[3])) * vd.X + fViewBounds.LeftTop.X;
-            double y = (viewY - Margins[0]) / (fViewHeight - (Margins[0] + Margins[2])) * vd.Y + fViewBounds.LeftTop.Y;
+            double x = fViewBounds.LeftTop.X + ((viewX - Margins[3]) / (fViewWidth - (Margins[1] + Margins[3])) * vd.X);
+            double y = fViewBounds.LeftTop.Y + ((viewY - Margins[0]) / (fViewHeight - (Margins[0] + Margins[2])) * vd.Y);
             return new ArborPoint(x, y);
         }
 

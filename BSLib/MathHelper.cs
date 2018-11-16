@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2017 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2018 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -60,14 +60,26 @@ namespace BSLib
         public static bool IsValueBetween(int value, int lowLimit, int topLimit, bool includeLimits)
         {
             if (lowLimit > topLimit) {
-                int temp = lowLimit;
-                lowLimit = topLimit;
-                topLimit = temp;
+                Algorithms.Swap(ref lowLimit, ref topLimit);
             }
 
             if (!includeLimits) {
                 lowLimit++;
                 topLimit--;
+            }
+
+            return value >= lowLimit && value <= topLimit;
+        }
+
+        public static bool IsValueBetween(double value, double lowLimit, double topLimit, bool includeLimits)
+        {
+            if (lowLimit > topLimit) {
+                Algorithms.Swap(ref lowLimit, ref topLimit);
+            }
+
+            if (!includeLimits) {
+                lowLimit += 0.000001;
+                topLimit -= 0.000001;
             }
 
             return value >= lowLimit && value <= topLimit;

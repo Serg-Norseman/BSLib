@@ -58,9 +58,7 @@ namespace BSLib
         public static int GetBoundedRnd(int low, int high)
         {
             if (low > high) {
-                int temp = low;
-                low = high;
-                high = temp;
+                Algorithms.Swap(ref low, ref high);
             }
 
             return low + GetRandom(high - low + 1);
