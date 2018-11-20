@@ -44,11 +44,6 @@ namespace BSLib.ArborGVT
             return (double.IsNaN(X) && double.IsNaN(Y));
         }
 
-        public static ArborPoint NewRandom(double a = 5.0f)
-        {
-            return new ArborPoint(2.0f * a * (ArborSystem.GetRndDouble() - 0.5f), 2.0f * a * (ArborSystem.GetRndDouble() - 0.5f));
-        }
-
         public bool IsExploded()
         {
             return (double.IsNaN(X) || double.IsNaN(Y));

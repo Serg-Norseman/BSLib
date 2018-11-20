@@ -34,23 +34,34 @@ namespace BSLib.ArborGVT
 
     internal class BarnesHutTree
     {
-        private const int QNe = 0;
-        private const int QNw = 1;
-        private const int QSe = 2;
-        private const int QSw = 3;
-        private const int QNone = 4;
+        internal const int QNe = 0;
+        internal const int QNw = 1;
+        internal const int QSe = 2;
+        internal const int QSw = 3;
+        internal const int QNone = 4;
 
         private readonly double fDist; // default = 0.5
         private readonly Branch fRoot;
 
+        internal Branch Root
+        {
+            get { return fRoot; }
+        }
+
         public BarnesHutTree(ArborPoint lt, ArborPoint rb, double dist)
         {
             fDist = dist;
-            //fDist = dist * dist;
             fRoot = new Branch(lt, rb.Sub(lt));
         }
 
-        private static int GetQuad(ArborNode node, Branch branch)
+        public void Reset()
+        {
+            fRoot.Q = new object[4] { null, null, null, null };
+            fRoot.Mass = 0.0f;
+            fRoot.Pt = ArborPoint.Zero;
+        }
+
+        internal static int GetQuad(ArborNode node, Branch branch)
         {
             try {
                 if (node.Pt.IsExploded()) {
@@ -93,7 +104,7 @@ namespace BSLib.ArborGVT
                             branch.Mass += m;
                             branch.Pt = branch.Pt.Add(h.Pt.Mul(m));
 
-                            branch = fp as Branch;
+                            branch = (Branch)fp;
 
                             gst.Insert(0, h);
                         } else {
@@ -107,20 +118,22 @@ namespace BSLib.ArborGVT
                                 n.X += l.X;
                             }
 
-                            ArborNode o = fp as ArborNode;
+                            ArborNode o = (ArborNode)fp;
                             fp = new Branch(n, l);
                             branch.Q[qd] = fp;
 
                             branch.Mass = m;
                             branch.Pt = h.Pt.Mul(m);
 
-                            branch = fp as Branch;
+                            branch = (Branch)fp;
 
-                            if (o.Pt.X == h.Pt.X && o.Pt.Y == h.Pt.Y) {
+                            ArborPoint oPt = o.Pt;
+                            if (oPt.X == h.Pt.X && oPt.Y == h.Pt.Y) {
                                 double lX = l.X * 0.08f;
                                 double lY = l.Y * 0.08f;
-                                o.Pt.X = Math.Min(n.X + l.X, Math.Max(n.X, o.Pt.X - lX / 2 + ArborSystem.GetRndDouble() * lX));
-                                o.Pt.Y = Math.Min(n.Y + l.Y, Math.Max(n.Y, o.Pt.Y - lY / 2 + ArborSystem.GetRndDouble() * lY));
+                                oPt.X = Math.Min(n.X + l.X, Math.Max(n.X, oPt.X - lX / 2 + ArborSystem.GetRandom() * lX));
+                                oPt.Y = Math.Min(n.Y + l.Y, Math.Max(n.Y, oPt.Y - lY / 2 + ArborSystem.GetRandom() * lY));
+                                o.Pt = oPt;
                             }
 
                             gst.Add(o);
@@ -143,7 +156,7 @@ namespace BSLib.ArborGVT
                     object obj = queue.Dequeue();
                     if (obj == null || obj == m) continue;
 
-                    ArborPoint ptx, i, k;
+                    ArborPoint ptx, k;
                     double l, kMag, massx;
 
                     if (obj is ArborNode) {
@@ -153,12 +166,9 @@ namespace BSLib.ArborGVT
 
                         k = m.Pt.Sub(ptx);
                         kMag = k.Magnitude();
-                        //kMag = k.magnitudeSquare();
 
                         l = Math.Max(1.0f, kMag);
-                        i = ((kMag > 0.0f) ? k : ArborPoint.NewRandom(1.0f)).Normalize();
-                        m.ApplyForce(i.Mul(repulsion * massx).Div(l * l));
-                        //m.applyForce(i.mul(repulsion * massx).div(l));
+                        m.ApplyForce(k.Normalize().Mul(repulsion * massx).Div(l * l));
                     } else {
                         Branch branch = (Branch)obj;
                         massx = branch.Mass;
@@ -166,10 +176,8 @@ namespace BSLib.ArborGVT
 
                         k = m.Pt.Sub(ptx);
                         kMag = k.Magnitude();
-                        //kMag = k.magnitudeSquare();
 
                         double h = Math.Sqrt(branch.Size.X * branch.Size.Y);
-                        //double h = branch.Size.X * branch.Size.Y;
                         if (h / kMag > fDist) {
                             queue.Enqueue(branch.Q[QNe]);
                             queue.Enqueue(branch.Q[QNw]);
@@ -177,9 +185,7 @@ namespace BSLib.ArborGVT
                             queue.Enqueue(branch.Q[QSw]);
                         } else {
                             l = Math.Max(1.0f, kMag);
-                            i = ((kMag > 0.0f) ? k : ArborPoint.NewRandom(1.0f)).Normalize();
-                            m.ApplyForce(i.Mul(repulsion * massx).Div(l * l));
-                            //m.applyForce(i.mul(repulsion * massx).div(l));
+                            m.ApplyForce(k.Normalize().Mul(repulsion * massx).Div(l * l));
                         }
                     }
                 }

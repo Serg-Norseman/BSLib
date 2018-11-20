@@ -69,6 +69,8 @@
     <Compile Include="ArborGVT\ArborEdgeTests.cs" />
     <Compile Include="ArborGVT\ArborNodeTests.cs" />
     <Compile Include="ArborGVT\ArborPointTests.cs" />
+    <Compile Include="ArborGVT\ArborSystemTests.cs" />
+    <Compile Include="ArborGVT\BarnesHutTreeTests.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BitHelperTests.cs" />
     <Compile Include="CalendarTests.cs" />

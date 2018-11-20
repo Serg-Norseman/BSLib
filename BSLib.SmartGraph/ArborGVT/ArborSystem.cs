@@ -41,7 +41,10 @@ namespace BSLib.ArborGVT
         public const double DefaultStiffness = 600.0f;
         public const double DefaultFriction = 0.5f;
 
+        protected bool fTendParticles = false;
+
         private bool fAutoStop;
+        private BarnesHutTree fBHTree;
         private bool fBusy;
         private readonly List<ArborEdge> fEdges;
         private double fEnergyMax;
@@ -297,8 +300,8 @@ namespace BSLib.ArborGVT
             ArborPoint lt = fGraphBounds.LeftTop;
             ArborPoint rb = fGraphBounds.RightBottom;
             ArborPoint dt = rb.Sub(lt);
-            double x = lt.X + (dt.X * ArborSystem.GetRndDouble());
-            double y = lt.Y + (dt.Y * ArborSystem.GetRndDouble());
+            double x = lt.X + (dt.X * ArborSystem.GetRandom());
+            double y = lt.Y + (dt.Y * ArborSystem.GetRandom());
             return new ArborPoint(x, y);
         }
 
@@ -408,6 +411,7 @@ namespace BSLib.ArborGVT
             ArborPoint d = new ArborPoint(Math.Max(sz.X, 4.0f), Math.Max(sz.Y, 4.0f)).Div(2.0f);
 
             fGraphBounds = new PSBounds(cent.Sub(d), cent.Add(d));
+            fBHTree = new BarnesHutTree(fGraphBounds.LeftTop, fGraphBounds.RightBottom, Theta);
         }
 
         private void UpdateViewBounds()
@@ -474,10 +478,10 @@ namespace BSLib.ArborGVT
         {
             try {
                 // tend particles
-                for (int i = 0, nodesCount = fNodes.Count; i < nodesCount; i++) {
-                    ArborPoint pV = fNodes[i].V;
-                    pV.X = 0;
-                    pV.Y = 0;
+                if (fTendParticles) {
+                    for (int i = 0, nodesCount = fNodes.Count; i < nodesCount; i++) {
+                        fNodes[i].V = ArborPoint.Zero;
+                    }
                 }
 
                 if (fStiffness > 0.0f) {
@@ -497,17 +501,17 @@ namespace BSLib.ArborGVT
 
         private void ApplyBarnesHutRepulsion()
         {
-            BarnesHutTree bht = new BarnesHutTree(fGraphBounds.LeftTop, fGraphBounds.RightBottom, Theta);
+            fBHTree.Reset();
 
             int nodesCount = fNodes.Count;
             for (int i = 0; i < nodesCount; i++) {
                 ArborNode node = fNodes[i];
-                bht.Insert(node);
+                fBHTree.Insert(node);
             }
 
             for (int i = 0; i < nodesCount; i++) {
                 ArborNode node = fNodes[i];
-                bht.ApplyForces(node, fRepulsion);
+                fBHTree.ApplyForces(node, fRepulsion);
             }
         }
 
@@ -517,10 +521,8 @@ namespace BSLib.ArborGVT
                 ArborEdge edge = fEdges[i];
 
                 ArborPoint s = edge.Target.Pt.Sub(edge.Source.Pt);
-                double sMag = s.Magnitude();
-
-                ArborPoint r = ((sMag > 0.0f) ? s : ArborPoint.NewRandom(1.0f)).Normalize();
-                double q = edge.Stiffness * (edge.Length - sMag);
+                ArborPoint r = s.Normalize();
+                double q = edge.Stiffness * (edge.Length - s.Magnitude());
 
                 edge.Source.ApplyForce(r.Mul(q * -0.5f));
                 edge.Target.ApplyForce(r.Mul(q * 0.5f));
@@ -574,7 +576,7 @@ namespace BSLib.ArborGVT
                     }
                 }
 
-                node.F.X = node.F.Y = 0.0f;
+                node.F = ArborPoint.Zero;
 
                 // update positions
                 node.Pt = node.Pt.Add(node.V.Mul(dt));
@@ -590,7 +592,7 @@ namespace BSLib.ArborGVT
             fEnergySum = eSum;
         }
 
-        internal static double GetRndDouble()
+        internal static double GetRandom()
         {
             return _random.NextDouble();
         }

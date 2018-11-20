@@ -39,14 +39,6 @@ namespace BSLib.ArborGVT
         }
 
         [Test]
-        public void Test_NewRandom()
-        {
-            var pt = ArborPoint.NewRandom(1.0f);
-            Assert.IsTrue(MathHelper.IsValueBetween(pt.X, -1.0f, +1.0f, true));
-            Assert.IsTrue(MathHelper.IsValueBetween(pt.Y, -1.0f, +1.0f, true));
-        }
-
-        [Test]
         public void Test_IsExploded()
         {
             var pt = new ArborPoint(double.NaN, 4);
