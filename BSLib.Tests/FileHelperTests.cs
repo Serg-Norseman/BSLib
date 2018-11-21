@@ -25,6 +25,5 @@ namespace BSLib
         {
             return FileHelper.FileSizeToStr(size);
         }
-
     }
 }

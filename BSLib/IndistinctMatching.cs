@@ -147,6 +147,5 @@ namespace BSLib
             float percent = distance / (float)longestLenght;
             return 1.0f - percent;
         }
-        
     }
 }

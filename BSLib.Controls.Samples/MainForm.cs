@@ -18,7 +18,6 @@ namespace Test
 
         void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
         {
-          
         }
     }
 }

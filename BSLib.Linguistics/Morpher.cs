@@ -882,7 +882,7 @@ namespace BSLib.Linguistics.Grammar
                 if (last2Digits != 11) {
                     return nounForms[0];
                 }
-            } else if (2 <= lastDigit && lastDigit <= 4) {
+            } else if (lastDigit >= 2 && lastDigit <= 4) {
                 if (last2Digits < 10 || last2Digits > 20) {
                     return nounForms[1];
                 }

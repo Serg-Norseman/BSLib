@@ -79,7 +79,6 @@ namespace BSLib.Controls
                     fStoredSize = Size;
                     Size = fAnchorSize;
                 }
-
             }
         }
 

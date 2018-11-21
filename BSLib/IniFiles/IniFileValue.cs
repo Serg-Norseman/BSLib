@@ -118,7 +118,6 @@ namespace BSLib.IniFiles
                         pos = FEState.AfterVal;
                     }
                 }
-
                 else if (pos == FEState.AfterKey && content.Length - i >= IniFileEx.EqualsString.Length && content.Substring(i, IniFileEx.EqualsString.Length) == IniFileEx.EqualsString) {
                     form.Append(insideWhiteChars);
                     pos = FEState.BeforeVal;

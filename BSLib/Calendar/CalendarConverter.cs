@@ -41,13 +41,10 @@ namespace BSLib.Calendar
 
         protected static int downwardRounding(int dividend, int divisor)
         {
-            if (0 <= dividend)
-            {
+            if (dividend >= 0) {
                 dividend /= divisor;
-            }
-            else
-            {
-                dividend = (int)(dividend / ((double) divisor) - 1.0);
+            } else {
+                dividend = (int)(dividend / ((double)divisor) - 1.0);
             }
             return dividend;
         }

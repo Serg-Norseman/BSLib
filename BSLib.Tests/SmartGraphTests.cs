@@ -20,15 +20,12 @@ namespace BSLib.SmartGraph
         [TestFixtureSetUp]
         public void SetUp()
         {
-            Console.WriteLine(@">>> SmartGraph Tests");
-
             _context = new GTestObj();
         }
 
         [TestFixtureTearDown]
         public void TearDown()
         {
-            Console.WriteLine(@">>> END SmartGraph Tests");
         }
 
         [Test]
@@ -92,12 +89,6 @@ namespace BSLib.SmartGraph
             Assert.IsFalse(exts.Remove(null));
             Assert.Throws(typeof(ArgumentNullException), () => { exts.Add(null); });
             Assert.Throws(typeof(ArgumentNullException), () => { new ExtensionCollection<GraphObject, IExtension<GraphObject>>(null); });
-        }
-
-        [Test]
-        public void T3_Tests()
-        {
-            //System.Collections.Generic.List<GraphObject> gl;
         }
 
         [Test]
