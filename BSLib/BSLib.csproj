@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms.cs" />
+    <Compile Include="ArrayHelper.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BaseException.cs" />
     <Compile Include="BaseObject.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="IniFiles\IniFileValue.cs" />
     <Compile Include="ListTimSort.cs" />
     <Compile Include="MathHelper.cs" />
+    <Compile Include="NetHelper.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="ProbabilityTable.cs" />
     <Compile Include="RandomHelper.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="SortHelper.cs" />
     <Compile Include="StringList.cs" />
     <Compile Include="StringTokenizer.cs" />
+    <Compile Include="TypeExtensions.cs" />
     <Compile Include="TypeHandler.cs" />
     <Compile Include="WeightedMean.cs" />
     <Compile Include="ZipStorer.cs" />

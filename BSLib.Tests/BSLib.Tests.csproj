@@ -88,6 +88,7 @@
     <Compile Include="IniFileTests.cs" />
     <Compile Include="Linguistics\BaseMorpherTests.cs" />
     <Compile Include="MathHelperTests.cs" />
+    <Compile Include="NetHelperTests.cs" />
     <Compile Include="PriorityQueueTests.cs" />
     <Compile Include="ProbabilityTableTests.cs" />
     <Compile Include="RandomHelperTests.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="StringTokenizerTests.cs" />
     <Compile Include="TestStubs.cs" />
     <Compile Include="TestUtils.cs" />
+    <Compile Include="TypeExtensionsTests.cs" />
     <Compile Include="TypeHandlerTests.cs" />
     <Compile Include="UDNTests.cs" />
     <Compile Include="WeightedMeanTests.cs" />
