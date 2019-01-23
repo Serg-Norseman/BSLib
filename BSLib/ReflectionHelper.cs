@@ -83,15 +83,47 @@ namespace BSLib
 
         public static FieldInfo FindFieldInfo(Type t, string fieldName)
         {
-            foreach (FieldInfo fi in t.GetFields(AllBindings))
-            {
-                if (fi.Name == fieldName)
-                {
+            foreach (FieldInfo fi in t.GetFields(AllBindings)) {
+                if (fi.Name == fieldName) {
                     return fi;
                 }
             }
 
             return t.BaseType != null ? FindFieldInfo(t.BaseType, fieldName) : null;
+        }
+
+        public static bool IsPureValueType(Type type)
+        {
+            if (type == typeof(IntPtr)) return false;
+            if (type.IsPrimitive) return true;
+            if (type.IsEnum) return true;
+            if (!type.IsValueType) return false;
+
+            foreach (var f in type.GetFields(BindingFlags.GetField | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)) {
+                if (!IsPureValueType(f.FieldType)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool IsStruct(Type type)
+        {
+            return type.IsValueType && !type.IsPrimitive;
+        }
+
+        public static bool IsNumeric(object obj)
+        {
+            if (obj == null) return false;
+            Type type = obj.GetType();
+            return type == typeof(sbyte) || type == typeof(short) || type == typeof(int) || type == typeof(long) ||
+            type == typeof(byte) || type == typeof(ushort) || type == typeof(uint) || type == typeof(ulong) ||
+            type == typeof(float) || type == typeof(double) || type == typeof(decimal);
+        }
+
+        public static bool IsPublic(Type type)
+        {
+            return type.IsPublic || (type.IsNestedPublic && type.IsNested && IsPublic(type.DeclaringType));
         }
     }
 }
