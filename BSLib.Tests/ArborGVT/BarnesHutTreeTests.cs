@@ -6,6 +6,8 @@ namespace BSLib.ArborGVT
     [TestFixture]
     public class BarnesHutTreeTests
     {
+        #if DEBUG
+
         [Test]
         public void Test_Branch()
         {
@@ -74,5 +76,7 @@ namespace BSLib.ArborGVT
             node.Pt = new ArborPoint(0.5f, 0.5f);
             bht.ApplyForces(node, 10000.0f);
         }
+
+        #endif
     }
 }

@@ -27,7 +27,7 @@ namespace BSLib
                 Assert.Throws(typeof(ArgumentOutOfRangeException), () => { ReflectionHelper.SetPropertyValue(strList, "test", ""); });
             }
 
-            Token tkn = new Token(TokenKind.Unknown, "", 111, 0);
+            Token tkn = new Token(TokenKind.Unknown, 111, 0, "");
             object obj1 = ReflectionHelper.GetFieldValue(tkn, "Line");
             Assert.AreEqual(111, obj1);
             Assert.Throws(typeof(ArgumentOutOfRangeException), () => { ReflectionHelper.GetFieldValue(tkn, "Lines"); });

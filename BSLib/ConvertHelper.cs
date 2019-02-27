@@ -58,6 +58,13 @@ namespace BSLib
             return res;
         }
 
+        public static bool IsLetterOrDigit(char ch)
+        {
+            char ch2 = ch;
+            ch2 |= ' ';
+            return (ch2 >= 'a' && ch2 <= 'z') || (ch >= '0' && ch <= '9');
+        }
+
         public static bool IsValidInt(string value)
         {
             if (string.IsNullOrEmpty(value)) {

@@ -32,6 +32,8 @@ namespace BSLib.ArborGVT
             var node = new ArborNode("x");
             Assert.IsNotNull(node);
 
+            #if DEBUG
+
             node.V = new ArborPoint(1.0f, 1.0f);
             node.F = new ArborPoint(3.0f, 4.0f);
 
@@ -42,6 +44,8 @@ namespace BSLib.ArborGVT
             node.Mass = 0.0d;
             node.ApplyForce(new ArborPoint(3.0f, 3.0f));
             Assert.AreEqual(new ArborPoint(double.PositiveInfinity, double.PositiveInfinity), node.F);
+
+            #endif
         }
     }
 }

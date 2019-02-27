@@ -24,14 +24,14 @@ namespace BSLib
     [TestFixture]
     public class StringTokenizerTests
     {
-        [Test]
-        public void BBCodes_Parse_Tests()
+        public static string BBCodes_ParseAndBuild(out string url)
         {
             StringTokenizer strTok = new StringTokenizer("alpha beta 123  456.57, x [b]bold text[/b] qq \r\n"
                                                          +" [url=http://test.com/~user/index.html]url text[/url]");
             strTok.IgnoreWhiteSpace = false;
             strTok.RecognizeDecimals = false;
 
+            url = "";
             string result = "";
 
             Token tok = strTok.Next();
@@ -52,13 +52,10 @@ namespace BSLib
                     if (tag == "url") {
                         if (tok.Kind == TokenKind.Symbol && tok.Value == "=") {
                             tok = strTok.Next();
-                            string url = "";
                             do {
                                 url += tok.Value;
                                 tok = strTok.Next();
                             } while (tok.Kind != TokenKind.Symbol || tok.Value != "]");
-
-                            Assert.AreEqual("http://test.com/~user/index.html", url);
                         }
                     }
                     if (tok.Kind != TokenKind.Symbol || tok.Value != "]") throw new Exception("not bracket");
@@ -69,13 +66,35 @@ namespace BSLib
                 tok = strTok.Next();
             }
 
-            Assert.AreEqual("alpha beta 123  456.57, x bold text qq \r\n url text", result);
+            return result;
         }
+
+        [Test]
+        public void BBCodes_Parse_Tests()
+        {
+            string url;
+            string result = BBCodes_ParseAndBuild(out url);
+            Assert.AreEqual("alpha beta 123  456.57, x bold text qq \r\n url text", result);
+            Assert.AreEqual("http://test.com/~user/index.html", url);
+        }
+
+        /*[Test]
+        public void BBCodes_Parse_PerfTests()
+        {
+            for (int i = 0; i < 10000; i++) {
+                string url;
+                string result = BBCodes_ParseAndBuild(out url);
+            }
+        }*/
 
         [Test]
         public void Test_Common()
         {
-            Assert.Throws(typeof(ArgumentNullException), () => { new StringTokenizer(null); });
+            string data1 = null;
+            Assert.Throws(typeof(ArgumentNullException), () => { new StringTokenizer(data1); });
+
+            char[] data2 = null;
+            Assert.Throws(typeof(ArgumentNullException), () => { new StringTokenizer(data2); });
 
             StringTokenizer strTok = new StringTokenizer("alpha beta 123  456.57, x 0x123F");
             Assert.IsNotNull(strTok);
@@ -206,7 +225,7 @@ namespace BSLib
 
             //
 
-            strTok = new StringTokenizer("alpha 0x601 0b11000000001 alg_123 12345");
+            strTok = new StringTokenizer("\t alpha 0x601 0b11000000001 alg_123 12345");
             Assert.IsNotNull(strTok);
             strTok.IgnoreWhiteSpace = true;
 

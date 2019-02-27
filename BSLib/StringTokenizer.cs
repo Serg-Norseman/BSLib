@@ -27,29 +27,22 @@ namespace BSLib
         EOF
     }
 
-    public class Token
+    public sealed class Token
     {
         public readonly TokenKind Kind;
-        public readonly string Value;
         public readonly int Line;
         public readonly int Column;
+
+        public readonly string Value;
         public readonly object ValObj;
 
-        public Token(TokenKind kind, string value, int line, int column)
+        public Token(TokenKind kind, int line, int column, string value, object valObj = null)
         {
             Kind = kind;
-            Value = value;
             Line = line;
             Column = column;
-        }
-
-        public Token(TokenKind kind, string value, object valObj, int line, int column)
-        {
-            Kind = kind;
             Value = value;
             ValObj = valObj;
-            Line = line;
-            Column = column;
         }
     }
 
@@ -58,18 +51,18 @@ namespace BSLib
     /// </summary>
     public class StringTokenizer
     {
+        public static readonly char[] StdSymbols = new char[] {'=', '+', '-', '/', ',', '.', '*', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '{', '}', '[', ']', ':', ';', '<', '>', '?', '|', '\\'};
+
         private static readonly NumberFormatInfo NumberFormat = ConvertHelper.CreateDefaultNumberFormat();
 
         private const char EOF = (char)0;
 
-        private readonly char[] fData;
-
         private int fColumn;
-        private int fLine;
-        private int fPos; // position within data
-
         private Token fCurrentToken;
+        private char[] fData;
         private bool fIgnoreWhiteSpace;
+        private int fLine;
+        private int fPos;
         private bool fRecognizeDecimals;
         private bool fRecognizeHex;
         private bool fRecognizeBin;
@@ -138,16 +131,11 @@ namespace BSLib
 
         #region Private methods
 
-        private void Reset()
+        private void SetDefaults()
         {
-            fCurrentToken = null;
             fIgnoreWhiteSpace = false;
             fRecognizeDecimals = false;
-            fSymbolChars = new char[] {'=', '+', '-', '/', ',', '.', '*', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '{', '}', '[', ']', ':', ';', '<', '>', '?', '|', '\\'};
-
-            fLine = 1;
-            fColumn = 1;
-            fPos = 0;
+            fSymbolChars = StdSymbols;
         }
 
         /// <summary>
@@ -160,30 +148,28 @@ namespace BSLib
             fSavePos = fPos;
         }
 
-        protected char LookAhead(int count)
+        private char LookAhead(int count)
         {
-            return (fPos + count >= fData.Length) ? EOF : fData[fPos+count];
+            int newPos = fPos + count;
+            return (newPos >= fData.Length) ? EOF : fData[newPos];
         }
 
-        protected char Consume()
+        private void Consume()
         {
-            char ret = fData[fPos];
             fPos++;
             fColumn++;
-
-            return ret;
         }
 
-        protected Token CreateToken(TokenKind kind, string value, object valObj)
+        private Token CreateToken(TokenKind kind, string value, object valObj)
         {
-            fCurrentToken = new Token(kind, value, valObj, fLine, fColumn);
+            fCurrentToken = new Token(kind, fSaveLine, fSaveCol, value, valObj);
             return fCurrentToken;
         }
 
-        protected Token CreateToken(TokenKind kind)
+        private Token CreateToken(TokenKind kind)
         {
             string tokenData = new string(fData, fSavePos, fPos - fSavePos);
-            fCurrentToken = new Token(kind, tokenData, fSaveLine, fSaveCol);
+            fCurrentToken = new Token(kind, fSaveLine, fSaveCol, tokenData);
             return fCurrentToken;
         }
 
@@ -191,7 +177,7 @@ namespace BSLib
         /// reads all whitespace characters (does not include newline)
         /// </summary>
         /// <returns></returns>
-        protected Token ReadWhitespace()
+        private Token ReadWhitespace()
         {
             StartRead();
 
@@ -213,7 +199,7 @@ namespace BSLib
         /// reads number. Number is: DIGIT+ ("." DIGIT*)?
         /// </summary>
         /// <returns></returns>
-        protected Token ReadNumber()
+        private Token ReadNumber()
         {
             StartRead();
 
@@ -256,16 +242,16 @@ namespace BSLib
                     if (hadDot) {
                         val = Convert.ToDouble(tokVal, NumberFormat);
                     } else {
-                        val = ConvertIntNumber(fData, fSavePos, fPos, 10);
+                        val = ConvertIntNumber(fSavePos, fPos, 10);
                     }
                     break;
 
                 case TokenKind.HexNumber:
-                    val = ConvertIntNumber(fData, fSavePos, fPos, 16);
+                    val = ConvertIntNumber(fSavePos + 2, fPos, 16);
                     break;
 
                 case TokenKind.BinNumber:
-                    val = ConvertIntNumber(fData, fSavePos, fPos, 2);
+                    val = ConvertIntNumber(fSavePos + 2, fPos, 2);
                     break;
             }
 
@@ -275,7 +261,7 @@ namespace BSLib
         /// <summary>
         /// reads word. Word contains any alpha character or _
         /// </summary>
-        protected Token ReadWord()
+        private Token ReadWord()
         {
             StartRead();
 
@@ -303,7 +289,7 @@ namespace BSLib
         /// part of the string
         /// </summary>
         /// <returns></returns>
-        protected Token ReadString()
+        private Token ReadString()
         {
             StartRead();
 
@@ -347,27 +333,78 @@ namespace BSLib
         /// <summary>
         /// checks whether c is a symbol character.
         /// </summary>
-        protected bool IsSymbol(char c)
+        /*private bool IsSymbol(char c)
         {
             for (int i = 0; i < fSymbolChars.Length; i++)
                 if (fSymbolChars[i] == c)
                     return true;
 
             return false;
+        }*/
+
+        private int ConvertIntNumber(int first, int last, byte numBase)
+        {
+            /*if (last - first <= 0) {
+                throw new ArgumentException();
+            }*/
+            int fvalue = 0;
+            //try {
+                while (first < last) {
+                    char ch = fData[first];
+                    byte c = (byte)((int)ch - 48);
+                    if (c > 9) {
+                        c -= 7;
+
+                        if (c > 15) {
+                            c -= 32;
+                        }
+                    }
+
+                    if (c >= numBase) {
+                        throw new OverflowException();
+                    }
+
+                    fvalue = (fvalue * numBase + c);
+                    first++;
+                }
+            //} catch (OverflowException) {
+                // KBR Parser blows up when trying to parse a large number
+            //}
+            return fvalue;
         }
 
         #endregion
+
+        public StringTokenizer()
+        {
+            SetDefaults();
+        }
 
         public StringTokenizer(string data)
         {
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            // according to the profiler, "Next()" is faster (+7.1%)
-            fData = new char[data.Length];
-            data.CopyTo(0, fData, 0, data.Length);
+            SetDefaults();
+            Reset(data.ToCharArray());
+        }
 
-            Reset();
+        public StringTokenizer(char[] data)
+        {
+            if (data == null)
+                throw new ArgumentNullException("data");
+
+            SetDefaults();
+            Reset(data);
+        }
+
+        public void Reset(char[] data)
+        {
+            fData = data;
+            fCurrentToken = null;
+            fLine = 1;
+            fColumn = 1;
+            fPos = 0;
         }
 
         public string GetRest()
@@ -381,79 +418,53 @@ namespace BSLib
         {
             while (true) {
                 char ch = LookAhead(0);
+
+                if (char.IsLetter(ch) || ch == '_')
+                    return ReadWord();
+
+                if (char.IsDigit(ch))
+                    return ReadNumber();
+
+                if (ch == ' ' || ch == '\t') {
+                    if (!fIgnoreWhiteSpace) return ReadWhitespace();
+                    Consume();
+                    continue;
+                }
+
                 switch (ch)
                 {
                     case EOF:
-                        return CreateToken(TokenKind.EOF, string.Empty, null);
-
-                    case ' ':
-                    case '\t':
-                        {
-                            if (!fIgnoreWhiteSpace)
-                                return ReadWhitespace();
-
-                            Consume();
-                            break;
-                        }
-
-                    case '0':
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
-                    case '5':
-                    case '6':
-                    case '7':
-                    case '8':
-                    case '9':
-                        return ReadNumber();
+                        return CreateToken(TokenKind.EOF);
 
                     case '\r':
-                        {
-                            StartRead();
-                            Consume();
-                            if (LookAhead(0) == '\n')
-                                Consume();	// on DOS/Windows we have \r\n for new line
-
-                            fLine++;
-                            fColumn = 1;
-
-                            return CreateToken(TokenKind.EOL);
-                        }
+                        StartRead();
+                        Consume();
+                        // on DOS/Windows we have \r\n for new line
+                        if (LookAhead(0) == '\n') Consume();	
+                        fLine++;
+                        fColumn = 1;
+                        return CreateToken(TokenKind.EOL);
 
                     case '\n':
-                        {
-                            StartRead();
-                            Consume();
-                            fLine++;
-                            fColumn = 1;
-
-                            return CreateToken(TokenKind.EOL);
-                        }
+                        StartRead();
+                        Consume();
+                        fLine++;
+                        fColumn = 1;
+                        return CreateToken(TokenKind.EOL);
 
                     case '"':
-                        {
-                            return ReadString();
-                        }
+                        return ReadString();
 
                     default:
-                        {
-                            if (char.IsLetter(ch) || ch == '_')
-                                return ReadWord();
-
-                            if (IsSymbol(ch))
-                            {
-                                StartRead();
-                                Consume();
-                                return CreateToken(TokenKind.Symbol);
-                            }
-                            else
-                            {
-                                StartRead();
-                                Consume();
-                                return CreateToken(TokenKind.Unknown);
-                            }
-                        }
+                        //if (IsSymbol(ch)) {
+                            StartRead();
+                            Consume();
+                            return CreateToken(TokenKind.Symbol);
+                        /*} else {
+                            StartRead();
+                            Consume();
+                            return CreateToken(TokenKind.Unknown);
+                        }*/
                 }
             }
         }
@@ -484,40 +495,6 @@ namespace BSLib
             }
 
             return (int)fCurrentToken.ValObj;
-        }
-
-        private static int ConvertIntNumber(char[] buf, int first, int last, byte numBase)
-        {
-            int fvalue = 0;
-            try
-            {
-                while (first < last)
-                {
-                    char ch = buf[first];
-                    byte c = (byte)((int)ch - 48);
-                    if (c > 9)
-                    {
-                        c -= 7;
-
-                        if (c > 15) {
-                            c -= 32;
-                        }
-                    }
-
-                    if (c >= numBase) {
-                        break;
-                    }
-
-                    fvalue = (fvalue * numBase + c);
-                    first++;
-                }
-            }
-            catch (OverflowException)
-            {
-                // KBR Parser blows up when trying to parse a large number
-            }
-
-            return fvalue;
         }
     }
 }

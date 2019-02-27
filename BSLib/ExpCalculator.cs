@@ -347,18 +347,10 @@ namespace BSLib
                     break;
 
                 case TokenKind.HexNumber:
-                    try {
-                        fToken = ExpToken.tkNUMBER;
-                        fValue = Convert.ToInt32(tok.Value, 16);
-                    } catch {
-                        fToken = ExpToken.tkERROR;
-                    }
-                    break;
-
                 case TokenKind.BinNumber:
                     try {
                         fToken = ExpToken.tkNUMBER;
-                        fValue = Convert.ToInt32(tok.Value.Substring(2), 2);
+                        fValue = (int)tok.ValObj;
                     } catch {
                         fToken = ExpToken.tkERROR;
                     }
