@@ -25,6 +25,11 @@ namespace BSLib
     /// </summary>
     public static class ArrayHelper
     {
+        public static void Clear(this Array array)
+        {
+            Array.Clear(array, 0, array.Length);
+        }
+
         public static T[] ConcatArrays<T>(T[] arr1, T[] arr2)
         {
             if (arr1 == null)

@@ -81,6 +81,7 @@
     <Compile Include="ExtSize.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="GfxHelper.cs" />
+    <Compile Include="Hash32.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="IndistinctMatching.cs" />
     <Compile Include="IniFile.cs" />

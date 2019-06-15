@@ -163,8 +163,7 @@ namespace BSLib
             if (list == null)
                 throw new ArgumentNullException("list");
 
-            for (int i = 0; i < list.Length; i++)
-            {
+            for (int i = 0; i < list.Length; i++) {
                 AddObject(list[i], null);
             }
         }
@@ -289,15 +288,27 @@ namespace BSLib
             if (strList == null) return;
 
             BeginUpdate();
-            try
-            {
+            try {
                 int num = strList.Count;
                 for (int i = 0; i < num; i++) {
                     AddObject(strList[i], strList.GetObject(i));
                 }
+            } finally {
+                EndUpdate();
             }
-            finally
-            {
+        }
+
+        public void AddStrings(string[] list)
+        {
+            if (list == null)
+                throw new ArgumentNullException("list");
+
+            BeginUpdate();
+            try {
+                for (int i = 0; i < list.Length; i++) {
+                    AddObject(list[i], null);
+                }
+            } finally {
                 EndUpdate();
             }
         }

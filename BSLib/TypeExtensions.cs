@@ -33,6 +33,16 @@ namespace BSLib
             return ReferenceEquals(obj, null);
         }
 
+        public static bool IsDerivedFrom(this Type type, Type baseType)
+        {
+            return baseType.IsAssignableFrom(type);
+        }
+
+        public static bool IsImplementingInterface(this Type type, Type interfaceType)
+        {
+            return interfaceType.IsAssignableFrom(type);
+        }
+
         #region Array operations
 
         public static bool IsNullOrEmpty<T>(this T[] array)

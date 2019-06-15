@@ -35,7 +35,10 @@ namespace BSLib
             Assert.AreEqual("list", strList2[2]);
             Assert.AreEqual("test", strList2[3]);
             strList2.Clear();
-            strList2.AddStrings(null);
+
+            StringList otherList = null;
+            strList2.AddStrings(otherList);
+
             strList2.AddStrings(strList);
             Assert.AreEqual("The", strList2[0]);
             Assert.AreEqual("string", strList2[1]);
