@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyProduct("BSLib")]
 [assembly: AssemblyCopyright("Copyright © 2007-2019 Sergey V. Zhdanovskih")]
-[assembly: AssemblyVersion("0.45.0.0")]
+[assembly: AssemblyVersion("0.45.2.0")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: ComVisible(false)]

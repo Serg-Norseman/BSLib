@@ -67,6 +67,7 @@ namespace BSLib
         private bool fRecognizeHex;
         private bool fRecognizeBin;
         private bool fRecognizeIdents;
+        private bool fRecognizeQuotedStrings;
         private int fSaveCol;
         private int fSaveLine;
         private int fSavePos;
@@ -113,6 +114,12 @@ namespace BSLib
             set { fRecognizeIdents = value; }
         }
 
+        public bool RecognizeQuotedStrings
+        {
+            get { return fRecognizeQuotedStrings; }
+            set { fRecognizeQuotedStrings = value; }
+        }
+
         /// <summary>
         /// Gets or sets which characters are part of TokenKind.Symbol
         /// </summary>
@@ -136,6 +143,7 @@ namespace BSLib
             fIgnoreWhiteSpace = false;
             fRecognizeDecimals = false;
             fSymbolChars = StdSymbols;
+            fRecognizeQuotedStrings = true;
         }
 
         /// <summary>
@@ -453,7 +461,13 @@ namespace BSLib
                         return CreateToken(TokenKind.EOL);
 
                     case '"':
-                        return ReadString();
+                        if (fRecognizeQuotedStrings) {
+                            return ReadString();
+                        } else {
+                            StartRead();
+                            Consume();
+                            return CreateToken(TokenKind.Symbol);
+                        }
 
                     default:
                         //if (IsSymbol(ch)) {

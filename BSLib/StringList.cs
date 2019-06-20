@@ -211,45 +211,43 @@ namespace BSLib
             StringBuilder buffer = new StringBuilder();
 
             int num = fList.Count;
-            for (int i = 0; i < num; i++)
-            {
+            for (int i = 0; i < num; i++) {
                 if (buffer.Length > 0) {
                     buffer.Append(LINE_BREAK);
                 }
 
-                buffer.Append(this[i]);
+                buffer.Append(fList[i].StrVal);
             }
 
             return buffer.ToString();
         }
 
+        public void AddMultiline(string value)
+        {
+            int start = 0;
+            int lbLen = LINE_BREAK.Length;
+            int pos = value.IndexOf(LINE_BREAK);
+
+            while (pos >= 0) {
+                string s = value.Substring(start, pos - start);
+                AddObject(s, null);
+                start = pos + lbLen;
+                pos = value.IndexOf(LINE_BREAK, start);
+            }
+
+            if (start <= value.Length) {
+                string s = value.Substring(start, (value.Length - start));
+                AddObject(s, null);
+            }
+        }
+
         private void SetTextStr(string value)
         {
             BeginUpdate();
-            try
-            {
+            try {
                 Clear();
-
-                int start = 0;
-                int lbLen = LINE_BREAK.Length;
-                int pos = value.IndexOf(LINE_BREAK);
-                
-                while (pos >= 0)
-                {
-                    string s = value.Substring(start, pos - start);
-                    Add(s);
-                    start = pos + lbLen;
-                    pos = value.IndexOf(LINE_BREAK, start);
-                }
-
-                if (start <= value.Length)
-                {
-                    string s = value.Substring(start, (value.Length - start));
-                    Add(s);
-                }
-            }
-            finally
-            {
+                AddMultiline(value);
+            } finally {
                 EndUpdate();
             }
         }
