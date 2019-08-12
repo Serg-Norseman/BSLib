@@ -29,7 +29,7 @@ namespace BSLib
         /// <summary>
         /// Represents an entry in Zip file directory
         /// </summary>
-        public sealed class ZipFileEntry
+        public sealed class ZipFileEntry : IEquatable<ZipFileEntry>
         {
             /// <summary>Compression method</summary>
             public Compression Method;
@@ -59,6 +59,12 @@ namespace BSLib
             public override string ToString()
             {
                 return FilenameInZip;
+            }
+
+            public bool Equals(ZipFileEntry other)
+            {
+                return (FilenameInZip == other.FilenameInZip) && (FileSize == other.FileSize)
+                    && (Crc32 == other.Crc32)/* && (ModifyTime == other.ModifyTime)*/;
             }
         }
 
