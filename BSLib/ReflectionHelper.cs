@@ -125,5 +125,15 @@ namespace BSLib
         {
             return type.IsPublic || (type.IsNestedPublic && type.IsNested && IsPublic(type.DeclaringType));
         }
+
+        public static T GetAssemblyAttribute<T>(Assembly assembly) where T : Attribute
+        {
+            if (assembly == null)
+                throw new ArgumentNullException("assembly");
+
+            object[] attributes = assembly.GetCustomAttributes(typeof(T), false);
+            T result = (attributes == null || attributes.Length == 0) ? null : attributes[0] as T;
+            return result;
+        }
     }
 }
