@@ -1,5 +1,7 @@
 rmdir .\.vs /s /q
 
+del .\coverage.xml
+
 rmdir .\BSLib\bin /s /q
 rmdir .\BSLib\obj /s /q
 
