@@ -18,10 +18,10 @@ before_build:
   - nuget restore ./BSLib.sln
 
 build_script:
-  - msbuild ./BSLib.sln /p:Configuration=Debug /p:Platform="Any CPU" /p:TargetFrameworkVersion=v3.5 /p:CIMode=true /p:MonoCS=true /verbosity:minimal
+  - msbuild ./BSLib.sln /p:Configuration=Debug /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.0 /p:CIMode=true /p:MonoCS=true /verbosity:minimal
 
 test_script:
-  - .\packages\OpenCover\OpenCover.Console.exe -register:user -target:"nunit-console-x86.exe" -targetdir:".\BSLib.Tests\bin\Debug" -targetargs:"BSLib.Tests.dll /noshadow /framework:3.5" -output:"coverage.xml" -filter:"+[*]*"
+  - .\packages\OpenCover\OpenCover.Console.exe -register:user -target:"nunit-console-x86.exe" -targetdir:".\BSLib.Tests\bin\Debug" -targetargs:"BSLib.Tests.dll /noshadow /framework:4.0" -output:"coverage.xml" -filter:"+[*]*"
 
 after_test:
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"

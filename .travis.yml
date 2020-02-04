@@ -6,5 +6,5 @@ install:
   - nuget restore ./BSLib.sln
 
 script:
-  - xbuild /p:Configuration=Debug /p:CIMode=true /p:MonoCS=true ./BSLib.sln
+  - xbuild ./BSLib.sln /p:Configuration=Debug /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.0 /p:CIMode=true /p:MonoCS=true
   - nunit-console ./BSLib.Tests/bin/Debug/BSLib.Tests.dll
