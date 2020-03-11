@@ -83,8 +83,7 @@ namespace BSLib.DataViz.TreeMap
             get { return fItems; }
         }
 
-        public MapItem()
-            : this(1, 0)
+        public MapItem() : this(1, 0)
         {
         }
 
@@ -150,10 +149,6 @@ namespace BSLib.DataViz.TreeMap
             }
 
             int num = fItems.Count;
-            if (num <= 0) {
-                return this;
-            }
-
             for (int i = 0; i < num; i++) {
                 MapItem item = fItems[i];
                 MapItem found = item.FindByCoord(x, y);
@@ -162,7 +157,7 @@ namespace BSLib.DataViz.TreeMap
                 }
             }
 
-            return null;
+            return this;
         }
 
         public bool IsLeaf()

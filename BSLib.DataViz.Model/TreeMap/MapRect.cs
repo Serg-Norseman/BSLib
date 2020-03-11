@@ -53,5 +53,13 @@ namespace BSLib.DataViz.TreeMap
         {
             return x >= X && y >= Y && x < X + W && y < Y + H;
         }
+
+        public void Inflate(int headerHeight, int padding)
+        {
+            X += padding;
+            Y += headerHeight;
+            W -= (padding * 2);
+            H -= (headerHeight + padding);
+        }
     }
 }

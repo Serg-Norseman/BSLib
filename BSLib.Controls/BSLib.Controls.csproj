@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BSLib.Controls</RootNamespace>
     <AssemblyName>BSLib.Controls</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
   </PropertyGroup>

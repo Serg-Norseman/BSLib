@@ -1,6 +1,6 @@
 /*
  *  "BSLib.DataViz".
- *  Copyright (C) 2017-2018 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2017-2020 by Sergey V. Zhdanovskih.
  *
  *  This file is part of "BSLib".
  *
@@ -34,27 +34,27 @@ namespace BSLib.DataViz.TreeMap
     public abstract class TreemapModel
     {
         private readonly List<MapItem> fItems;
-        private readonly int fHeight;
-        private readonly int fWidth;
+
+
+        /// <summary>
+        /// Get the list of items in this model.
+        /// </summary>
+        /// <returns>An array of the MapItem objects in this MapModel.</returns>
+        public List<MapItem> Items
+        {
+            get { return fItems; }
+        }
+
 
         /// <summary>
         /// Creates a Map Model instance based on the relative size of the mappable items and the frame size.
         /// </summary>
-        /// <param name="width">Width of the display area</param>
-        /// <param name="height">Height of the display area</param>
-        protected TreemapModel(int width, int height)
+        protected TreemapModel()
         {
             fItems = new List<MapItem>();
-            fWidth = width;
-            fHeight = height;
         }
 
-        public void Clear()
-        {
-            fItems.Clear();
-        }
-
-        public abstract MapItem newItem(MapItem parent, string name, double size);
+        protected abstract MapItem newItem(MapItem parent, string name, double size);
 
         public MapItem CreateItem(MapItem parent, string name, double size)
         {
@@ -65,15 +65,6 @@ namespace BSLib.DataViz.TreeMap
                 parent.AddItem(result);
             }
             return result;
-        }
-
-        /// <summary>
-        /// Get the list of items in this model.
-        /// </summary>
-        /// <returns>An array of the MapItem objects in this MapModel.</returns>
-        public List<MapItem> GetItems()
-        {
-            return fItems;
         }
 
         public MapItem FindByCoord(int x, int y)
@@ -116,57 +107,53 @@ namespace BSLib.DataViz.TreeMap
         /// Arrange the items in the given MapModel to fill the given rectangle.
         /// </summary>
         /// <param name="bounds">The bounding rectangle for the layout.</param>
-        public void CalcLayout(MapRect bounds)
-        {
-            CalcLayout(fItems, bounds);
-        }
-
-        /// <summary>
-        /// Arrange the items in the given MapModel to fill the given rectangle.
-        /// </summary>
-        /// <param name="bounds">The bounding rectangle for the layout.</param>
-        public void CalcLayout(List<MapItem> itemsList, MapRect bounds)
+        public void CalcLayout(List<MapItem> items, MapRect bounds, int headerHeight, int padding = 4)
         {
             // calculate all true sizes for treemap
-            int num = itemsList.Count;
+            int num = items.Count;
             for (int i = 0; i < num; i++) {
-                MapItem item = itemsList[i];
+                MapItem item = items[i];
                 item.CalculateSize();
             }
 
             // calculate bounds of item for all levels
-            CalcRecursiveLayout(itemsList, bounds);
+            CalcRecursiveLayout(items, bounds, headerHeight, padding);
         }
 
-        public void CalcRecursiveLayout(List<MapItem> itemsList, MapRect bounds)
+        private static void CalcRecursiveLayout(List<MapItem> items, MapRect bounds, int headerHeight, int padding = 4)
         {
-            if (itemsList == null) return;
+            if (items == null) return;
 
-            int itemsNum = itemsList.Count;
+            int itemsNum = items.Count;
             if (itemsNum <= 0) return;
 
             // calculate sum for current level
             double sum = 0;
             for (int i = 0; i < itemsNum; i++) {
-                MapItem item = itemsList[i];
+                MapItem item = items[i];
                 sum += item.GetCalcSize();
             }
 
             // calculate relative sizes for current level
             double totalArea = bounds.W * bounds.H;
             for (int i = 0; i < itemsNum; i++) {
-                MapItem item = itemsList[i];
+                MapItem item = items[i];
                 item.Ratio = (totalArea / sum * item.GetCalcSize());
             }
 
-            itemsList.Sort(ItemsCompare);
+            items.Sort(ItemsCompare);
 
-            CalcLayout(itemsList, 0, itemsNum - 1, bounds);
+            CalcLayout(items, 0, itemsNum - 1, bounds);
 
             for (int i = 0; i < itemsNum; i++) {
-                MapItem item = itemsList[i];
-                if (!item.IsLeaf()) {
-                    CalcRecursiveLayout(item.Items, item.Bounds);
+                MapItem item = items[i];
+                int subCount = item.Items.Count;
+                if (subCount > 0) {
+                    var clientBounds = item.Bounds;
+                    if (subCount > 1) {
+                        clientBounds.Inflate(headerHeight, padding);
+                    }
+                    CalcRecursiveLayout(item.Items, clientBounds, headerHeight, padding);
                 }
             }
         }
@@ -176,35 +163,35 @@ namespace BSLib.DataViz.TreeMap
             return -it1.Ratio.CompareTo(it2.Ratio);
         }
 
-        private int fMid = 0; // don't change it!
-
-        private void CalcLayout(List<MapItem> items, int start, int end, MapRect bounds)
+        private static int CalcLayout(List<MapItem> items, int start, int end, MapRect bounds)
         {
             if (start > end) {
-                return;
+                return -1;
             }
             if (start == end) {
                 items[start].Bounds = bounds;
             }
 
-            fMid = start;
-            while (fMid < end) {
-                if (GetHighestAspect(items, start, fMid, bounds) > GetHighestAspect(items, start, fMid + 1, bounds)) {
-                    fMid++;
+            int mid = start;
+            while (mid < end) {
+                if (GetHighestAspect(items, start, mid, bounds) > GetHighestAspect(items, start, mid + 1, bounds)) {
+                    mid++;
                 } else {
-                    MapRect newBounds = LayoutRow(items, start, fMid, bounds);
-                    CalcLayout(items, fMid + 1, end, newBounds);
+                    MapRect newBounds = LayoutRow(items, start, mid, bounds);
+                    int res = CalcLayout(items, mid + 1, end, newBounds);
+                    if (res != -1) mid = res;
                 }
             }
+            return mid;
         }
 
-        private static double GetHighestAspect(List<MapItem> items, int start, int end, MapRect bounds)
+        private static float GetHighestAspect(List<MapItem> items, int start, int end, MapRect bounds)
         {
             LayoutRow(items, start, end, bounds);
 
-            double max = double.MinValue;
+            float max = float.MinValue;
             for (int i = start; i <= end; i++) {
-                double aspectRatio = items[i].Bounds.GetAspectRatio();
+                float aspectRatio = items[i].Bounds.GetAspectRatio();
                 if (max < aspectRatio) {
                     max = aspectRatio;
                 }
@@ -215,7 +202,7 @@ namespace BSLib.DataViz.TreeMap
         private static MapRect LayoutRow(IList<MapItem> items, int start, int end, MapRect bounds)
         {
             bool isHorizontal = bounds.W > bounds.H;
-            double total = bounds.W * bounds.H;
+            float total = bounds.W * bounds.H;
 
             double rowTotalRatio = 0;
             for (int i = start; i <= end; i++) {
@@ -226,21 +213,23 @@ namespace BSLib.DataViz.TreeMap
             float offset = 0;
 
             for (int i = start; i <= end; i++) {
-                MapRect r = new MapRect(0, 0, 0, 0);
-                float ratio = (float)(items[i].Ratio / rowTotalRatio);
+                MapItem item = items[i];
+                float ratio = (float)(item.Ratio / rowTotalRatio);
 
+                float rX, rY, rW, rH;
                 if (isHorizontal) {
-                    r.X = bounds.X;
-                    r.W = bounds.W * rowRatio;
-                    r.Y = bounds.Y + bounds.H * offset;
-                    r.H = bounds.H * ratio;
+                    rX = bounds.X;
+                    rW = bounds.W * rowRatio;
+                    rY = bounds.Y + bounds.H * offset;
+                    rH = bounds.H * ratio;
                 } else {
-                    r.X = bounds.X + bounds.W * offset;
-                    r.W = bounds.W * ratio;
-                    r.Y = bounds.Y;
-                    r.H = bounds.H * rowRatio;
+                    rX = bounds.X + bounds.W * offset;
+                    rW = bounds.W * ratio;
+                    rY = bounds.Y;
+                    rH = bounds.H * rowRatio;
                 }
-                items[i].Bounds = r;
+                item.SetBounds(rX, rY, rW, rH);
+
                 offset += ratio;
             }
 

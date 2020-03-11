@@ -1,6 +1,6 @@
 /*
  *  "BSLib.DataViz".
- *  Copyright (C) 2017-2018 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2017-2020 by Sergey V. Zhdanovskih.
  *
  *  This file is part of "BSLib".
  *
@@ -27,26 +27,15 @@ using BSLib.DataViz.TreeMap;
 
 namespace BSLib.DataViz.TreeMap
 {
-    public class HintRequestEventArgs : EventArgs
-    {
-        public MapItem MapItem { get; private set; }
-        public string Hint { get; set; }
-
-        public HintRequestEventArgs(MapItem mapItem)
-        {
-            MapItem = mapItem;
-        }
-    }
-
     public delegate void HintRequestEventHandler(object sender, HintRequestEventArgs args);
 
     public sealed class SimpleItem : MapItem
     {
         public Color Color;
 
-        public SimpleItem(MapItem parent, string name, double size)
-            : base(parent, name, size)
+        public SimpleItem(MapItem parent, string name, double size) : base(parent, name, size)
         {
+            Color = Color.Silver;
         }
     }
 
@@ -57,52 +46,75 @@ namespace BSLib.DataViz.TreeMap
     {
         private class SimpleModel : TreemapModel
         {
-            public SimpleModel(int width, int height)
-                : base(width, height)
+            public SimpleModel() : base()
             {
             }
 
-            public override MapItem newItem(MapItem parent, string name, double size)
+            protected override MapItem newItem(MapItem parent, string name, double size)
             {
                 return new SimpleItem(parent, name, size);
             }
         }
 
+        private readonly TreemapModel fModel;
+        private readonly ToolTip fToolTip;
+
         private Bitmap fBackBuffer;
         private MapItem fCurrentItem;
         private string fHint;
-        private readonly TreemapModel fModel;
+        private int fItemsPadding;
+        private bool fMouseoverHighlight;
         private MapItem fRootItem;
-        private readonly ToolTip fToolTip;
+        private bool fShowNames;
         private MapItem fUpperItem;
 
-        private Color fLowerHighlight = Color.Red;
-        private Color fUpperHighlight = Color.Yellow;
-
         private Pen fBorderPen;
-        private Pen fLowerPen;
-        private Pen fUpperPen;
-
+        private Color fLowerHighlight = Color.Red;
         private MapItem fLowerHoveredItem;
+        private Pen fLowerPen;
+        private Color fUpperHighlight = Color.Yellow;
         private MapItem fUpperHoveredItem;
-
-        private bool fMouseoverHighlight;
+        private Pen fUpperPen;
 
 
         public MapItem CurrentItem
         {
-            get { return fCurrentItem; }
+            get {
+                return fCurrentItem;
+            }
+        }
+
+        public int ItemsPadding
+        {
+            get {
+                return fItemsPadding;
+            }
+            set {
+                if (fItemsPadding != value) {
+                    fItemsPadding = value;
+                    UpdateView();
+                }
+            }
         }
 
         public TreemapModel Model
         {
-            get { return fModel; }
+            get {
+                return fModel;
+            }
         }
 
         public bool MouseoverHighlight
         {
-            get { return fMouseoverHighlight; }
-            set { fMouseoverHighlight = value; }
+            get {
+                return fMouseoverHighlight;
+            }
+            set {
+                if (fMouseoverHighlight != value) {
+                    fMouseoverHighlight = value;
+                    UpdateView();
+                }
+            }
         }
 
         public MapItem RootItem
@@ -116,9 +128,24 @@ namespace BSLib.DataViz.TreeMap
             }
         }
 
+        public bool ShowNames
+        {
+            get {
+                return fShowNames;
+            }
+            set {
+                if (fShowNames != value) {
+                    fShowNames = value;
+                    UpdateView();
+                }
+            }
+        }
+
         public MapItem UpperItem
         {
-            get { return fUpperItem; }
+            get {
+                return fUpperItem;
+            }
         }
 
         public event HintRequestEventHandler OnHintRequest;
@@ -130,10 +157,8 @@ namespace BSLib.DataViz.TreeMap
             base.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             base.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-            int w = 1200;
-            int h = 800;
-            fModel = new SimpleModel(w, h);
-            fModel.CalcLayout(new MapRect(0, 0, w, h));
+            fItemsPadding = 4;
+            fModel = new SimpleModel();
 
             fToolTip = new ToolTip();
             fToolTip.AutoPopDelay = 5000;
@@ -141,16 +166,15 @@ namespace BSLib.DataViz.TreeMap
             fToolTip.ReshowDelay = 50;
             fToolTip.ShowAlways = true;
 
+            fBackBuffer = null;
             fBorderPen = new Pen(Color.Black);
             fLowerPen = new Pen(fLowerHighlight);
             fUpperPen = new Pen(fUpperHighlight, 2);
-
-            fBackBuffer = null;
         }
 
         private List<MapItem> GetRootList()
         {
-            return (fRootItem == null) ? fModel.GetItems() : fRootItem.Items;
+            return (fRootItem == null) ? fModel.Items : fRootItem.Items;
         }
 
         public void UpdateView()
@@ -158,7 +182,9 @@ namespace BSLib.DataViz.TreeMap
             try {
                 if (Width != 0 && Height != 0) {
                     List<MapItem> itemsList = GetRootList();
-                    fModel.CalcLayout(itemsList, new MapRect(0, 0, Width, Height));
+                    int headerHeight = (fShowNames) ? 10 : fItemsPadding;
+
+                    fModel.CalcLayout(itemsList, new MapRect(0, 0, Width, Height), headerHeight, fItemsPadding);
 
                     fBackBuffer = null;
                     Invalidate();
@@ -190,10 +216,14 @@ namespace BSLib.DataViz.TreeMap
 
             if (fHint != hint) {
                 fHint = hint;
-                fToolTip.Show(hint, this, e.X, e.Y, 3000);
+                if (string.IsNullOrEmpty(fHint)) {
+                    fToolTip.Hide(this);
+                } else {
+                    fToolTip.Show(hint, this, e.X, e.Y, 3000);
+                }
             }
 
-            if (fMouseoverHighlight && (fUpperHoveredItem != fUpperItem || fLowerHoveredItem != fCurrentItem)) {
+            if (fMouseoverHighlight) {
                 fUpperHoveredItem = fUpperItem;
                 fLowerHoveredItem = fCurrentItem;
                 Invalidate();
@@ -243,31 +273,25 @@ namespace BSLib.DataViz.TreeMap
             }
         }
 
-        private void DrawItems(Graphics gfx, List<MapItem> items)
+        protected void DrawItems(Graphics gfx, IList<MapItem> items)
         {
             int num = items.Count;
             for (int i = 0; i < num; i++) {
                 MapItem item = items[i];
-                DrawItem(gfx, item, fBorderPen);
-
-                if (!item.IsLeaf()) {
-                    DrawItems(gfx, item.Items);
-                }
+                DrawItem(gfx, item);
             }
         }
 
-        protected virtual void DrawItem(Graphics gfx, MapItem item, Pen borderPen)
+        protected virtual void DrawItem(Graphics gfx, MapItem item)
         {
             var rect = item.Bounds;
-            if (rect.W < 2 || rect.H < 2) {
-                return;
+            if (rect.W > 2 && rect.H > 2) {
+                var simpleItem = (SimpleItem)item;
+                gfx.FillRectangle(new SolidBrush(simpleItem.Color), rect.X, rect.Y, rect.W, rect.H);
+                gfx.DrawRectangle(fBorderPen, rect.X, rect.Y, rect.W, rect.H);
             }
 
-            if (item.IsLeaf()) {
-                gfx.FillRectangle(new SolidBrush(((SimpleItem)item).Color), rect.X, rect.Y, rect.W, rect.H);
-            }
-
-            gfx.DrawRectangle(borderPen, rect.X, rect.Y, rect.W, rect.H);
+            DrawItems(gfx, item.Items);
         }
     }
 }

@@ -9,10 +9,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BSLib")]
-[assembly: AssemblyCopyright("Copyright © 2018 Sergey V. Zhdanovskih")]
+[assembly: AssemblyCopyright("Copyright © 2018-2020 Sergey V. Zhdanovskih")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("0.1.3.0")]
+[assembly: AssemblyVersion("0.2.0.0")]
 
 #endif
