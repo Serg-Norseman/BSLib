@@ -89,6 +89,7 @@ namespace BSLib.DataViz.TreeMap
 
         public MapItem(double size, int order)
         {
+            fItems = new List<MapItem>();
             fSize = size;
             fOrder = order;
             fBounds = new MapRect(0, 0, 0, 0);

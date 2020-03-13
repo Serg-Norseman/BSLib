@@ -35,7 +35,6 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -46,6 +45,10 @@
     <ProjectReference Include="..\BSLib.DataViz.Model\BSLib.DataViz.Model.csproj">
       <Project>{58e0dd1e-7a8c-4368-bac8-bbbf7361af2a}</Project>
       <Name>BSLib.DataViz.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSLib\BSLib.csproj">
+      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
+      <Name>BSLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

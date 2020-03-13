@@ -95,6 +95,7 @@
     <Compile Include="IniFiles\IniFileValue.cs" />
     <Compile Include="ListTimSort.cs" />
     <Compile Include="MathHelper.cs" />
+    <Compile Include="NavigationStack.cs" />
     <Compile Include="NetHelper.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="ProbabilityTable.cs" />
