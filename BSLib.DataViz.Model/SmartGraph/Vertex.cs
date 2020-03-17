@@ -19,60 +19,32 @@
  */
 
 using System;
+using System.Collections.Generic;
 
-namespace BSLib.SmartGraph
+namespace BSLib.DataViz.SmartGraph
 {
-    public class Edge : GraphObject, IComparable
+    public class Vertex : GraphObject, IComparable
     {
-        #region Private fields
+        public string Sign { get; set; }
+        public object Value { get; set; }
+        public List<Edge> EdgesOut { get; private set; }
 
-        private int fCost;
-        private Vertex fSource;
-        private Vertex fTarget;
-        private object fValue;
+        #region Path-search runtime
 
-        #endregion
-
-        #region Properties
-
-        public int Cost
-        {
-            get { return fCost; }
-        }
-
-        public Vertex Source
-        {
-            get { return fSource; }
-        }
-
-        public Vertex Target
-        {
-            get { return fTarget; }
-        }
-
-        public object Value
-        {
-            get { return fValue; }
-        }
+        internal int Dist { get; set; }
+        internal bool Visited { get; set; }
+        internal Edge EdgeIn { get; set; }
 
         #endregion
 
-        public Edge(Vertex source, Vertex target, int cost, object value)
+        public Vertex()
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
-            if (target == null)
-                throw new ArgumentNullException("target");
-
-            fSource = source;
-            fTarget = target;
-            fCost = cost;
-            fValue = value;
+            EdgesOut = new List<Edge>();
         }
 
         public int CompareTo(object obj)
         {
-            if (!(obj is Edge))
+            if (!(obj is Vertex))
                 throw new ArgumentException("Cannot compare two objects");
 
             return GetHashCode().CompareTo(obj.GetHashCode());

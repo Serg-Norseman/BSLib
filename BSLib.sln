@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-# SharpDevelop 5.1
-VisualStudioVersion = 12.0.20827.3
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib", "BSLib\BSLib.csproj", "{F657A1B7-C834-420A-B302-88460E3F6283}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Controls", "BSLib.Controls\BSLib.Controls.csproj", "{3180214E-8BFD-4B0B-AD9B-E298FAE67CCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Controls.Samples", "BSLib.Controls.Samples\BSLib.Controls.Samples.csproj", "{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.SmartGraph", "BSLib.SmartGraph\BSLib.SmartGraph.csproj", "{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Samples", "BSLib.Samples\BSLib.Samples.csproj", "{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Tests", "BSLib.Tests\BSLib.Tests.csproj", "{A8B53A6B-40A6-40BA-A671-03FC911BC37B}"
 EndProject
@@ -20,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.DataViz.Model", "BSLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.DataViz.WFControls", "BSLib.DataViz.WFControls\BSLib.DataViz.WFControls.csproj", "{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.ArborX.DemoWF", "BSLib.ArborX.DemoWF\BSLib.ArborX.DemoWF.csproj", "{4F4B9085-FA6A-4869-9B27-2721E77C1E90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDNTest", "UDNTest\UDNTest.csproj", "{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +37,6 @@ Global
 		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,9 +53,15 @@ Global
 		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F4B9085-FA6A-4869-9B27-2721E77C1E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F4B9085-FA6A-4869-9B27-2721E77C1E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F4B9085-FA6A-4869-9B27-2721E77C1E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F4B9085-FA6A-4869-9B27-2721E77C1E90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5C1F8C34-D35A-4C9D-90FA-D30673BDEF33}
 	EndGlobalSection
 EndGlobal

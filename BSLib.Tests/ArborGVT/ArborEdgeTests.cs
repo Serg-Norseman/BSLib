@@ -1,8 +1,8 @@
 ﻿using System;
+using BSLib.DataViz.SmartGraph;
 using NUnit.Framework;
-using BSLib.SmartGraph;
 
-namespace BSLib.ArborGVT
+namespace BSLib.DataViz.ArborGVT
 {
     [TestFixture]
     public class ArborEdgeTests

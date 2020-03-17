@@ -1,34 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
-    <ProjectGuid>{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}</ProjectGuid>
+    <ProjectGuid>{0766F8F3-3DF7-49F9-941B-1B5C0CA20939}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Library</OutputType>
-    <AssemblyName>BSLib.SmartGraph</AssemblyName>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>BSLib.Samples</RootNamespace>
+    <AssemblyName>BSLib.Samples</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile />
     <NoWin32Manifest>False</NoWin32Manifest>
-    <SignAssembly>False</SignAssembly>
-    <DelaySign>False</DelaySign>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>False</RunCodeAnalysis>
-    <SourceAnalysisOverrideSettingsFile>C:\Users\Norseman\AppData\Roaming\ICSharpCode/SharpDevelop4\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
-    <RootNamespace>BSLib.SmartGraph</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <BaseAddress>4194304</BaseAddress>
     <RegisterForComInterop>False</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <Prefer32Bit>True</Prefer32Bit>
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -38,7 +33,6 @@
     <Optimize>False</Optimize>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -48,27 +42,50 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
-    <StartAction>Project</StartAction>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ArborGVT\ArborEdge.cs" />
-    <Compile Include="ArborGVT\ArborNode.cs" />
-    <Compile Include="ArborGVT\ArborPoint.cs" />
-    <Compile Include="ArborGVT\ArborSystem.cs" />
-    <Compile Include="ArborGVT\BarnesHutTree.cs" />
-    <Compile Include="ArborGVT\IArborRenderer.cs" />
-    <Compile Include="SmartGraph\Edge.cs" />
-    <Compile Include="SmartGraph\Graph.cs" />
-    <Compile Include="SmartGraph\GraphObject.cs" />
-    <Compile Include="SmartGraph\GraphvizWriter.cs" />
-    <Compile Include="SmartGraph\PathCandidate.cs" />
-    <Compile Include="SmartGraph\Vertex.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArborSampleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArborSampleForm.Designer.cs">
+      <DependentUpon>ArborSampleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSLib.Controls\BSLib.Controls.csproj">
+      <Project>{3180214e-8bfd-4b0b-ad9b-e298fae67ccb}</Project>
+      <Name>BSLib.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSLib.DataViz.Model\BSLib.DataViz.Model.csproj">
+      <Project>{58e0dd1e-7a8c-4368-bac8-bbbf7361af2a}</Project>
+      <Name>BSLib.DataViz.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSLib.DataViz.WFControls\BSLib.DataViz.WFControls.csproj">
+      <Project>{98f66bb1-0120-4e3d-95f6-f98152dee3c8}</Project>
+      <Name>BSLib.DataViz.WFControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BSLib\BSLib.csproj">
       <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
       <Name>BSLib</Name>

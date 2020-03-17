@@ -20,6 +20,11 @@ using System.Globalization;
 
 namespace BSLib
 {
+    /// <summary>
+    /// The structure of a typical planar rectangle in integer coordinates.
+    /// The main task is to untie the use of the classic System.Drawings namespace
+    /// and from setting the size via Width/Height.
+    /// </summary>
     public struct ExtRect : ICloneable<ExtRect>
     {
         public static readonly ExtRect Empty = default(ExtRect);
@@ -31,7 +36,7 @@ namespace BSLib
 
         public int Square
         {
-            get { return GetWidth() * GetHeight(); }
+            get { return Width * Height; }
         }
 
         public int Width
@@ -153,8 +158,8 @@ namespace BSLib
 
         public ExtPoint GetCenter()
         {
-            int cx = Left + GetWidth() / 2;
-            int cy = Top + GetHeight() / 2;
+            int cx = Left + Width / 2;
+            int cy = Top + Height / 2;
             return new ExtPoint(cx, cy);
         }
 

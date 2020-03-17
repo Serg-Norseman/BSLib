@@ -1,9 +1,9 @@
-﻿namespace BSLib.ArborX.DemoWF
+﻿namespace BSLib.Samples
 {
     partial class ArborSampleForm
     {
         private System.ComponentModel.IContainer components = null;
-        private BSLib.ArborX.DemoWF.ArborViewer arborViewer1;
+        private BSLib.DataViz.ArborGVT.ArborViewer arborViewer1;
 
         protected override void Dispose(bool disposing)
         {
@@ -17,7 +17,7 @@
 
         private void InitializeComponent()
         {
-            this.arborViewer1 = new BSLib.ArborX.DemoWF.ArborViewer();
+            this.arborViewer1 = new BSLib.DataViz.ArborGVT.ArborViewer();
             this.SuspendLayout();
             // 
             // arborViewer1

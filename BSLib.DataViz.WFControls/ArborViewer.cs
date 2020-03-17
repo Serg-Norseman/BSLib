@@ -15,10 +15,10 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Timers;
 using System.Windows.Forms;
-using BSLib.ArborGVT;
-using BSLib.SmartGraph;
+using BSLib.DataViz.ArborGVT;
+using BSLib.DataViz.SmartGraph;
 
-namespace BSLib.ArborX.DemoWF
+namespace BSLib.DataViz.ArborGVT
 {
     public sealed class ArborNodeEx : ArborNode
     {

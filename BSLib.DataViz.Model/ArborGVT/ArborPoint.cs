@@ -9,7 +9,7 @@
 
 using System;
 
-namespace BSLib.ArborGVT
+namespace BSLib.DataViz.ArborGVT
 {
     public struct ArborPoint : IEquatable<ArborPoint>
     {

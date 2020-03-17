@@ -21,7 +21,7 @@
 using System.IO;
 using System.Text;
 
-namespace BSLib.SmartGraph
+namespace BSLib.DataViz.SmartGraph
 {
     public sealed class GraphvizWriter
     {

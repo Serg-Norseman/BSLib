@@ -20,7 +20,7 @@
 
 using System;
 
-namespace BSLib.SmartGraph
+namespace BSLib.DataViz.SmartGraph
 {
     internal sealed class PathCandidate
     {

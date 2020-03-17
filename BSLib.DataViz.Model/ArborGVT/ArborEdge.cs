@@ -8,10 +8,10 @@
  */
 
 using System;
+using BSLib.DataViz.SmartGraph;
 using BSLib.Extensions;
-using BSLib.SmartGraph;
 
-namespace BSLib.ArborGVT
+namespace BSLib.DataViz.ArborGVT
 {
     public class ArborEdge : IExtension<GraphObject>
     {

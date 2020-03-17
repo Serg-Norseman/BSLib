@@ -7,10 +7,10 @@
  *  Fork and C# implementation, copyright (c) 2012,2016 by Serg V. Zhdanovskih.
  */
 
+using BSLib.DataViz.SmartGraph;
 using BSLib.Extensions;
-using BSLib.SmartGraph;
 
-namespace BSLib.ArborGVT
+namespace BSLib.DataViz.ArborGVT
 {
     public class ArborNode : IExtension<GraphObject>
     {

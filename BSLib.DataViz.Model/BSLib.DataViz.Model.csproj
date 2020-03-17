@@ -35,13 +35,28 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArborGVT\ArborEdge.cs" />
+    <Compile Include="ArborGVT\ArborNode.cs" />
+    <Compile Include="ArborGVT\ArborPoint.cs" />
+    <Compile Include="ArborGVT\ArborSystem.cs" />
+    <Compile Include="ArborGVT\BarnesHutTree.cs" />
+    <Compile Include="ArborGVT\IArborRenderer.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="SmartGraph\Edge.cs" />
+    <Compile Include="SmartGraph\Graph.cs" />
+    <Compile Include="SmartGraph\GraphObject.cs" />
+    <Compile Include="SmartGraph\GraphvizWriter.cs" />
+    <Compile Include="SmartGraph\PathCandidate.cs" />
+    <Compile Include="SmartGraph\Vertex.cs" />
     <Compile Include="TreeMap\MapItem.cs" />
     <Compile Include="TreeMap\MapRect.cs" />
     <Compile Include="TreeMap\TreemapModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TreeMap" />
+    <ProjectReference Include="..\BSLib\BSLib.csproj">
+      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
+      <Name>BSLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

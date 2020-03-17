@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
-using BSLib.ArborGVT;
+using BSLib.DataViz.ArborGVT;
 using BSLib.Extensions;
 using NUnit.Framework;
 
-namespace BSLib.SmartGraph
+namespace BSLib.DataViz.SmartGraph
 {
     public class GTestObj : GraphObject
     {

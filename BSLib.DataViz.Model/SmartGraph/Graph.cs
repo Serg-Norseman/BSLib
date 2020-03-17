@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BSLib.SmartGraph
+namespace BSLib.DataViz.SmartGraph
 {
     [Serializable]
     public class GraphException : Exception

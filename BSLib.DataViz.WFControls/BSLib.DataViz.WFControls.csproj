@@ -37,6 +37,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArborViewer.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="HintRequestEventArgs.cs" />
     <Compile Include="TreeMapViewer.cs" />

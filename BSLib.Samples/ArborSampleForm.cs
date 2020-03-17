@@ -1,9 +1,9 @@
 ﻿// Copyright 2015 by Serg V. Zhdanovskih
 
 using System.Windows.Forms;
-using BSLib.ArborGVT;
+using BSLib.DataViz.ArborGVT;
 
-namespace BSLib.ArborX.DemoWF
+namespace BSLib.Samples
 {
     public partial class ArborSampleForm : Form
     {

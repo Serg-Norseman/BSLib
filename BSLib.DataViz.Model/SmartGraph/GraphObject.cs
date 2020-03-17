@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  "SmartGraph", the small library for store and manipulations over graphs.
  *  Copyright (C) 2011-2016 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
  *
@@ -19,35 +19,22 @@
  */
 
 using System;
-using System.Collections.Generic;
+using BSLib.Extensions;
 
-namespace BSLib.SmartGraph
+namespace BSLib.DataViz.SmartGraph
 {
-    public class Vertex : GraphObject, IComparable
+    public abstract class GraphObject : IExtensibleObject<GraphObject>
     {
-        public string Sign { get; set; }
-        public object Value { get; set; }
-        public List<Edge> EdgesOut { get; private set; }
+        private readonly IExtensionCollection<GraphObject, IExtension<GraphObject>> fExtensions;
 
-        #region Path-search runtime
-
-        internal int Dist { get; set; }
-        internal bool Visited { get; set; }
-        internal Edge EdgeIn { get; set; }
-
-        #endregion
-
-        public Vertex()
+        public IExtensionCollection<GraphObject, IExtension<GraphObject>> Extensions
         {
-            EdgesOut = new List<Edge>();
+            get { return fExtensions; }
         }
 
-        public int CompareTo(object obj)
+        protected GraphObject()
         {
-            if (!(obj is Vertex))
-                throw new ArgumentException("Cannot compare two objects");
-
-            return GetHashCode().CompareTo(obj.GetHashCode());
+            fExtensions = new ExtensionCollection<GraphObject, IExtension<GraphObject>>(this);
         }
     }
 }

@@ -11,9 +11,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using BSLib.SmartGraph;
+using BSLib.DataViz.SmartGraph;
 
-namespace BSLib.ArborGVT
+namespace BSLib.DataViz.ArborGVT
 {
     public abstract class ArborSystem : BaseObject
     {

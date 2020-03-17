@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace BSLib.ArborX.DemoWF
+namespace BSLib.Samples
 {
     internal sealed class Program
     {
@@ -10,7 +10,7 @@ namespace BSLib.ArborX.DemoWF
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ArborSampleForm());
-        }
+            Application.Run(new MainForm());
+        }        
     }
 }
