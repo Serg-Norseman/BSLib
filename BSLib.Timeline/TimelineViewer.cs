@@ -725,10 +725,10 @@ namespace BSLib.Timeline
                     // Was this track already selected?
                     if (!fSelectedFrames.Contains(focusedFrame)) {
                         // Tell the track that it was selected.
-                        InvokeSelectionChanged(new SelectionChangedEventArgs(focusedFrame.Yield(), null));
+                        InvokeSelectionChanged(new SelectionChangedEventArgs(focusedFrame.Yield<ITimeObject>(), null));
                         // Clear the selection, unless the user is picking
                         if ((ModifierKeys & Keys.Control) == 0) {
-                            InvokeSelectionChanged(new SelectionChangedEventArgs(null, fSelectedFrames));
+                            InvokeSelectionChanged(new SelectionChangedEventArgs(null, (IEnumerable<ITimeObject>)fSelectedFrames));
                             fSelectedFrames.Clear();
                         }
 
@@ -739,7 +739,7 @@ namespace BSLib.Timeline
                         // then the user is picking and we want to remove the track from the selection
                     } else if ((ModifierKeys & Keys.Control) != 0) {
                         fSelectedFrames.Remove(focusedFrame);
-                        InvokeSelectionChanged(new SelectionChangedEventArgs(null, focusedFrame.Yield()));
+                        InvokeSelectionChanged(new SelectionChangedEventArgs(null, focusedFrame.Yield<ITimeObject>()));
                     }
                 } else if (location.Y < fPlayheadExtents.Height) {
                     fCurrentMode = BehaviorMode.TimeScrub;
@@ -747,7 +747,7 @@ namespace BSLib.Timeline
                 } else {
                     // Clear the selection, unless the user is picking
                     if ((ModifierKeys & Keys.Control) == 0) {
-                        InvokeSelectionChanged(new SelectionChangedEventArgs(null, fSelectedFrames));
+                        InvokeSelectionChanged(new SelectionChangedEventArgs(null, (IEnumerable<ITimeObject>)fSelectedFrames));
                         fSelectedFrames.Clear();
                     }
 
@@ -785,10 +785,10 @@ namespace BSLib.Timeline
                             // Toggle track in and out of selection.
                             if (fSelectedFrames.Contains(frame)) {
                                 fSelectedFrames.Remove(frame);
-                                InvokeSelectionChanged(new SelectionChangedEventArgs(null, frame.Yield()));
+                                InvokeSelectionChanged(new SelectionChangedEventArgs(null, frame.Yield<ITimeObject>()));
                             } else {
                                 fSelectedFrames.Add(frame);
-                                InvokeSelectionChanged(new SelectionChangedEventArgs(frame.Yield(), null));
+                                InvokeSelectionChanged(new SelectionChangedEventArgs(frame.Yield<ITimeObject>(), null));
                             }
                         }
                     } else {
@@ -811,10 +811,10 @@ namespace BSLib.Timeline
                                 // Toggle track in and out of selection.
                                 if (fSelectedFrames.Contains(frame)) {
                                     fSelectedFrames.Remove(frame);
-                                    InvokeSelectionChanged(new SelectionChangedEventArgs(null, frame.Yield()));
+                                    InvokeSelectionChanged(new SelectionChangedEventArgs(null, frame.Yield<ITimeObject>()));
                                 } else {
                                     fSelectedFrames.Add(frame);
-                                    InvokeSelectionChanged(new SelectionChangedEventArgs(frame.Yield(), null));
+                                    InvokeSelectionChanged(new SelectionChangedEventArgs(frame.Yield<ITimeObject>(), null));
                                 }
                             }
                         }
@@ -847,17 +847,17 @@ namespace BSLib.Timeline
 
             if (e.KeyCode == Keys.A && e.Control) {
                 // Ctrl+A - Select all
-                InvokeSelectionChanged(new SelectionChangedEventArgs(null, fSelectedFrames));
+                InvokeSelectionChanged(new SelectionChangedEventArgs(null, (IEnumerable<ITimeObject>)fSelectedFrames));
                 fSelectedFrames.Clear();
                 foreach (EventFrame frame in fTracks.SelectMany( t => t.Frames )) {
                     fSelectedFrames.Add(frame);
                 }
-                InvokeSelectionChanged(new SelectionChangedEventArgs(fSelectedFrames, null));
+                InvokeSelectionChanged(new SelectionChangedEventArgs((IEnumerable<ITimeObject>)fSelectedFrames, null));
 
                 Invalidate();
             } else if (e.KeyCode == Keys.D && e.Control) {
                 // Ctrl+D - Deselect all
-                InvokeSelectionChanged(new SelectionChangedEventArgs(null, fSelectedFrames));
+                InvokeSelectionChanged(new SelectionChangedEventArgs(null, (IEnumerable<ITimeObject>)fSelectedFrames));
                 fSelectedFrames.Clear();
 
                 Invalidate();

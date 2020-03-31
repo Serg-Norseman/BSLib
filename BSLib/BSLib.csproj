@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BSLib</RootNamespace>
     <AssemblyName>BSLib</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
     <NoWin32Manifest>False</NoWin32Manifest>

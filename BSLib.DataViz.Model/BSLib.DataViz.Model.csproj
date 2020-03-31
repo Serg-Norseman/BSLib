@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BSLib.DataViz.Model</RootNamespace>
     <AssemblyName>BSLib.DataViz.Model</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
   </PropertyGroup>

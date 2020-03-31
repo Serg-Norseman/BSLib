@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BSLib.Controls</RootNamespace>
     <AssemblyName>BSLib.Controls</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -42,14 +42,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="DropDownControl.cs" />
+    <Compile Include="DropDownControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="EnumGroup.cs" />
-    <Compile Include="OptionsPicker.cs" />
-    <Compile Include="RadioGroup.cs" />
-    <Compile Include="Validation\NumericFieldValidator.cs" />
-    <Compile Include="Validation\RequiredFieldValidator.cs" />
+    <Compile Include="OptionsPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RadioGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Validation\NumericFieldValidator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Validation\RequiredFieldValidator.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Validation\ValidatableControlConverter.cs" />
-    <Compile Include="Validation\ValidatorBase.cs" />
+    <Compile Include="Validation\ValidatorBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSLib\BSLib.csproj">
@@ -57,8 +69,6 @@
       <Name>BSLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Validation" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
