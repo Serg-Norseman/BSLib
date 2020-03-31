@@ -1,6 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
+# Visual Studio 2012
+# SharpDevelop 5.1
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib", "BSLib\BSLib.csproj", "{F657A1B7-C834-420A-B302-88460E3F6283}"
@@ -18,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.DataViz.WFControls", "BSLib.DataViz.WFControls\BSLib.DataViz.WFControls.csproj", "{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDNTest", "UDNTest\UDNTest.csproj", "{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Timeline", "BSLib.Timeline\BSLib.Timeline.csproj", "{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +60,10 @@ Global
 		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96B11E68-5F19-47AA-BD4D-4E07EC6ABE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
