@@ -80,6 +80,7 @@
     <Compile Include="GfxHelperTests.cs" />
     <Compile Include="IndistinctMatchingTests.cs" />
     <Compile Include="IniFileTests.cs" />
+    <Compile Include="IocContainerTests.cs" />
     <Compile Include="Linguistics\BaseMorpherTests.cs" />
     <Compile Include="MathHelperTests.cs" />
     <Compile Include="NetHelperTests.cs" />
@@ -104,6 +105,10 @@
     <ProjectReference Include="..\BSLib.DataViz.Model\BSLib.DataViz.Model.csproj">
       <Project>{58e0dd1e-7a8c-4368-bac8-bbbf7361af2a}</Project>
       <Name>BSLib.DataViz.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSLib.Design\BSLib.Design.csproj">
+      <Project>{e8f0dd42-720b-498c-b8f1-b0e4445deeab}</Project>
+      <Name>BSLib.Design</Name>
     </ProjectReference>
     <ProjectReference Include="..\BSLib.Linguistics\BSLib.Linguistics.csproj">
       <Project>{d28680cf-06ba-4b0a-a9f0-fb45eb9ce92a}</Project>
