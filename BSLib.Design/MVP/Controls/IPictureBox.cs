@@ -16,20 +16,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
+using BSLib.Design.Graphics;
+using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP
+namespace BSLib.Design.MVP.Controls
 {
-    public interface IView : IBaseControl, IDisposable
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IPictureBox : IBaseControl
     {
-        string Title { get; set; }
-
-        void Close();
-    }
-
-
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
-    {
-        TModel Model { get; set; }
+        IImage Image { get; set; }
     }
 }

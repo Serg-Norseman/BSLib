@@ -17,16 +17,39 @@
  */
 
 using System;
-using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP.Controls
+namespace BSLib.Design
 {
-    public interface IProgressBarHandler : IBaseControl
+    /// <summary>
+    /// This class is designed to isolate common type names from platform-specific implementations.
+    /// Not the best name for the class, it may be renamed in the future.
+    /// </summary>
+    public static class BSDTypes
     {
-        int Minimum { get; set; }
-        int Maximum { get; set; }
-        int Value { get; set; }
+        [Flags]
+        public enum FontStyle
+        {
+            None = 0,
+            Bold = 1,
+            Italic = 2,
+            Underline = 4,
+            Strikeout = 8
+        }
 
-        void Increment(int value);
+
+        public enum HorizontalAlignment
+        {
+            Left,
+            Right,
+            Center
+        }
+
+
+        public enum SortOrder
+        {
+            None,
+            Ascending,
+            Descending
+        }
     }
 }

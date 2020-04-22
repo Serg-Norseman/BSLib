@@ -21,12 +21,9 @@ using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public interface IDateTimeBoxHandler : IBaseControl
+    public interface IRadioButton : IBaseControl
     {
         bool Checked { get; set; }
-        DateTime Value { get; set; }
+        string Text { get; set; }
     }
 }

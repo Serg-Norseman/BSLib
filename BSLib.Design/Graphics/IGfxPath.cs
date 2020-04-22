@@ -18,18 +18,16 @@
 
 using System;
 
-namespace BSLib.Design.MVP
+namespace BSLib.Design.Graphics
 {
-    public interface IView : IBaseControl, IDisposable
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IGfxPath : IDisposable
     {
-        string Title { get; set; }
+        void CloseFigure();
+        void StartFigure();
 
-        void Close();
-    }
-
-
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
-    {
-        TModel Model { get; set; }
+        ExtRectF GetBounds();
     }
 }

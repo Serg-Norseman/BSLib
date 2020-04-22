@@ -17,31 +17,16 @@
  */
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {
-    public interface IComboBoxHandler : IBaseControl
+    public interface IProgressBar : IBaseControl
     {
-        IList Items { get; }
-        bool ReadOnly { get; set; }
-        int SelectedIndex { get; set; }
-        object SelectedItem { get; set; }
-        string Text { get; set; }
+        int Minimum { get; set; }
+        int Maximum { get; set; }
+        int Value { get; set; }
 
-        void Add(object item);
-        void AddItem<T>(string caption, T tag);
-        void AddRange(object[] items, bool sorted = false);
-        void AddRange(IList<string> items, bool sorted = false);
-        void AddStrings(StringList strings);
-        void BeginUpdate();
-        void Clear();
-        void EndUpdate();
-        void SortItems();
-
-        T GetSelectedTag<T>();
-        void SetSelectedTag<T>(T tagValue);
+        void Increment(int value);
     }
 }

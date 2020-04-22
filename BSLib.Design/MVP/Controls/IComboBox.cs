@@ -17,13 +17,30 @@
  */
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {
-    public interface ICheckBoxHandler : IBaseControl
+    public interface IComboBox : IBaseControl
     {
-        bool Checked { get; set; }
+        IList Items { get; }
+        bool ReadOnly { get; set; }
+        int SelectedIndex { get; set; }
+        object SelectedItem { get; set; }
         string Text { get; set; }
+
+        void Add(object item);
+        void AddItem<T>(string caption, T tag);
+        void AddRange(IEnumerable<object> items, bool sorted = false);
+        void AddStrings(StringList strings);
+        void BeginUpdate();
+        void Clear();
+        void EndUpdate();
+        void Sort();
+
+        T GetSelectedTag<T>();
+        void SetSelectedTag<T>(T tagValue);
     }
 }

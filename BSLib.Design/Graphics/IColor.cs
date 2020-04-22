@@ -1,4 +1,4 @@
-﻿/*
+/*
  *  "BSLib.Design".
  *  Copyright (C) 2018-2020 by Sergey V. Zhdanovskih.
  *
@@ -16,20 +16,26 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-
-namespace BSLib.Design.MVP
+namespace BSLib.Design.Graphics
 {
-    public interface IView : IBaseControl, IDisposable
+    /// <summary>
+    /// Interface for platform-independent class of color representation.
+    /// </summary>
+    public interface IColor
     {
-        string Title { get; set; }
+        IColor Darker(float fraction);
+        IColor Lighter(float fraction);
 
-        void Close();
-    }
+        string GetCode();
+        string GetName();
 
+        byte GetR();
+        byte GetG();
+        byte GetB();
+        byte GetA();
 
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
-    {
-        TModel Model { get; set; }
+        bool IsTransparent();
+
+        int ToArgb();
     }
 }

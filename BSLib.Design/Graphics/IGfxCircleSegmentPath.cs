@@ -17,23 +17,18 @@
  */
 
 using System;
-using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP.Controls
+namespace BSLib.Design.Graphics
 {
-    public interface ITVNode
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IGfxCircleSegmentPath : IGfxPath
     {
-        object Tag { get; set; }
-    }
-
-
-    public interface ITreeViewHandler : IBaseControl
-    {
-        ITVNode AddNode(ITVNode parent, string name, object tag);
-        void BeginUpdate();
-        void Clear();
-        void EndUpdate();
-        void Expand(ITVNode node);
-        object GetSelectedData();
+        float InRad { get; set; }
+        float ExtRad { get; set; }
+        float WedgeAngle { get; set; }
+        float Ang1 { get; set; }
+        float Ang2 { get; set; }
     }
 }

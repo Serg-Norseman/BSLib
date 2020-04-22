@@ -21,8 +21,12 @@ using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {
-    public interface ILabelHandler : IBaseControl
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IDateTimeBox : IBaseControl
     {
-        string Text { get; set; }
+        bool Checked { get; set; }
+        DateTime Value { get; set; }
     }
 }

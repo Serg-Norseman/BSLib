@@ -17,12 +17,14 @@
  */
 
 using System;
-using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP.Controls
+namespace BSLib.Design.Graphics
 {
-    public interface IButtonHandler : IBaseControl
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IBrush : IDisposable
     {
-        string Text { get; set; }
+        IColor Color { get; }
     }
 }

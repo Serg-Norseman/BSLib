@@ -36,21 +36,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="BSDConsts.cs" />
+    <Compile Include="Graphics\IGraphicsProvider.cs" />
+    <Compile Include="Graphics\IPrintable.cs" />
+    <Compile Include="BSDTypes.cs" />
     <Compile Include="IoC\IocContainer.cs" />
     <Compile Include="MVP\ControlHandler.cs" />
     <Compile Include="MVP\Controller.cs" />
     <Compile Include="MVP\ControlsManager.cs" />
-    <Compile Include="MVP\Controls\IButtonHandler.cs" />
-    <Compile Include="MVP\Controls\ICheckBoxHandler.cs" />
-    <Compile Include="MVP\Controls\IComboBoxHandler.cs" />
-    <Compile Include="MVP\Controls\IDateTimeBoxHandler.cs" />
-    <Compile Include="MVP\Controls\ILabelHandler.cs" />
-    <Compile Include="MVP\Controls\INumericBoxHandler.cs" />
-    <Compile Include="MVP\Controls\IProgressBarHandler.cs" />
-    <Compile Include="MVP\Controls\IRadioButtonHandler.cs" />
+    <Compile Include="MVP\Controls\IButton.cs" />
+    <Compile Include="MVP\Controls\ICheckBox.cs" />
+    <Compile Include="MVP\Controls\IComboBox.cs" />
+    <Compile Include="MVP\Controls\IDateTimeBox.cs" />
+    <Compile Include="MVP\Controls\ILabel.cs" />
+    <Compile Include="MVP\Controls\IListView.cs" />
+    <Compile Include="MVP\Controls\INumericBox.cs" />
+    <Compile Include="MVP\Controls\IPictureBox.cs" />
+    <Compile Include="MVP\Controls\IProgressBar.cs" />
+    <Compile Include="MVP\Controls\IPropertyGrid.cs" />
+    <Compile Include="MVP\Controls\IRadioButton.cs" />
     <Compile Include="MVP\Controls\ITabControl.cs" />
-    <Compile Include="MVP\Controls\ITextBoxHandler.cs" />
-    <Compile Include="MVP\Controls\ITreeViewHandler.cs" />
+    <Compile Include="MVP\Controls\ITextBox.cs" />
+    <Compile Include="MVP\Controls\ITreeView.cs" />
+    <Compile Include="Graphics\IBrush.cs" />
+    <Compile Include="Graphics\IColor.cs" />
+    <Compile Include="Graphics\IFont.cs" />
+    <Compile Include="Graphics\IGfxCirclePath.cs" />
+    <Compile Include="Graphics\IGfxCircleSegmentPath.cs" />
+    <Compile Include="Graphics\IGfxPath.cs" />
+    <Compile Include="Graphics\IImage.cs" />
+    <Compile Include="Graphics\IPen.cs" />
     <Compile Include="MVP\IControl.cs" />
     <Compile Include="MVP\IController.cs" />
     <Compile Include="MVP\IView.cs" />
@@ -59,6 +74,7 @@
     <Folder Include="IoC" />
     <Folder Include="MVP" />
     <Folder Include="MVP\Controls" />
+    <Folder Include="Graphics" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSLib\BSLib.csproj">

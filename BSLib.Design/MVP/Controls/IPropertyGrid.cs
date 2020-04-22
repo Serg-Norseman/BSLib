@@ -16,14 +16,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {
-    public interface IRadioButtonHandler : IBaseControl
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IPropertyGrid : IBaseControl
     {
-        bool Checked { get; set; }
-        string Text { get; set; }
+        object SelectedObject { get; set; }
+
+        void Refresh();
     }
 }

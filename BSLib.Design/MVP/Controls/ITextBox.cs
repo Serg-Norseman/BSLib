@@ -17,19 +17,20 @@
  */
 
 using System;
+using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP
+namespace BSLib.Design.MVP.Controls
 {
-    public interface IView : IBaseControl, IDisposable
+    public interface ITextBox : IBaseControl
     {
-        string Title { get; set; }
+        string[] Lines { get; set; }
+        bool ReadOnly { get; set; }
+        string SelectedText { get; set; }
+        string Text { get; set; }
 
-        void Close();
-    }
-
-
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
-    {
-        TModel Model { get; set; }
+        void AppendText(string text);
+        void Clear();
+        void Copy();
+        void SelectAll();
     }
 }

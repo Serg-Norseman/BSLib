@@ -18,18 +18,15 @@
 
 using System;
 
-namespace BSLib.Design.MVP
+namespace BSLib.Design.Graphics
 {
-    public interface IView : IBaseControl, IDisposable
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IImage : IDisposable
     {
-        string Title { get; set; }
-
-        void Close();
-    }
-
-
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
-    {
-        TModel Model { get; set; }
+        int Height { get; }
+        int Width { get; }
+        byte[] GetBytes();
     }
 }

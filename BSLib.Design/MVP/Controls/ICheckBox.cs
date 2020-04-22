@@ -21,16 +21,9 @@ using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {
-    public interface ITextBoxHandler : IBaseControl
+    public interface ICheckBox : IBaseControl
     {
-        string[] Lines { get; set; }
-        bool ReadOnly { get; set; }
-        string SelectedText { get; set; }
+        bool Checked { get; set; }
         string Text { get; set; }
-
-        void AppendText(string text);
-        void Clear();
-        void Copy();
-        void SelectAll();
     }
 }

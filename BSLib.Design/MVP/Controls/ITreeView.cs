@@ -17,19 +17,23 @@
  */
 
 using System;
+using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP
+namespace BSLib.Design.MVP.Controls
 {
-    public interface IView : IBaseControl, IDisposable
+    public interface ITVNode
     {
-        string Title { get; set; }
-
-        void Close();
+        object Tag { get; set; }
     }
 
 
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
+    public interface ITreeView : IBaseControl
     {
-        TModel Model { get; set; }
+        ITVNode AddNode(ITVNode parent, string name, object tag);
+        void BeginUpdate();
+        void Clear();
+        void EndUpdate();
+        void Expand(ITVNode node);
+        object GetSelectedData();
     }
 }

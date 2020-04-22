@@ -17,19 +17,14 @@
  */
 
 using System;
+using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP
+namespace BSLib.Design.MVP.Controls
 {
-    public interface IView : IBaseControl, IDisposable
+    public interface INumericBox : IBaseControl
     {
-        string Title { get; set; }
-
-        void Close();
-    }
-
-
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
-    {
-        TModel Model { get; set; }
+        bool ReadOnly { get; set; }
+        string Text { get; set; }
+        double Value { get; set; }
     }
 }

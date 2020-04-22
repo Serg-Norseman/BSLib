@@ -17,14 +17,16 @@
  */
 
 using System;
-using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP.Controls
+namespace BSLib.Design.Graphics
 {
-    public interface INumericBoxHandler : IBaseControl
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IFont : IDisposable
     {
-        bool ReadOnly { get; set; }
-        string Text { get; set; }
-        double Value { get; set; }
+        string FontFamilyName { get; }
+        string Name { get; }
+        float Size { get; }
     }
 }
