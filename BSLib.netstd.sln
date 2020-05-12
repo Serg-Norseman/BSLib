@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSLib.netstd", "BSLib\BSLib.netstd.csproj", "{F657A1B7-C834-420A-B302-88460E3F6283}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSLib.SmartGraph.netstd", "BSLib.SmartGraph\BSLib.SmartGraph.netstd.csproj", "{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Tests.netstd", "BSLib.Tests\BSLib.Tests.netstd.csproj", "{A8B53A6B-40A6-40BA-A671-03FC911BC37B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSLib.Linguistics.netstd", "BSLib.Linguistics\BSLib.Linguistics.netstd.csproj", "{180B3517-BCFD-4A05-BB39-70EEFB71711F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSLib.Design.netstd", "BSLib.Design\BSLib.Design.netstd.csproj", "{F3708705-BAA9-4FE9-8C1B-CFED3BFED712}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSLib.DataViz.Model.netstd", "BSLib.DataViz.Model\BSLib.DataViz.Model.netstd.csproj", "{311AA73B-C874-40CB-8150-D3EF44C4B365}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,16 +23,20 @@ Global
 		{F657A1B7-C834-420A-B302-88460E3F6283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F657A1B7-C834-420A-B302-88460E3F6283}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F657A1B7-C834-420A-B302-88460E3F6283}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDC8F8CD-B876-4A0E-ABBD-861DB741EC1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{A8B53A6B-40A6-40BA-A671-03FC911BC37B}.Release|Any CPU.ActiveCfg = Release|x86
 		{180B3517-BCFD-4A05-BB39-70EEFB71711F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{180B3517-BCFD-4A05-BB39-70EEFB71711F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{180B3517-BCFD-4A05-BB39-70EEFB71711F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{180B3517-BCFD-4A05-BB39-70EEFB71711F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3708705-BAA9-4FE9-8C1B-CFED3BFED712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3708705-BAA9-4FE9-8C1B-CFED3BFED712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3708705-BAA9-4FE9-8C1B-CFED3BFED712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3708705-BAA9-4FE9-8C1B-CFED3BFED712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{311AA73B-C874-40CB-8150-D3EF44C4B365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{311AA73B-C874-40CB-8150-D3EF44C4B365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{311AA73B-C874-40CB-8150-D3EF44C4B365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{311AA73B-C874-40CB-8150-D3EF44C4B365}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

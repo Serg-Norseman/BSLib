@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-#if !NETCOREAPP30
+#if !NETSTANDARD
 
 [assembly: AssemblyTitle("BSLib.Design")]
 [assembly: AssemblyDescription("")]

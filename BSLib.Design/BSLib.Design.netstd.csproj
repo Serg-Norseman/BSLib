@@ -1,17 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace />
-    <PackageId>BSLib.DataViz.Model</PackageId>
-    <Version>1.0.0</Version>
+    <PackageId>BSLib</PackageId>
+    <Version>1.2.0.0</Version>
     <Authors>Sergey V. Zhdanovskih</Authors>
     <Company />
     <Product>BSLib</Product>
-    <Description>BSLib.DataViz.Model is the library for store and manipulations over graphs and treemaps</Description>
-    <Copyright>Copyright © 2011-2016 by Serg V. Zhdanovskih</Copyright>
+    <Description />
+    <Copyright>Copyright © 2019-2020 Sergey V. Zhdanovskih</Copyright>
     <NeutralLanguage />
-    <AssemblyName>BSLib.DataViz.Model</AssemblyName>
+    <AssemblyName>BSLib.Design</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
