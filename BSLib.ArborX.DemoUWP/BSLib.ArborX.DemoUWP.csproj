@@ -11,7 +11,7 @@
     <AssemblyName>BSLib.ArborX.DemoUWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -142,9 +142,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BSLib.SmartGraph\BSLib.SmartGraph.netstd.csproj">
-      <Project>{fb863a64-c300-433b-9067-7f0f6f5f33db}</Project>
-      <Name>BSLib.SmartGraph.netstd</Name>
+    <ProjectReference Include="..\BSLib.DataViz.Model\BSLib.DataViz.Model.netstd.csproj">
+      <Project>{C2F1CBDF-D1B6-4043-AC5E-DC724ED2ED67}</Project>
+      <Name>BSLib.DataViz.Model.netstd</Name>
     </ProjectReference>
     <ProjectReference Include="..\BSLib\BSLib.netstd.csproj">
       <Project>{3df5c2fc-87ca-4b68-b35c-2f62296f1fab}</Project>

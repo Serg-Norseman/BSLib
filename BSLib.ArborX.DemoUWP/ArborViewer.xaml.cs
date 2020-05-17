@@ -10,8 +10,8 @@
 using System;
 using System.Diagnostics;
 using System.Timers;
-using BSLib.ArborGVT;
-using BSLib.SmartGraph;
+using BSLib.DataViz.ArborGVT;
+using BSLib.DataViz.SmartGraph;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;

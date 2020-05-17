@@ -1,6 +1,6 @@
 ﻿// Copyright 2015 by Serg V. Zhdanovskih
 
-using BSLib.ArborGVT;
+using BSLib.DataViz.ArborGVT;
 using Windows.Foundation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
