@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BSLib.Design.Graphics;
 using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
@@ -32,7 +33,7 @@ namespace BSLib.Design.MVP.Controls
         string Text { get; set; }
 
         void Add(object item);
-        void AddItem<T>(string caption, T tag);
+        void AddItem<T>(string text, T tag, IImage image = null);
         void AddRange(IEnumerable<object> items, bool sorted = false);
         void AddStrings(StringList strings);
         void BeginUpdate();
@@ -41,6 +42,6 @@ namespace BSLib.Design.MVP.Controls
         void Sort();
 
         T GetSelectedTag<T>();
-        void SetSelectedTag<T>(T tagValue);
+        void SetSelectedTag<T>(T tagValue, bool allowDefault = true);
     }
 }

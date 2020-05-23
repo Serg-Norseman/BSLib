@@ -37,9 +37,11 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BSDConsts.cs" />
+    <Compile Include="ComboItem.cs" />
     <Compile Include="Graphics\IGraphicsProvider.cs" />
     <Compile Include="Graphics\IPrintable.cs" />
     <Compile Include="BSDTypes.cs" />
+    <Compile Include="IComboItem.cs" />
     <Compile Include="IoC\IocContainer.cs" />
     <Compile Include="MVP\ControlHandler.cs" />
     <Compile Include="MVP\Controller.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="MVP\Controls\IDateTimeBox.cs" />
     <Compile Include="MVP\Controls\ILabel.cs" />
     <Compile Include="MVP\Controls\IListView.cs" />
+    <Compile Include="MVP\Controls\IMenuItem.cs" />
     <Compile Include="MVP\Controls\INumericBox.cs" />
     <Compile Include="MVP\Controls\IPictureBox.cs" />
     <Compile Include="MVP\Controls\IProgressBar.cs" />
@@ -70,12 +73,7 @@
     <Compile Include="MVP\IController.cs" />
     <Compile Include="MVP\IView.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IoC" />
-    <Folder Include="MVP" />
-    <Folder Include="MVP\Controls" />
-    <Folder Include="Graphics" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BSLib\BSLib.csproj">
       <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>

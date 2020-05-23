@@ -110,10 +110,6 @@
     <Compile Include="WeightedMean.cs" />
     <Compile Include="ZipStorer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Calendar" />
-    <Folder Include="Extensions" />
-    <Folder Include="IniFiles" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
