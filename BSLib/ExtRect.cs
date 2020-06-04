@@ -16,6 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Globalization;
 
 namespace BSLib
@@ -25,7 +26,7 @@ namespace BSLib
     /// The main task is to untie the use of the classic System.Drawings namespace
     /// and from setting the size via Width/Height.
     /// </summary>
-    public struct ExtRect : ICloneable<ExtRect>
+    public struct ExtRect : ICloneable<ExtRect>, IEquatable<ExtRect>
     {
         public static readonly ExtRect Empty = default(ExtRect);
 
@@ -180,6 +181,11 @@ namespace BSLib
         public ExtRect Clone()
         {
             return Create(Left, Top, Right, Bottom);
+        }
+
+        public bool Equals(ExtRect other)
+        {
+            return (Left == other.Left && Top == other.Top && Right == other.Right && Bottom == other.Bottom);
         }
     }
 

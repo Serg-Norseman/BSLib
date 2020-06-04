@@ -71,19 +71,8 @@ namespace BSLib
         /// <returns> Darker color. </returns>
         public static int Darker(int rgb, float fraction)
         {
-            float factor = (1.0f - fraction);
-            byte red1, green1, blue1, alpha1;
-            DecomposeARGB(rgb, out alpha1, out red1, out green1, out blue1);
-
-            int red = (int) (red1 * factor);
-            int green = (int) (green1 * factor);
-            int blue = (int) (blue1 * factor);
-
-            red = (red < 0) ? 0 : red;
-            green = (green < 0) ? 0 : green;
-            blue = (blue < 0) ? 0 : blue;
-
-            return MakeArgb(alpha1, red, green, blue);
+            float factor = (1.0f - fraction.Clamp(0.0f, 1.0f));
+            return ColorRatio(rgb, factor);
         }
 
         /// <summary>
@@ -95,6 +84,11 @@ namespace BSLib
         public static int Lighter(int rgb, float fraction)
         {
             float factor = (1.0f + fraction);
+            return ColorRatio(rgb, factor);
+        }
+
+        private static int ColorRatio(int rgb, float factor)
+        {
             byte red1, green1, blue1, alpha1;
             DecomposeARGB(rgb, out alpha1, out red1, out green1, out blue1);
 
@@ -102,21 +96,9 @@ namespace BSLib
             int green = (int) (green1 * factor);
             int blue = (int) (blue1 * factor);
 
-            if (red < 0) {
-                red = 0;
-            } else if (red > 255) {
-                red = 255;
-            }
-            if (green < 0) {
-                green = 0;
-            } else if (green > 255) {
-                green = 255;
-            }
-            if (blue < 0) {
-                blue = 0;
-            } else if (blue > 255) {
-                blue = 255;
-            }
+            red = red.Clamp(0, 255);
+            green = green.Clamp(0, 255);
+            blue = blue.Clamp(0, 255);
 
             return MakeArgb(alpha1, red, green, blue);
         }
