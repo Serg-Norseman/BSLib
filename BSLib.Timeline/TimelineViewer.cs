@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Timeline".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -304,7 +304,7 @@ namespace BSLib.Timeline
             fDataRange = GetDataBounds();
             float distance = fDataRange.End - fDataRange.Start;
             fImageSize = new ExtSize((int)(distance * fRenderingScale),
-                                     (int)((fTracks.Count * (TrackHeight + TrackSpacing)) * fRenderingScale));
+                                     (int)(fPlayheadExtents.Height + (fTracks.Count * (TrackHeight + TrackSpacing)) * fRenderingScale));
             AdjustViewport(fImageSize);
 
             // Generate colors for the tracks.
@@ -503,8 +503,9 @@ namespace BSLib.Timeline
         /// <summary>
         ///   Draw a list of frames onto the timeline.
         /// </summary>
+        /// <param name = "trackIndex">The index of track (or the one it's a substitute for)</param>
         /// <param name="frames">The frames to draw.</param>
-        private void DrawFrames(IEnumerable<EventFrame> frames, Graphics graphics)
+        private void DrawFrames(int trackIndex, IEnumerable<EventFrame> frames, Graphics graphics)
         {
             Rectangle tracksAreaBounds = GetTracksAreaBounds();
 
@@ -513,15 +514,16 @@ namespace BSLib.Timeline
                 Rectangle frameExtent = GetFrameExtents(frame);
 
                 // Don't draw track elements that aren't within the target area.
-                if (!tracksAreaBounds.IntersectsWith(frameExtent)) {
+                /*if (!tracksAreaBounds.IntersectsWith(frameExtent)) {
                     continue;
-                }
-
-                // The index of this track (or the one it's a substitute for).
-                int trackIndex = GetTrackIndexForFrame(frame);
+                }*/
 
                 // Determine colors for this track
-                Color trackBaseColor = fTrackColors[trackIndex];
+                Color trackBaseColor = frame.Color;
+                if (trackBaseColor == Color.Transparent) {
+                     trackBaseColor = fTrackColors[trackIndex];
+                }
+
                 Color trackColor = AdjustColor(trackBaseColor, 0, -0.1, -0.2);
                 Color borderColor = Color.FromArgb(128, Color.Black);
 
@@ -550,11 +552,13 @@ namespace BSLib.Timeline
         }
 
         /// <summary>
-        ///   Draw the labels next to each track.
+        ///   Draw the tracks.
         /// </summary>
-        private void DrawTrackLabels(Graphics graphics)
+        private void DrawTracks(Graphics graphics)
         {
-            foreach (Track track in fTracks) {
+            for (int i = 0; i < fTracks.Count; i++) {
+                Track track = fTracks[i];
+
                 if (!track.Frames.Any())
                     continue;
 
@@ -562,8 +566,11 @@ namespace BSLib.Timeline
                 RectangleF frameExtents = GetFrameExtents(track.Frames.First());
                 RectangleF labelRect = new RectangleF(0, frameExtents.Y, TrackLabelWidth, frameExtents.Height);
 
+                // Draw the label
                 graphics.FillRectangle(new SolidBrush(Color.FromArgb(30, 30, 30)), labelRect);
                 graphics.DrawString(track.Name, fLabelFont, Brushes.LightGray, labelRect, fLabelsFormat);
+
+                DrawFrames(i, track.Frames, graphics);
             }
         }
 
@@ -644,9 +651,8 @@ namespace BSLib.Timeline
             gfx.Clear(fBackgroundColor);
 
             DrawBackground(gfx);
-            DrawFrames(fTracks.SelectMany(t => t.Frames), gfx);
+            DrawTracks(gfx);
             DrawSelectionRectangle(gfx);
-            DrawTrackLabels(gfx);
             DrawPlayhead(gfx);
         }
 
@@ -991,7 +997,7 @@ namespace BSLib.Timeline
         private static List<Color> GetRandomColors(int count)
         {
             double step = 360.0 / count;
-            List<Color> colors = new List<Color>();
+            var colors = new List<Color>();
             for (uint i = 0; i < count; ++i) {
                 double value = i * step;
                 colors.Add(ColorFromHSV(value, 0.6, 0.8));
@@ -1159,21 +1165,23 @@ namespace BSLib.Timeline
                 return;
             }
 
-            e.Graphics.FillRectangle(Brushes.AntiqueWhite, e.Bounds);
+            var gfx = e.Graphics;
+
+            gfx.FillRectangle(Brushes.AntiqueWhite, e.Bounds);
             e.DrawBorder();
 
             int titleHeight = 14;
             int fontHeight = 12;
 
             // Draws the line just below the title
-            e.Graphics.DrawLine(Pens.Black, 0, titleHeight, e.Bounds.Width, titleHeight);
+            gfx.DrawLine(Pens.Black, 0, titleHeight, e.Bounds.Width, titleHeight);
 
             // Draws the title
             string title = fToolTipText[0];
             using (Font font = new Font(e.Font, FontStyle.Bold)) {
-                int x = (int)(e.Bounds.Width - e.Graphics.MeasureString(title, font).Width) / 2;
-                int y = (int)(titleHeight - e.Graphics.MeasureString(title, font).Height) / 2;
-                e.Graphics.DrawString(title, font, Brushes.Black, x, y);
+                int x = (int)(e.Bounds.Width - gfx.MeasureString(title, font).Width) / 2;
+                int y = (int)(titleHeight - gfx.MeasureString(title, font).Height) / 2;
+                gfx.DrawString(title, font, Brushes.Black, x, y);
             }
 
             // Draws the lines
@@ -1181,8 +1189,8 @@ namespace BSLib.Timeline
                 string str = fToolTipText[line];
 
                 int x = 5;
-                int y = (int)(titleHeight - fontHeight - e.Graphics.MeasureString(str, e.Font).Height) / 2 + 10 + (line * 14);
-                e.Graphics.DrawString(str, e.Font, Brushes.Black, x, y);
+                int y = (int)(titleHeight - fontHeight - gfx.MeasureString(str, e.Font).Height) / 2 + 10 + (line * 14);
+                gfx.DrawString(str, e.Font, Brushes.Black, x, y);
             }
         }
 

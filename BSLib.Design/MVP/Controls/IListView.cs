@@ -32,6 +32,7 @@ namespace BSLib.Design.MVP.Controls
         void AddSubItem(object itemValue);
         void SetBackColor(IColor color);
         void SetForeColor(IColor color);
+        void SetFont(IFont font);
     }
 
 

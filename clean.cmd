@@ -33,5 +33,8 @@ rmdir .\BSLib.ArborX.DemoUWP\obj /s /q
 rmdir .\BSLib.Design\bin /s /q
 rmdir .\BSLib.Design\obj /s /q
 
+rmdir .\BSLib.Design.WFHandlers\bin /s /q
+rmdir .\BSLib.Design.WFHandlers\obj /s /q
+
 rmdir .\BSLib.Timeline\bin /s /q
 rmdir .\BSLib.Timeline\obj /s /q

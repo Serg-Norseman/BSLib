@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Timeline".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
  */
 
 using System;
+using System.Drawing;
 
 namespace BSLib.Timeline
 {
@@ -40,12 +41,19 @@ namespace BSLib.Timeline
         /// </summary>
         public DateTime End { get; set; }
 
+        public Color Color { get; set; }
 
-        public EventFrame(string name, DateTime start, DateTime end)
+
+        public EventFrame(string name, DateTime start, DateTime end) : this(name, start, end, Color.Transparent)
+        {
+        }
+
+        public EventFrame(string name, DateTime start, DateTime end, Color color)
         {
             Name = name;
             Start = start;
             End = end;
+            Color = color;
         }
 
         public override string ToString()
