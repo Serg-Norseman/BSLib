@@ -60,6 +60,12 @@ namespace BSLib.Design.Handlers
             set { Control.SelectedItem = value; }
         }
 
+        public bool Sorted
+        {
+            get { return Control.Sorted; }
+            set { Control.Sorted = value; }
+        }
+
         public string Text
         {
             get { return Control.Text; }

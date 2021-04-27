@@ -30,6 +30,7 @@ namespace BSLib.Design.MVP.Controls
         bool ReadOnly { get; set; }
         int SelectedIndex { get; set; }
         object SelectedItem { get; set; }
+        bool Sorted { get; set; }
         string Text { get; set; }
 
         void Add(object item);
