@@ -38,3 +38,12 @@ rmdir .\BSLib.Design.WFHandlers\obj /s /q
 
 rmdir .\BSLib.Timeline\bin /s /q
 rmdir .\BSLib.Timeline\obj /s /q
+
+rmdir .\BSLib.Surrogates\bin /s /q
+rmdir .\BSLib.Surrogates\obj /s /q
+
+rmdir .\SpanTest\bin /s /q
+rmdir .\SpanTest\obj /s /q
+
+rmdir .\BSLib.SQLite\bin /s /q
+rmdir .\BSLib.SQLite\obj /s /q
