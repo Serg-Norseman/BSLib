@@ -30,6 +30,9 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(MonoCS)' == 'true' ">
+    <DefineConstants>$(DefineConstants);MONO;</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
@@ -38,7 +41,7 @@
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteLoader.cs" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(MonoCS)' != 'true' ">
     <EmbeddedResource Include="Resources\sqlite3.x64.dll.gz" />
     <EmbeddedResource Include="Resources\sqlite3.x86.dll.gz" />
   </ItemGroup>
