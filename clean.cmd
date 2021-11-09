@@ -47,3 +47,12 @@ rmdir .\SpanTest\obj /s /q
 
 rmdir .\BSLib.SQLite\bin /s /q
 rmdir .\BSLib.SQLite\obj /s /q
+
+rmdir .\BSLib.IPC\bin /s /q
+rmdir .\BSLib.IPC\obj /s /q
+
+rmdir .\IPCClientTest\bin /s /q
+rmdir .\IPCClientTest\obj /s /q
+
+rmdir .\IPCServerTest\bin /s /q
+rmdir .\IPCServerTest\obj /s /q
