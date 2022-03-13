@@ -105,6 +105,7 @@
     <Compile Include="SortHelper.cs" />
     <Compile Include="StringList.cs" />
     <Compile Include="StringTokenizer.cs" />
+    <Compile Include="TimeHelper.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="TypeHandler.cs" />
     <Compile Include="WeightedMean.cs" />
