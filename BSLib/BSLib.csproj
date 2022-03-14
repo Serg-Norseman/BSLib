@@ -103,6 +103,7 @@
     <Compile Include="Range.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="SortHelper.cs" />
+    <Compile Include="StringHelper.cs" />
     <Compile Include="StringList.cs" />
     <Compile Include="StringTokenizer.cs" />
     <Compile Include="TimeHelper.cs" />
