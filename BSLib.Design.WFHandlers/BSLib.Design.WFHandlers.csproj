@@ -55,6 +55,7 @@
     <Compile Include="Controls\ProgressBarHandler.cs" />
     <Compile Include="Controls\PropertyGridHandler.cs" />
     <Compile Include="Controls\RadioButtonHandler.cs" />
+    <Compile Include="Controls\RichTextBoxHandler.cs" />
     <Compile Include="Controls\TabControlHandler.cs" />
     <Compile Include="Controls\TextBoxHandler.cs" />
     <Compile Include="Controls\ToolStripComboBoxHandler.cs" />
