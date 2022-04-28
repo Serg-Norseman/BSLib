@@ -17,12 +17,15 @@
  */
 
 using System;
+using BSLib.Design.Graphics;
 using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {
     public interface ILabel : IBaseControl
     {
+        IColor BackColor { get; set; }
+
         string Text { get; set; }
     }
 }

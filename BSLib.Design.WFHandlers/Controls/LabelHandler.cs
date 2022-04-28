@@ -17,6 +17,7 @@
  */
 
 using System.Windows.Forms;
+using BSLib.Design.Graphics;
 using BSLib.Design.MVP.Controls;
 
 namespace BSLib.Design.Handlers
@@ -25,6 +26,12 @@ namespace BSLib.Design.Handlers
     {
         public LabelHandler(Label control) : base(control)
         {
+        }
+
+        public IColor BackColor
+        {
+            get { return new ColorHandler(Control.BackColor); } 
+            set { Control.BackColor = ((ColorHandler)value).Handle; }
         }
 
         public string Text

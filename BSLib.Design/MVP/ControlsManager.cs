@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Design".
- *  Copyright (C) 2018-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2018-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,22 +25,49 @@ namespace BSLib.Design.MVP
     {
         private static readonly Dictionary<Type, Type> fHandlerTypes = new Dictionary<Type, Type>();
 
-        private readonly Dictionary<object, IControl> fHandlers = new Dictionary<object, IControl>();
+        private readonly Dictionary<object, IControl> fObjHandlers;
+        private readonly Dictionary<string, IControl> fStrHandlers;
+        private readonly IView fView;
 
-        public T GetControlHandler<T>(object control) where T : class, IControl
+        public ControlsManager(IView view)
+        {
+            fView = view;
+            fObjHandlers = new Dictionary<object, IControl>();
+            fStrHandlers = new Dictionary<string, IControl>();
+        }
+
+        public T GetControl<T>(object control) where T : class, IControl
         {
             IControl handler;
-            if (!fHandlers.TryGetValue(control, out handler)) {
+            if (!fObjHandlers.TryGetValue(control, out handler)) {
                 Type controlType = control.GetType();
                 Type handlerType;
                 if (fHandlerTypes.TryGetValue(controlType, out handlerType)) {
                     handler = (IControl)Activator.CreateInstance(handlerType, control);
-                    fHandlers.Add(control, handler);
+                    fObjHandlers.Add(control, handler);
                 } else {
                     throw new Exception("handler type not found");
                 }
             }
             return (T)handler;
+        }
+
+        public T GetControl<T>(string controlName) where T : class, IControl
+        {
+            IControl control;
+            if (!fStrHandlers.TryGetValue(controlName, out control)) {
+                if (fView == null)
+                    throw new ArgumentException("View is null");
+
+                var ctlObj = fView.GetControl(controlName);
+
+                if (ctlObj == null)
+                    throw new ArgumentException("Field not found");
+
+                control = GetControl<T>(ctlObj);
+                fStrHandlers.Add(controlName, control);
+            }
+            return (T)control;
         }
 
         public static void RegisterHandlerType(Type controlType, Type handlerType)

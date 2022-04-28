@@ -49,10 +49,13 @@ namespace BSLib.Design.MVP.Controls
     public interface IListView : IBaseControl
     {
         IListViewItems Items { get; }
+        int SelectedIndex { get; set; }
         int SortColumn { get; set; }
 
+        void AddCheckedColumn(string caption, int width, bool autoSize = false);
         void AddColumn(string caption, int width, bool autoSize);
         void AddColumn(string caption, int width, bool autoSize, BSDTypes.HorizontalAlignment textAlign);
+        IListItem AddItem(object rowData, bool isChecked, params object[] columnValues);
         IListItem AddItem(object rowData, params object[] columnValues);
         void BeginUpdate();
         void Clear();
