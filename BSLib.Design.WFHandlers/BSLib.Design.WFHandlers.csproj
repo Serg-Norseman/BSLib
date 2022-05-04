@@ -57,6 +57,7 @@
     <Compile Include="Controls\RadioButtonHandler.cs" />
     <Compile Include="Controls\RichTextBoxHandler.cs" />
     <Compile Include="Controls\TabControlHandler.cs" />
+    <Compile Include="Controls\TabPageHandler.cs" />
     <Compile Include="Controls\TextBoxHandler.cs" />
     <Compile Include="Controls\ToolStripComboBoxHandler.cs" />
     <Compile Include="Controls\TreeViewHandler.cs" />

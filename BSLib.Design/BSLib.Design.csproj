@@ -59,6 +59,7 @@
     <Compile Include="MVP\Controls\IPropertyGrid.cs" />
     <Compile Include="MVP\Controls\IRadioButton.cs" />
     <Compile Include="MVP\Controls\ITabControl.cs" />
+    <Compile Include="MVP\Controls\ITabPage.cs" />
     <Compile Include="MVP\Controls\ITextBox.cs" />
     <Compile Include="MVP\Controls\ITreeView.cs" />
     <Compile Include="Graphics\IBrush.cs" />
