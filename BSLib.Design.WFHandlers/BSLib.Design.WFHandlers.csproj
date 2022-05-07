@@ -44,6 +44,7 @@
     <Compile Include="Controls\CheckBoxHandler.cs" />
     <Compile Include="Controls\ComboBoxHandler.cs" />
     <Compile Include="Controls\DateTimeBoxHandler.cs" />
+    <Compile Include="Controls\GroupBoxHandler.cs" />
     <Compile Include="Controls\LabelHandler.cs" />
     <Compile Include="Controls\MaskedTextBoxHandler.cs" />
     <Compile Include="Controls\MenuItemEx.cs">

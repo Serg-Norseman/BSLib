@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Design".
- *  Copyright (C) 2018-2022 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,22 +16,21 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
+using System.Windows.Forms;
+using BSLib.Design.MVP.Controls;
 
-namespace BSLib.Design.MVP
+namespace BSLib.Design.Handlers
 {
-    public interface IView : IBaseControl, IDisposable
+    public sealed class GroupBoxHandler : BaseControlHandler<GroupBox, GroupBoxHandler>, IGroupBox
     {
-        string Title { get; set; }
+        public GroupBoxHandler(GroupBox control) : base(control)
+        {
+        }
 
-        void Close();
-        object GetControl(string controlName);
-        void SetToolTip(object component, string toolTip);
-    }
-
-
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
-    {
-        TModel Model { get; set; }
+        public string Text
+        {
+            get { return Control.Text; }
+            set { Control.Text = value; }
+        }
     }
 }

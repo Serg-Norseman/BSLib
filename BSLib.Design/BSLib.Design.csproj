@@ -50,6 +50,7 @@
     <Compile Include="MVP\Controls\ICheckBox.cs" />
     <Compile Include="MVP\Controls\IComboBox.cs" />
     <Compile Include="MVP\Controls\IDateTimeBox.cs" />
+    <Compile Include="MVP\Controls\IGroupBox.cs" />
     <Compile Include="MVP\Controls\ILabel.cs" />
     <Compile Include="MVP\Controls\IListView.cs" />
     <Compile Include="MVP\Controls\IMenuItem.cs" />

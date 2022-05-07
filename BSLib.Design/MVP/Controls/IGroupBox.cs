@@ -17,21 +17,12 @@
  */
 
 using System;
+using BSLib.Design.MVP;
 
-namespace BSLib.Design.MVP
+namespace BSLib.Design.MVP.Controls
 {
-    public interface IView : IBaseControl, IDisposable
+    public interface IGroupBox : IBaseControl
     {
-        string Title { get; set; }
-
-        void Close();
-        object GetControl(string controlName);
-        void SetToolTip(object component, string toolTip);
-    }
-
-
-    public interface IView<TModel, TThis> : IView where TThis : IView<TModel, TThis>
-    {
-        TModel Model { get; set; }
+        string Text { get; set; }
     }
 }
