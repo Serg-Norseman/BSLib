@@ -41,6 +41,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Controls\BaseControlHandler.cs" />
     <Compile Include="Controls\ButtonHandler.cs" />
+    <Compile Include="Controls\ButtonToolItemHandler.cs" />
     <Compile Include="Controls\CheckBoxHandler.cs" />
     <Compile Include="Controls\ComboBoxHandler.cs" />
     <Compile Include="Controls\DateTimeBoxHandler.cs" />

@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Design".
- *  Copyright (C) 2009-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,22 +17,18 @@
  */
 
 using System.Windows.Forms;
-using BSLib.Design.Graphics;
 using BSLib.Design.MVP;
 using BSLib.Design.MVP.Controls;
 
 namespace BSLib.Design.Handlers
 {
-    public sealed class MenuItemHandler : ControlHandler<ToolStripMenuItem, MenuItemHandler>, IMenuItem
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ButtonToolItemHandler : ControlHandler<ToolStripButton, ButtonToolItemHandler>, IButtonToolItem
     {
-        public MenuItemHandler(ToolStripMenuItem control) : base(control)
+        public ButtonToolItemHandler(ToolStripButton control) : base(control)
         {
-        }
-
-        public bool Checked
-        {
-            get { return Control.Checked; }
-            set { Control.Checked = value; }
         }
 
         public bool Enabled
@@ -41,33 +37,10 @@ namespace BSLib.Design.Handlers
             set { Control.Enabled = value; }
         }
 
-        public object Tag
-        {
-            get { return Control.Tag; }
-            set { Control.Tag = value; }
-        }
-
         public string Text
         {
             get { return Control.Text; }
             set { Control.Text = value; }
-        }
-
-        public int ItemsCount
-        {
-            get { return Control.DropDownItems.Count; }
-        }
-
-        public IMenuItem AddItem(string text, object tag, IImage image, ItemAction action)
-        {
-            var item = new MenuItemEx(text, tag, image, action);
-            Control.DropDownItems.Add(item);
-            return item;
-        }
-
-        public void ClearItems()
-        {
-            Control.DropDownItems.Clear();
         }
     }
 }

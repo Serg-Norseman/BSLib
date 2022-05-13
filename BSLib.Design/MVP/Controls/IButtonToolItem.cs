@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Design".
- *  Copyright (C) 2009-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,24 +16,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using BSLib.Design.Graphics;
-
 namespace BSLib.Design.MVP.Controls
 {
-    public delegate void ItemAction(IMenuItem sender);
-
     /// <summary>
     /// 
     /// </summary>
-    public interface IMenuItem : IControl
+    public interface IButtonToolItem : IToolItem
     {
-        bool Checked { get; set; }
-        bool Enabled { get; set; }
-        int ItemsCount { get; }
-        object Tag { get; set; }
         string Text { get; set; }
-
-        IMenuItem AddItem(string text, object tag, IImage image, ItemAction action);
-        void ClearItems();
     }
 }
