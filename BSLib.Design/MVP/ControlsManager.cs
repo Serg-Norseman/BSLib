@@ -39,14 +39,18 @@ namespace BSLib.Design.MVP
         public T GetControl<T>(object control) where T : class, IControl
         {
             IControl handler;
-            if (!fObjHandlers.TryGetValue(control, out handler)) {
-                Type controlType = control.GetType();
-                Type handlerType;
-                if (fHandlerTypes.TryGetValue(controlType, out handlerType)) {
-                    handler = (IControl)Activator.CreateInstance(handlerType, control);
-                    fObjHandlers.Add(control, handler);
-                } else {
-                    throw new Exception("handler type not found");
+            if (control is T) {
+                handler = (T)control;
+            } else {
+                if (!fObjHandlers.TryGetValue(control, out handler)) {
+                    Type controlType = control.GetType();
+                    Type handlerType;
+                    if (fHandlerTypes.TryGetValue(controlType, out handlerType)) {
+                        handler = (IControl)Activator.CreateInstance(handlerType, control);
+                        fObjHandlers.Add(control, handler);
+                    } else {
+                        throw new Exception("handler type not found");
+                    }
                 }
             }
             return (T)handler;
@@ -68,6 +72,12 @@ namespace BSLib.Design.MVP
                 fStrHandlers.Add(controlName, control);
             }
             return (T)control;
+        }
+
+        public static Type GetControlHandlerType<T>(Type controlType) where T : class
+        {
+            Type handlerType;
+            return fHandlerTypes.TryGetValue(controlType, out handlerType) ? handlerType : null;
         }
 
         public static void RegisterHandlerType(Type controlType, Type handlerType)
