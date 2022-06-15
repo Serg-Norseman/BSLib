@@ -46,6 +46,16 @@ namespace BSLib
             }
         }
 
+        public T[] FullArray
+        {
+            get {
+                var result = new T[fStackBackward.Count + fStackForward.Count];
+                fStackBackward.CopyTo(result, 0);
+                fStackForward.CopyTo(result, fStackBackward.Count);
+                return result;
+            }
+        }
+
 
         public NavigationStack()
         {
