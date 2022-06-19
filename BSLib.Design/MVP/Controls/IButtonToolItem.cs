@@ -24,5 +24,7 @@ namespace BSLib.Design.MVP.Controls
     public interface IButtonToolItem : IToolItem
     {
         string Text { get; set; }
+
+        bool Visible { get; set; }
     }
 }

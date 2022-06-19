@@ -42,5 +42,11 @@ namespace BSLib.Design.Handlers
             get { return Control.Text; }
             set { Control.Text = value; }
         }
+
+        public bool Visible
+        {
+            get { return Control.Visible; }
+            set { Control.Visible = value; }
+        }
     }
 }
