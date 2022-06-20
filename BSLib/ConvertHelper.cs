@@ -134,6 +134,13 @@ namespace BSLib
             return res;
         }
 
+        public static long ParseLong(string str, int Default)
+        {
+            long res;
+            if (!long.TryParse(str, out res)) res = Default;
+            return res;
+        }
+
         public static double ParseFloat(string str, double defaultValue, bool checkSeparator = false)
         {
             if (string.IsNullOrEmpty(str)) return defaultValue;
