@@ -28,14 +28,14 @@ namespace UDNTest
         }
     }
 
-    public struct date
+    public struct UDNDate
     {
         public UDNCalendarType Calendar;
         public int Year;
         public int Month;
         public int Day;
 
-        public date(UDNCalendarType calendar, int year, int month, int day)
+        public UDNDate(UDNCalendarType calendar, int year, int month, int day)
         {
             Calendar = calendar;
             Year = year;
@@ -211,44 +211,44 @@ namespace UDNTest
             Console.WriteLine(delimiter);
             #endif
 
-            List<date> dates = new List<date>();
-            dates.Add(new date(UDNCalendarType.ctGregorian, -4713, 11, 24));
-            dates.Add(new date(UDNCalendarType.ctGregorian, -4712, 1, 2));
-            dates.Add(new date(UDNCalendarType.ctGregorian, -4712, 1, 3));
-            dates.Add(new date(UDNCalendarType.ctGregorian, -4700, 2, 28));
-            dates.Add(new date(UDNCalendarType.ctGregorian, -4528, 2, 29));
-            dates.Add(new date(UDNCalendarType.ctGregorian, -4528, 2, 28));
-            dates.Add(new date(UDNCalendarType.ctGregorian, -4529, 2, 28));
-            dates.Add(new date(UDNCalendarType.ctGregorian, -1, 1, 25));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 0, 1, 25));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 1, 1, 25));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 2015, 5, 30));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 2000, 2, 29));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 5, 30));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 5, 31));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 6, 30));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 1));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 15));
-            dates.Add(new date(UDNCalendarType.ctGregorian, 2016, 7, 31));
-            dates.Add(new date(UDNCalendarType.ctJulian, -1, 10, 15));
-            dates.Add(new date(UDNCalendarType.ctJulian, 0, 10, 15));
-            dates.Add(new date(UDNCalendarType.ctJulian, 1, 10, 15));
-            dates.Add(new date(UDNCalendarType.ctJulian, 2013, 10, 15));
-            dates.Add(new date(UDNCalendarType.ctJulian, 2016, 1, 31));
-            dates.Add(new date(UDNCalendarType.ctJulian, 2016, 2, 29));
-            dates.Add(new date(UDNCalendarType.ctIslamic, 1432, 8, 29));
-            dates.Add(new date(UDNCalendarType.ctIslamic, 2000, 2, 29));
-            dates.Add(new date(UDNCalendarType.ctIslamic, 2016, 8, 29));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 4682, 3, 18));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 4684, 7, 1));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 3761, 10, 18));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 3761, 12, 1));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 3761, 12, 2));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 10, 29));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 11, 1));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 12, 2));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 3762, 13, 29));
-            dates.Add(new date(UDNCalendarType.ctHebrew, 3763, 1, 1));
+            List<UDNDate> dates = new List<UDNDate>();
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, -4713, 11, 24));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, -4712, 1, 2));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, -4712, 1, 3));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, -4700, 2, 28));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, -4528, 2, 29));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, -4528, 2, 28));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, -4529, 2, 28));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, -1, 1, 25));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 0, 1, 25));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 1, 1, 25));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 2015, 5, 30));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 2000, 2, 29));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 2016, 5, 30));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 2016, 5, 31));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 2016, 6, 30));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 2016, 7, 1));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 2016, 7, 15));
+            dates.Add(new UDNDate(UDNCalendarType.ctGregorian, 2016, 7, 31));
+            dates.Add(new UDNDate(UDNCalendarType.ctJulian, -1, 10, 15));
+            dates.Add(new UDNDate(UDNCalendarType.ctJulian, 0, 10, 15));
+            dates.Add(new UDNDate(UDNCalendarType.ctJulian, 1, 10, 15));
+            dates.Add(new UDNDate(UDNCalendarType.ctJulian, 2013, 10, 15));
+            dates.Add(new UDNDate(UDNCalendarType.ctJulian, 2016, 1, 31));
+            dates.Add(new UDNDate(UDNCalendarType.ctJulian, 2016, 2, 29));
+            dates.Add(new UDNDate(UDNCalendarType.ctIslamic, 1432, 8, 29));
+            dates.Add(new UDNDate(UDNCalendarType.ctIslamic, 2000, 2, 29));
+            dates.Add(new UDNDate(UDNCalendarType.ctIslamic, 2016, 8, 29));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 4682, 3, 18));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 4684, 7, 1));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 3761, 10, 18));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 3761, 12, 1));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 3761, 12, 2));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 3762, 10, 29));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 3762, 11, 1));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 3762, 12, 2));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 3762, 13, 29));
+            dates.Add(new UDNDate(UDNCalendarType.ctHebrew, 3763, 1, 1));
 
             Console.WriteLine("\nCheck does a JDN algorithm make reversible dates");
             widths = new int[] {32, 48, 35};
@@ -274,7 +274,7 @@ namespace UDNTest
             Console.WriteLine(delimiter);
             for (int i = 0; i < dates.Count; i++)
             {
-                date d = dates[i];
+                UDNDate d = dates[i];
                 string original = string.Format("{0}/{1}/{2}", d.Year, d.Month, d.Day);
                 int year;
                 int month;

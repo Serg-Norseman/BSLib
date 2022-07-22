@@ -37,11 +37,11 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BSDConsts.cs" />
-    <Compile Include="ComboItem.cs" />
+    <Compile Include="MVP\Controls\ComboItem.cs" />
     <Compile Include="Graphics\IGraphicsProvider.cs" />
     <Compile Include="Graphics\IPrintable.cs" />
     <Compile Include="BSDTypes.cs" />
-    <Compile Include="IComboItem.cs" />
+    <Compile Include="MVP\Controls\IComboItem.cs" />
     <Compile Include="IoC\IocContainer.cs" />
     <Compile Include="MVP\ControlHandler.cs" />
     <Compile Include="MVP\Controller.cs" />
@@ -50,6 +50,7 @@
     <Compile Include="MVP\Controls\IButtonToolItem.cs" />
     <Compile Include="MVP\Controls\ICheckBox.cs" />
     <Compile Include="MVP\Controls\IComboBox.cs" />
+    <Compile Include="MVP\Controls\IControlItems.cs" />
     <Compile Include="MVP\Controls\IDateTimeBox.cs" />
     <Compile Include="MVP\Controls\IGroupBox.cs" />
     <Compile Include="MVP\Controls\ILabel.cs" />

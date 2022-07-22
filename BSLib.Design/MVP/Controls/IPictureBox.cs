@@ -17,7 +17,6 @@
  */
 
 using BSLib.Design.Graphics;
-using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {

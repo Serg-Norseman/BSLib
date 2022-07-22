@@ -46,10 +46,10 @@ namespace BSLib
         public void Test_UniformName()
         {
             string st = "ivan";
-            st = ConvertHelper.UniformName(st);
+            st = StringHelper.UniformName(st);
             Assert.AreEqual("Ivan", st);
 
-            st = ConvertHelper.UniformName(null);
+            st = StringHelper.UniformName(null);
             Assert.AreEqual(null, st);
         }
 

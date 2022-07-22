@@ -24,24 +24,23 @@ namespace BSLib
 {
     public static class StringHelper
     {
-        public static string BytesToHex(byte[] bytes)
+        public static string Repeat(char ch, int repeat)
         {
-            StringBuilder sb = new StringBuilder(bytes.Length * 2);
-            foreach (byte b in bytes) {
-                var t = b / 16;
-                sb.Append((char)(t + (t <= 9 ? '0' : '7')));
-                var f = b % 16;
-                sb.Append((char)(f + (f <= 9 ? '0' : '7')));
-            }
-            return sb.ToString();
+            char[] chars = new char[repeat];
+            for (int i = 0; i < repeat; i++)
+                chars[i] = ch;
+            return new string(chars);
         }
 
-        public static byte[] HexToBytes(string hex)
+        public static string UniformName(string val)
         {
-            byte[] data = new byte[hex.Length / 2];
-            for (int i = 0; i < data.Length; i++)
-                data[i] = byte.Parse(hex.Substring(i * 2, 2), NumberStyles.HexNumber);
-            return data;
+            if (string.IsNullOrEmpty(val)) {
+                return null;
+            }
+
+            StringBuilder str = new StringBuilder(val.ToLower());
+            str[0] = char.ToUpper(str[0]);
+            return str.ToString();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Design".
- *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2020 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,13 +16,42 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using BSLib.Design.Graphics;
+
 namespace BSLib.Design.MVP.Controls
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IToolItem : IControl
+    public class ComboItem<T> : IComboItem
     {
-        bool Enabled { get; set; }
+        public string Text { get; private set; }
+
+        public T Tag { get; private set; }
+
+        public IImage Image { get; private set; }
+
+        public ComboItem(string text)
+        {
+            Text = text;
+        }
+
+        public ComboItem(string text, T tag)
+        {
+            Text = text;
+            Tag = tag;
+        }
+
+        public ComboItem(string text, T tag, IImage image)
+        {
+            Text = text;
+            Tag = tag;
+            Image = image;
+        }
+
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 }

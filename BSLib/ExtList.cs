@@ -72,18 +72,17 @@ namespace BSLib
                 if (index < 0 || index >= fList.Count)
                     throw new ListException(string.Format("List index out of bounds ({0})", index));
 
-                if (Equals(value, fList[index])) return;
+                if (Equals(value, fList[index]))
+                    return;
 
                 T temp = fList[index];
                 fList[index] = value;
 
-                if (temp != null)
-                {
+                if (temp != null) {
                     Notify(temp, ListNotification.Deleted);
                 }
 
-                if (value != null)
-                {
+                if (value != null) {
                     Notify(value, ListNotification.Added);
                 }
             }
@@ -111,8 +110,7 @@ namespace BSLib
 
         private void Notify(object instance, ListNotification action)
         {
-            if (fOwnsObjects && action == ListNotification.Deleted)
-            {
+            if (fOwnsObjects && action == ListNotification.Deleted) {
                 var disposable = instance as IDisposable;
                 if (disposable != null) {
                     disposable.Dispose();
@@ -124,8 +122,7 @@ namespace BSLib
         {
             int result = fList.Count;
             fList.Add(item);
-            if (item != null)
-            {
+            if (item != null) {
                 Notify(item, ListNotification.Added);
             }
             return result;
@@ -133,7 +130,8 @@ namespace BSLib
 
         public void Clear()
         {
-            for (int i = fList.Count - 1; i >= 0; i--) Notify(fList[i], ListNotification.Deleted);
+            for (int i = fList.Count - 1; i >= 0; i--)
+                Notify(fList[i], ListNotification.Deleted);
             fList.Clear();
         }
 
@@ -143,8 +141,7 @@ namespace BSLib
 
             fList.RemoveAt(index);
 
-            if (temp != null)
-            {
+            if (temp != null) {
                 Notify(temp, ListNotification.Deleted);
             }
         }
@@ -159,11 +156,10 @@ namespace BSLib
         public object Extract(T item)
         {
             object result = null;
-            int I = IndexOf(item);
-            if (I >= 0)
-            {
+            int i = IndexOf(item);
+            if (i >= 0) {
                 result = item;
-                fList.RemoveAt(I);
+                fList.RemoveAt(i);
                 Notify(result, ListNotification.Extracted);
             }
             return result;
@@ -185,8 +181,7 @@ namespace BSLib
         public int Remove(T item)
         {
             int result = IndexOf(item);
-            if (result >= 0)
-            {
+            if (result >= 0) {
                 Delete(result);
             }
             return result;
@@ -194,10 +189,9 @@ namespace BSLib
 
         public void Pack()
         {
-            for (int I = fList.Count - 1; I >= 0; I--)
-            {
-                if (this[I] == null)
-                    Delete(I);
+            for (int i = fList.Count - 1; i >= 0; i--) {
+                if (this[i] == null)
+                    Delete(i);
             }
         }
 

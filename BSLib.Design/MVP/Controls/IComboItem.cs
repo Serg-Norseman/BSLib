@@ -18,40 +18,12 @@
 
 using BSLib.Design.Graphics;
 
-namespace BSLib.Design
+namespace BSLib.Design.MVP.Controls
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class ComboItem<T> : IComboItem
+    public interface IComboItem
     {
-        public string Text { get; private set; }
+        string Text { get; }
 
-        public T Tag { get; private set; }
-
-        public IImage Image { get; private set; }
-
-        public ComboItem(string text)
-        {
-            Text = text;
-        }
-
-        public ComboItem(string text, T tag)
-        {
-            Text = text;
-            Tag = tag;
-        }
-
-        public ComboItem(string text, T tag, IImage image)
-        {
-            Text = text;
-            Tag = tag;
-            Image = image;
-        }
-
-        public override string ToString()
-        {
-            return Text;
-        }
+        IImage Image { get; }
     }
 }
