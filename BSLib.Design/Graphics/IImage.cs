@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Design".
- *  Copyright (C) 2018-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2018-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,6 +27,18 @@ namespace BSLib.Design.Graphics
     {
         int Height { get; }
         int Width { get; }
+
+        /// <summary>
+        /// Default format: bmp.
+        /// </summary>
+        /// <returns></returns>
         byte[] GetBytes();
+
+        /// <summary>
+        /// Supported formats: bmp, gif, jpeg, png, tiff.
+        /// </summary>
+        byte[] GetBytes(string format);
+
+        IImage Resize(int newWidth, int newHeight);
     }
 }
