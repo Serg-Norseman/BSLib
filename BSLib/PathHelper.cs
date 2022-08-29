@@ -1,5 +1,5 @@
 ﻿/*
- *  "BSLib.Design".
+ *  "BSLib".
  *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -16,13 +16,28 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BSLib.Design.MVP.Controls
+using System.IO;
+using System.Reflection;
+
+namespace BSLib
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public interface IToolItem : IControl
+    public static class PathHelper
     {
-        bool Enabled { get; set; }
+        public static string GetBinPath()
+        {
+            Assembly asm = Assembly.GetEntryAssembly();
+            if (asm == null) {
+                asm = Assembly.GetExecutingAssembly();
+            }
+
+            Module[] mods = asm.GetModules();
+            string fn = mods[0].FullyQualifiedName;
+            return Path.GetDirectoryName(fn) + Path.DirectorySeparatorChar;
+        }
+
+        public static string GetBinRelative(string path)
+        {
+            return Path.Combine(GetBinPath(), path);
+        }
     }
 }

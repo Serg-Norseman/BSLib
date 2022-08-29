@@ -26,8 +26,8 @@ namespace BSLib
         public void Test_IndexOfT()
         {
             int[] array = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
-            Assert.AreEqual(5, Algorithms.IndexOf(array, 6));
-            Assert.AreEqual(-1, Algorithms.IndexOf(array, 11));
+            Assert.AreEqual(5, ArrayHelper.IndexOf(array, 6));
+            Assert.AreEqual(-1, ArrayHelper.IndexOf(array, 11));
         }
 
         [Test]
@@ -37,13 +37,13 @@ namespace BSLib
             int[] array2 = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
             int[] array3 = new int[] {1, 2, 3, 4, 5};
             int[] array4 = new int[] {1, 2, 3, 4, 5, 0, 7, 8, 9};
-            Assert.AreEqual(true, Algorithms.ArraysEqual(array1, array1));
-            Assert.AreEqual(true, Algorithms.ArraysEqual(array1, array2));
+            Assert.AreEqual(true, ArrayHelper.ArraysEqual(array1, array1));
+            Assert.AreEqual(true, ArrayHelper.ArraysEqual(array1, array2));
 
-            Assert.AreEqual(false, Algorithms.ArraysEqual(array1, null));
-            Assert.AreEqual(false, Algorithms.ArraysEqual(null, array1));
-            Assert.AreEqual(false, Algorithms.ArraysEqual(array1, array3));
-            Assert.AreEqual(false, Algorithms.ArraysEqual(array1, array4));
+            Assert.AreEqual(false, ArrayHelper.ArraysEqual(array1, null));
+            Assert.AreEqual(false, ArrayHelper.ArraysEqual(null, array1));
+            Assert.AreEqual(false, ArrayHelper.ArraysEqual(array1, array3));
+            Assert.AreEqual(false, ArrayHelper.ArraysEqual(array1, array4));
         }
 
         [Test]

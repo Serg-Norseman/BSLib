@@ -36,16 +36,14 @@ namespace BSLib
 
         public bool IsOverlapped(Range<T> other)
         {
-            if (Start.CompareTo(other.Start) == 0)
-            {
+            if (Start.CompareTo(other.Start) == 0) {
                 return true;
             }
-            
-            if (Start.CompareTo(other.Start) > 0)
-            {
+
+            if (Start.CompareTo(other.Start) > 0) {
                 return Start.CompareTo(other.End) <= 0;
             }
-            
+
             return other.Start.CompareTo(End) <= 0;
         }
 

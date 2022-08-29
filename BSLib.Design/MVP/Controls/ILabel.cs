@@ -16,9 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using BSLib.Design.Graphics;
-using BSLib.Design.MVP;
 
 namespace BSLib.Design.MVP.Controls
 {

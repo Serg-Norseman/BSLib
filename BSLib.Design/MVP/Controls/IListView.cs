@@ -17,6 +17,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using BSLib.Design.Graphics;
 
 namespace BSLib.Design.MVP.Controls
@@ -36,10 +37,8 @@ namespace BSLib.Design.MVP.Controls
     }
 
 
-    public interface IListViewItems
+    public interface IListViewItems : IControlItems<IListItem>
     {
-        IListItem this[int index] { get; }
-        int Count { get; }
     }
 
 

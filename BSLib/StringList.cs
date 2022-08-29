@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2017 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,14 +44,15 @@ namespace BSLib
     /// <summary>
     /// General container for a list of strings with some additional features.
     /// </summary>
-    public sealed class StringList : BaseObject
+    public class StringList<T> : BaseObject
+        where T : class
     {
         private sealed class StringItem
         {
             public string StrVal;
-            public object ObjVal;
+            public T ObjVal;
 
-            public StringItem(string str, object obj)
+            public StringItem(string str, T obj)
             {
                 StrVal = str;
                 ObjVal = obj;
@@ -74,10 +75,10 @@ namespace BSLib
                 return fCaseSensitive;
             }
             set {
-                if (fCaseSensitive != value)
-                {
+                if (fCaseSensitive != value) {
                     fCaseSensitive = value;
-                    if (fSorted) Sort();
+                    if (fSorted)
+                        Sort();
                 }
             }
         }
@@ -133,9 +134,9 @@ namespace BSLib
                 return fSorted;
             }
             set {
-                if (fSorted != value)
-                {
-                    if (value) Sort();
+                if (fSorted != value) {
+                    if (value)
+                        Sort();
                     fSorted = value;
                 }
             }
@@ -170,8 +171,7 @@ namespace BSLib
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
+            if (disposing) {
                 //fList = null;
                 /*int num = fList.Count;
                 for (int i = 0; i < num; i++)
@@ -188,7 +188,7 @@ namespace BSLib
             return (fList.Count <= 0);
         }
 
-        public object GetObject(int index)
+        public T GetObject(int index)
         {
             if (index < 0 || index >= fList.Count)
                 throw new StringListException(string.Format("List index out of bounds ({0})", index));
@@ -196,7 +196,7 @@ namespace BSLib
             return fList[index].ObjVal;
         }
 
-        public void SetObject(int index, object obj)
+        public void SetObject(int index, T obj)
         {
             if (index < 0 || index >= fList.Count)
                 throw new StringListException(string.Format("List index out of bounds ({0})", index));
@@ -257,7 +257,7 @@ namespace BSLib
             return AddObject(str, null);
         }
 
-        public int AddObject(string str, object obj)
+        public int AddObject(string str, T obj)
         {
             int result;
 
@@ -281,9 +281,10 @@ namespace BSLib
             return result;
         }
 
-        public void AddStrings(StringList strList)
+        public void AddStrings(StringList<T> strList)
         {
-            if (strList == null) return;
+            if (strList == null)
+                return;
 
             BeginUpdate();
             try {
@@ -311,25 +312,24 @@ namespace BSLib
             }
         }
 
-        public void Assign(StringList source)
+        public void Assign(StringList<T> source)
         {
-            if (source == null) return;
+            if (source == null)
+                return;
 
             BeginUpdate();
-            try
-            {
+            try {
                 Clear();
                 AddStrings(source);
-            }
-            finally
-            {
+            } finally {
                 EndUpdate();
             }
         }
 
         public void Clear()
         {
-            if (fList.Count == 0) return;
+            if (fList.Count == 0)
+                return;
 
             Changing();
             fList.Clear();
@@ -342,8 +342,7 @@ namespace BSLib
                 throw new StringListException(string.Format("List index out of bounds ({0})", index));
 
             Changing();
-            if (index < fList.Count)
-            {
+            if (index < fList.Count) {
                 fList.RemoveAt(index);
             }
             Changed();
@@ -367,7 +366,7 @@ namespace BSLib
             InsertObject(index, str, null);
         }
 
-        public void InsertObject(int index, string str, object obj)
+        public void InsertObject(int index, string str, T obj)
         {
             if (fSorted)
                 throw new StringListException("Operation not allowed on sorted list");
@@ -378,7 +377,7 @@ namespace BSLib
             InsertItem(index, str, obj);
         }
 
-        private void InsertItem(int index, string str, object obj)
+        private void InsertItem(int index, string str, T obj)
         {
             Changing();
             fList.Insert(index, new StringItem(str, obj));
@@ -447,7 +446,7 @@ namespace BSLib
 
         #region Search
 
-        public int IndexOfObject(object obj)
+        public int IndexOfObject(T obj)
         {
             int num = fList.Count;
             for (int i = 0; i < num; i++) {
@@ -462,7 +461,8 @@ namespace BSLib
         public int IndexOf(string str)
         {
             int result = -1;
-            if (fList.Count <= 0) return result;
+            if (fList.Count <= 0)
+                return result;
 
             if (!fSorted) {
                 int num = fList.Count;
@@ -538,7 +538,8 @@ namespace BSLib
 
         public void Sort()
         {
-            if (fSorted || fList.Count <= 1) return;
+            if (fSorted || fList.Count <= 1)
+                return;
 
             Changing();
             SortHelper.QuickSort(fList, CompareItems);
@@ -546,5 +547,20 @@ namespace BSLib
         }
 
         #endregion
+    }
+
+    public sealed class StringList : StringList<object>
+    {
+        public StringList()
+        {
+        }
+
+        public StringList(string str) : base(str)
+        {
+        }
+
+        public StringList(string[] list) : base(list)
+        {
+        }
     }
 }

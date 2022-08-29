@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2018 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace BSLib
 {
@@ -25,11 +26,6 @@ namespace BSLib
     /// </summary>
     public static class ArrayHelper
     {
-        public static void Clear(this Array array)
-        {
-            Array.Clear(array, 0, array.Length);
-        }
-
         public static T[] ConcatArrays<T>(T[] arr1, T[] arr2)
         {
             if (arr1 == null)
@@ -66,6 +62,55 @@ namespace BSLib
         public static T[] SubArray<T>(T[] arr, int start)
         {
             return SubArray(arr, start, arr.Length - start);
+        }
+
+        public static int IndexOf<T>(T[] array, T value)
+        {
+            for (int i = 0; i < array.Length; i++) {
+                if (array[i].Equals(value)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public static bool ArraysEqual<T>(T[] a1, T[] a2)
+        {
+            if (ReferenceEquals(a1, a2))
+                return true;
+
+            if (a1 == null || a2 == null)
+                return false;
+
+            if (a1.Length != a2.Length)
+                return false;
+
+            EqualityComparer<T> comparer = EqualityComparer<T>.Default;
+            for (int i = 0; i < a1.Length; i++) {
+                if (!comparer.Equals(a1[i], a2[i]))
+                    return false;
+            }
+            return true;
+        }
+
+        // TODO: tests!
+        public static int BinarySearch<T>(T[] array, T value, Comparison<T> comparer)
+        {
+            int min = 0;
+            int max = array.Length - 1;
+            while (min <= max) {
+                int mid = min + (max - min >> 1);
+                int res = comparer(array[mid], value);
+                if (res == 0) {
+                    return mid;
+                }
+                if (res < 0) {
+                    min = mid + 1;
+                } else {
+                    max = mid - 1;
+                }
+            }
+            return ~min;
         }
     }
 }

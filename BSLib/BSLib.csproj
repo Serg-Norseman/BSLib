@@ -66,6 +66,7 @@
     <Compile Include="CRC32.cs" />
     <Compile Include="CSVReader.cs" />
     <Compile Include="DateHelper.cs" />
+    <Compile Include="DirectoryHelper.cs" />
     <Compile Include="DoubleHelper.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="EnumSet.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="MathHelper.cs" />
     <Compile Include="NavigationStack.cs" />
     <Compile Include="NetHelper.cs" />
+    <Compile Include="PathHelper.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="ProbabilityTable.cs" />
     <Compile Include="RandomHelper.cs" />
@@ -106,9 +108,12 @@
     <Compile Include="StringHelper.cs" />
     <Compile Include="StringList.cs" />
     <Compile Include="StringTokenizer.cs" />
+    <Compile Include="KVTable.cs" />
+    <Compile Include="StringTree.cs" />
     <Compile Include="TimeHelper.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="TypeHandler.cs" />
+    <Compile Include="Visitor.cs" />
     <Compile Include="WeightedMean.cs" />
     <Compile Include="ZipStorer.cs" />
   </ItemGroup>

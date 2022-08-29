@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Design".
- *  Copyright (C) 2009-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2018-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,14 +16,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using BSLib.Design.Graphics;
-
-namespace BSLib.Design
+namespace BSLib.Design.MVP.Controls
 {
-    public interface IComboItem
+    public interface IControlItems<T>
     {
-        string Text { get; }
-
-        IImage Image { get; }
+        T this[int index] { get; }
+        int Count { get; }
     }
 }

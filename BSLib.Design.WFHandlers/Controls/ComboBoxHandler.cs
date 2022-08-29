@@ -75,17 +75,6 @@ namespace BSLib.Design.Handlers
             Control.Items.Add(new ComboItem<T>(text, tag, image));
         }
 
-        public void AddRange(IList<string> items, bool sorted = false)
-        {
-            Control.Items.Clear();
-            Control.Sorted = false;
-            int num = items.Count;
-            for (int i = 0; i < num; i++) {
-                Control.Items.Add(items[i]);
-            }
-            Control.Sorted = sorted;
-        }
-
         public void AddRange(IEnumerable<object> items, bool sorted = false)
         {
             Control.Items.Clear();

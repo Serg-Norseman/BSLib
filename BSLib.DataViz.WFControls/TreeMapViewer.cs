@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-using BSLib.DataViz.TreeMap;
 
 namespace BSLib.DataViz.TreeMap
 {

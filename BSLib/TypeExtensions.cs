@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2018 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,7 +19,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace BSLib
 {
@@ -33,6 +35,27 @@ namespace BSLib
             return ReferenceEquals(obj, null);
         }
 
+        /// <summary>
+        ///   Clamp a value to a certain range.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="val">The value to be clamped.</param>
+        /// <param name="min">The lower bound.</param>
+        /// <param name="max">The upper bound</param>
+        /// <returns></returns>
+        public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
+        {
+            if (val.CompareTo(min) < 0) {
+                return min;
+            } else if (val.CompareTo(max) > 0) {
+                return max;
+            } else {
+                return val;
+            }
+        }
+
+        #region Inheritance
+
         public static bool IsDerivedFrom(this Type type, Type baseType)
         {
             return baseType.IsAssignableFrom(type);
@@ -43,7 +66,19 @@ namespace BSLib
             return interfaceType.IsAssignableFrom(type);
         }
 
+        public static bool IsDerivedFromOrImplements(this Type type, Type baseType)
+        {
+            return baseType.IsInterface ? type.IsImplementingInterface(baseType) : type.IsDerivedFrom(baseType);
+        }
+
+        #endregion
+
         #region Array operations
+
+        public static void Clear<T>(this T[] array)
+        {
+            Array.Clear(array, 0, array.Length);
+        }
 
         public static bool IsNullOrEmpty<T>(this T[] array)
         {
@@ -62,6 +97,15 @@ namespace BSLib
         #endregion
 
         #region Dictionary operations
+
+        public static void AddOrSet<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        {
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key] = value;
+            } else {
+                dictionary.Add(key, value);
+            }
+        }
 
         public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
         {
@@ -89,24 +133,7 @@ namespace BSLib
 
         #endregion
 
-        /// <summary>
-        ///   Clamp a value to a certain range.
-        /// </summary>
-        /// <typeparam name="T">The type of the value.</typeparam>
-        /// <param name="val">The value to be clamped.</param>
-        /// <param name="min">The lower bound.</param>
-        /// <param name="max">The upper bound</param>
-        /// <returns></returns>
-        public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
-        {
-            if (val.CompareTo(min) < 0) {
-                return min;
-            } else if (val.CompareTo(max) > 0) {
-                return max;
-            } else {
-                return val;
-            }
-        }
+        #region Enumerable
 
         /// <summary>
         ///   Wraps this object instance into an IEnumerable&lt;T&gt;
@@ -122,5 +149,36 @@ namespace BSLib
         {
             yield return item;
         }
+
+        public static string Join(this IEnumerable<string> source, string delimiter)
+        {
+            return string.Join(delimiter, source.ToArray());
+        }
+
+        public static string Join(this IEnumerable<string> source)
+        {
+            return source.Join("");
+        }
+
+        public static string JoinLines(this IEnumerable<string> source)
+        {
+            return source.Join("\r\n");
+        }
+
+        #endregion
+
+        #region Threads
+
+        public static bool TryKill(this Thread thread)
+        {
+            try {
+                thread.Abort();
+                return true;
+            } catch {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

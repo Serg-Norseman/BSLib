@@ -41,18 +41,15 @@ namespace BSLib
         {
             bool res = false;
 
-            if (!string.IsNullOrEmpty(str))
-            {
-                int I;
-                for (I = 1; I <= str.Length; I++)
-                {
-                    char c = str[I - 1];
-                    if (c < '0' || c >= ':')
-                    {
+            if (!string.IsNullOrEmpty(str)) {
+                int i;
+                for (i = 1; i <= str.Length; i++) {
+                    char c = str[i - 1];
+                    if (c < '0' || c >= ':') {
                         break;
                     }
                 }
-                res = (I > str.Length);
+                res = (i > str.Length);
             }
 
             return res;
@@ -96,10 +93,8 @@ namespace BSLib
             string rome = "";
             int T = 12;
 
-            if (num > 0)
-            {
-                while (true)
-                {
+            if (num > 0) {
+                while (true) {
                     int rn = RN_N[T];
 
                     if (num >= rn) {
@@ -108,7 +103,8 @@ namespace BSLib
                             rome += RN_S[T];
                         }
 
-                        if (num <= 0) break;
+                        if (num <= 0)
+                            break;
                     } else {
                         T -= 1;
                     }
@@ -127,23 +123,26 @@ namespace BSLib
             return result;
         }
 
-        public static int ParseInt(string str, int Default)
+        public static int ParseInt(string str, int defaultValue)
         {
             int res;
-            if (!int.TryParse(str, out res)) res = Default;
+            if (!int.TryParse(str, out res))
+                res = defaultValue;
             return res;
         }
 
-        public static long ParseLong(string str, int Default)
+        public static long ParseLong(string str, int defaultValue)
         {
             long res;
-            if (!long.TryParse(str, out res)) res = Default;
+            if (!long.TryParse(str, out res))
+                res = defaultValue;
             return res;
         }
 
         public static double ParseFloat(string str, double defaultValue, bool checkSeparator = false)
         {
-            if (string.IsNullOrEmpty(str)) return defaultValue;
+            if (string.IsNullOrEmpty(str))
+                return defaultValue;
 
             string decSep;
             if (checkSeparator) {
@@ -179,23 +178,24 @@ namespace BSLib
             return result;
         }
 
-        public static string Repeat(char ch, int repeat)
+        public static string BytesToHex(byte[] bytes)
         {
-            char[] chars = new char[repeat];
-            for (int i = 0; i < repeat; i++)
-                chars[i] = ch;
-            return new string(chars);
+            StringBuilder sb = new StringBuilder(bytes.Length * 2);
+            foreach (byte b in bytes) {
+                var t = b / 16;
+                sb.Append((char)(t + (t <= 9 ? '0' : '7')));
+                var f = b % 16;
+                sb.Append((char)(f + (f <= 9 ? '0' : '7')));
+            }
+            return sb.ToString();
         }
 
-        public static string UniformName(string val)
+        public static byte[] HexToBytes(string hex)
         {
-            if (string.IsNullOrEmpty(val)) {
-                return null;
-            }
-
-            StringBuilder str = new StringBuilder(val.ToLower());
-            str[0] = char.ToUpper(str[0]);
-            return str.ToString();
+            byte[] data = new byte[hex.Length / 2];
+            for (int i = 0; i < data.Length; i++)
+                data[i] = byte.Parse(hex.Substring(i * 2, 2), NumberStyles.HexNumber);
+            return data;
         }
     }
 }
