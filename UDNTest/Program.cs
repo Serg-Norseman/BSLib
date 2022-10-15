@@ -402,6 +402,16 @@ namespace UDNTest
             Console.WriteLine();
             Console.Write("Press any key to continue . . . ");
             Console.ReadKey(true);
+
+            double jdnB = CalendarConverter.gregorian_to_jd(2022, 10, 15);
+            int yB, mB, dB;
+            CalendarConverter.jd_to_byzantine(jdnB, out yB, out mB, out dB, CalendarConverter.ByzantineStyle.March);
+            Console.WriteLine(string.Format("{0}/{1}/{2}", yB, mB, dB));
+
+            CalendarConverter.jd_to_byzantine(jdnB, out yB, out mB, out dB, CalendarConverter.ByzantineStyle.September);
+            Console.WriteLine(string.Format("{0}/{1}/{2}", yB, mB, dB));
+
+            Console.ReadKey(true);
         }
     }
 }

@@ -667,5 +667,25 @@ namespace BSLib.Calendar
         }
 
         #endregion
+
+        #region Byzantine calendar
+
+        public enum ByzantineStyle { March, September }
+
+        public static void jd_to_byzantine(double jd, out int year, out int month, out int day, ByzantineStyle style)
+        {
+            jd_to_julian(jd, out year, out month, out day);
+
+            switch (style) {
+                case ByzantineStyle.March:
+                    year = month < 3 ? year += 5507 : year += 5508;
+                    break;
+                case ByzantineStyle.September:
+                    year = month < 9 ? year += 5508 : year += 5509;
+                    break;
+            }
+        }
+
+        #endregion
     }
 }
