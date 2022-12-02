@@ -22,6 +22,12 @@ namespace BSLib.Design.MVP.Controls
 {
     public delegate void ItemAction(IMenuItem sender);
 
+
+    public interface IMenuItems : IControlItems<IMenuItem>
+    {
+    }
+
+
     /// <summary>
     /// 
     /// </summary>
@@ -29,7 +35,7 @@ namespace BSLib.Design.MVP.Controls
     {
         bool Checked { get; set; }
         bool Enabled { get; set; }
-        int ItemsCount { get; }
+        IMenuItems SubItems { get; }
         object Tag { get; set; }
         string Text { get; set; }
 

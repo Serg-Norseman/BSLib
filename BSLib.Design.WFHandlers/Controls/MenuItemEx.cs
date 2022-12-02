@@ -29,18 +29,24 @@ namespace BSLib.Design.Handlers
     public class MenuItemEx : ToolStripMenuItem, IMenuItem
     {
         private ItemAction fAction;
+        private MenuSubItems fItems;
 
         public MenuItemEx(string text) : base(text)
         {
+            fItems = new MenuSubItems(this);
         }
 
         public MenuItemEx(string text, object tag) : base(text)
         {
+            fItems = new MenuSubItems(this);
+
             Tag = tag;
         }
 
         public MenuItemEx(string text, object tag, IImage image, ItemAction action) : base(text)
         {
+            fItems = new MenuSubItems(this);
+
             Click += Item_Click;
             Tag = tag;
             ImageHandler hIcon = image as ImageHandler;
@@ -48,11 +54,9 @@ namespace BSLib.Design.Handlers
             fAction = action;
         }
 
-        public int ItemsCount
+        public IMenuItems SubItems
         {
-            get {
-                return DropDownItems.Count;
-            }
+            get { return fItems; }
         }
 
         public IMenuItem AddItem(string text, object tag, IImage image, ItemAction action)

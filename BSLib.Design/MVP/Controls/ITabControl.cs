@@ -26,5 +26,6 @@ namespace BSLib.Design.MVP.Controls
     public interface ITabControl : IBaseControl
     {
         int SelectedIndex { get; set; }
+        ITabPages Pages { get; }
     }
 }

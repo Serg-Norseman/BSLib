@@ -16,6 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Windows.Forms;
 using BSLib.Design.MVP.Controls;
 
@@ -23,14 +24,47 @@ namespace BSLib.Design.Handlers
 {
     public sealed class TabControlHandler : BaseControlHandler<TabControl, TabControlHandler>, ITabControl
     {
+        private class TabPageItems : ITabPages
+        {
+            private TabControl fTabControl;
+
+            public ITabPage this[int index]
+            {
+                get {
+                    if (index < 0 || index >= fTabControl.TabPages.Count)
+                        throw new ArgumentOutOfRangeException("index");
+
+                    return new TabPageHandler(fTabControl.TabPages[index]);
+                }
+            }
+
+            public int Count
+            {
+                get { return fTabControl.TabPages.Count; }
+            }
+
+            public TabPageItems(TabControl control)
+            {
+                fTabControl = control;
+            }
+        }
+
+        private TabPageItems fItems;
+
         public TabControlHandler(TabControl control) : base(control)
         {
+            fItems = new TabPageItems(control);
         }
 
         public int SelectedIndex
         {
             get { return Control.SelectedIndex; }
             set { Control.SelectedIndex = value; }
+        }
+
+        public ITabPages Pages
+        {
+            get { return fItems; }
         }
     }
 }

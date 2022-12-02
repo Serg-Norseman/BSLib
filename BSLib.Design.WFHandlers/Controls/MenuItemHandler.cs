@@ -16,6 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Windows.Forms;
 using BSLib.Design.Graphics;
 using BSLib.Design.MVP;
@@ -23,10 +24,39 @@ using BSLib.Design.MVP.Controls;
 
 namespace BSLib.Design.Handlers
 {
+    internal class MenuSubItems : IMenuItems
+    {
+        private ToolStripMenuItem fItem;
+
+        public IMenuItem this[int index]
+        {
+            get {
+                if (index < 0 || index >= fItem.DropDownItems.Count)
+                    throw new ArgumentOutOfRangeException("index");
+
+                return new MenuItemHandler((ToolStripMenuItem)fItem.DropDownItems[index]);
+            }
+        }
+
+        public int Count
+        {
+            get { return fItem.DropDownItems.Count; }
+        }
+
+        public MenuSubItems(ToolStripMenuItem control)
+        {
+            fItem = control;
+        }
+    }
+
+
     public sealed class MenuItemHandler : ControlHandler<ToolStripMenuItem, MenuItemHandler>, IMenuItem
     {
+        private MenuSubItems fItems;
+
         public MenuItemHandler(ToolStripMenuItem control) : base(control)
         {
+            fItems = new MenuSubItems(control);
         }
 
         public bool Checked
@@ -41,6 +71,11 @@ namespace BSLib.Design.Handlers
             set { Control.Enabled = value; }
         }
 
+        public IMenuItems SubItems
+        {
+            get { return fItems; }
+        }
+
         public object Tag
         {
             get { return Control.Tag; }
@@ -51,11 +86,6 @@ namespace BSLib.Design.Handlers
         {
             get { return Control.Text; }
             set { Control.Text = value; }
-        }
-
-        public int ItemsCount
-        {
-            get { return Control.DropDownItems.Count; }
         }
 
         public IMenuItem AddItem(string text, object tag, IImage image, ItemAction action)
