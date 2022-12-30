@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib.Design".
- *  Copyright (C) 2009-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,7 +29,19 @@ namespace BSLib.Design.Handlers
     public class MenuItemEx : ToolStripMenuItem, IMenuItem
     {
         private ItemAction fAction;
+        private IImage fGlyph;
         private MenuSubItems fItems;
+
+
+        public IImage Glyph
+        {
+            get { return fGlyph; }
+            set {
+                fGlyph = value;
+                base.Image = (fGlyph == null) ? null : ((ImageHandler)fGlyph).Handle;
+            }
+        }
+
 
         public MenuItemEx(string text) : base(text)
         {
@@ -49,8 +61,7 @@ namespace BSLib.Design.Handlers
 
             Click += Item_Click;
             Tag = tag;
-            ImageHandler hIcon = image as ImageHandler;
-            Image = (hIcon == null) ? null : hIcon.Handle;
+            Glyph = image;
             fAction = action;
         }
 

@@ -35,6 +35,7 @@ namespace BSLib.Design.MVP.Controls
     {
         bool Checked { get; set; }
         bool Enabled { get; set; }
+        IImage Glyph { get; set; }
         IMenuItems SubItems { get; }
         object Tag { get; set; }
         string Text { get; set; }
