@@ -1,6 +1,6 @@
 /*
  *  "BSLib.DataViz".
- *  Copyright (C) 2017-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2017-2022 by Sergey V. Zhdanovskih.
  *
  *  This file is part of "BSLib".
  *
@@ -38,24 +38,39 @@ namespace BSLib.DataViz.TreeMap
         }
     }
 
+    public class PaintItemEventArgs : EventArgs
+    {
+        private Graphics graphics;
+        private readonly MapItem item;
+
+        public Graphics Graphics
+        {
+            get { return graphics; }
+        }
+
+        public MapItem Item
+        {
+            get { return item; }
+        }
+
+        public PaintItemEventArgs(Graphics graphics, MapItem item)
+        {
+            if (graphics == null) {
+                throw new ArgumentNullException("graphics");
+            }
+
+            this.graphics = graphics;
+            this.item = item;
+        }
+    }
+
+    public delegate void PaintItemEventHandler(object sender, PaintItemEventArgs args);
+
     /// <summary>
     /// TreeMap Viewer's control.
     /// </summary>
     public class TreeMapViewer : UserControl
     {
-        private class SimpleModel : TreemapModel
-        {
-            public SimpleModel() : base()
-            {
-            }
-
-            protected override MapItem newItem(MapItem parent, string name, double size)
-            {
-                return new SimpleItem(parent, name, size);
-            }
-        }
-
-        private readonly TreemapModel fModel;
         private readonly ToolTip fToolTip;
 
         private Bitmap fBackBuffer;
@@ -67,16 +82,39 @@ namespace BSLib.DataViz.TreeMap
         private string fHint;
         private MapItem fHoveredItem;
         private int fItemsPadding;
+        private TreemapModel fModel;
         private bool fMouseoverHighlight;
         private MapItem fRootItem;
         private bool fShowNames;
         private MapItem fUpperItem;
 
 
+        public Pen BorderPen
+        {
+            get { return fBorderPen; }
+            set {
+                if (fBorderPen != value) {
+                    fBorderPen = value;
+                    UpdateView();
+                }
+            }
+        }
+
         public MapItem CurrentItem
         {
             get {
                 return fCurrentItem;
+            }
+        }
+
+        public Brush HeaderBrush
+        {
+            get { return fHeaderBrush; }
+            set {
+                if (fHeaderBrush != value) {
+                    fHeaderBrush = value;
+                    UpdateView();
+                }
             }
         }
 
@@ -97,6 +135,10 @@ namespace BSLib.DataViz.TreeMap
         {
             get {
                 return fModel;
+            }
+            set {
+                fModel = value;
+                UpdateView();
             }
         }
 
@@ -144,7 +186,9 @@ namespace BSLib.DataViz.TreeMap
             }
         }
 
-        public event HintRequestEventHandler OnHintRequest;
+        public event HintRequestEventHandler HintRequest;
+
+        public event PaintItemEventHandler PaintItem;
 
 
         public TreeMapViewer()
@@ -154,7 +198,8 @@ namespace BSLib.DataViz.TreeMap
             base.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
             fItemsPadding = 4;
-            fModel = new SimpleModel();
+            fModel = new TreemapModel();
+            fModel.CreatingItem += CreateSimpleItem;
 
             fToolTip = new ToolTip();
             fToolTip.AutoPopDelay = 5000;
@@ -167,6 +212,11 @@ namespace BSLib.DataViz.TreeMap
             fHeaderBrush = new SolidBrush(Color.Black);
             fHighlightColor = Color.White;
             fHighlightPen = new Pen(fHighlightColor);
+        }
+
+        private MapItem CreateSimpleItem(MapItem parent, string name, double size)
+        {
+            return new SimpleItem(parent, name, size);
         }
 
         private List<MapItem> GetRootList()
@@ -190,13 +240,13 @@ namespace BSLib.DataViz.TreeMap
             }
         }
 
-        private string HintRequest(MapItem mapItem)
+        protected virtual string OnHintRequest(MapItem mapItem)
         {
-            var onHintRequest = OnHintRequest;
-            if (onHintRequest == null) return mapItem.Name;
+            var hintRequest = HintRequest;
+            if (hintRequest == null) return mapItem.Name;
 
             HintRequestEventArgs args = new HintRequestEventArgs(mapItem);
-            onHintRequest(this, args);
+            hintRequest(this, args);
             return args.Hint;
         }
 
@@ -208,7 +258,7 @@ namespace BSLib.DataViz.TreeMap
             fUpperItem = null;
             fCurrentItem = fModel.FindByCoord(itemsList, e.X, e.Y, out fUpperItem);
             if (fCurrentItem != null) {
-                hint = HintRequest(fCurrentItem);
+                hint = OnHintRequest(fCurrentItem);
             }
 
             if (fHint != hint) {
@@ -247,7 +297,7 @@ namespace BSLib.DataViz.TreeMap
                 using (var backGfx = Graphics.FromImage(fBackBuffer)) {
                     List<MapItem> itemsList = GetRootList();
                     if (itemsList.Count > 0) {
-                        DrawItems(backGfx, itemsList);
+                        PaintItems(backGfx, itemsList);
                     } else {
                         backGfx.FillRectangle(new SolidBrush(Color.Silver), 0, 0, Width, Height);
                     }
@@ -264,31 +314,36 @@ namespace BSLib.DataViz.TreeMap
             }
         }
 
-        protected void DrawItems(Graphics gfx, IList<MapItem> items)
+        protected virtual void PaintItems(Graphics gfx, IList<MapItem> items)
         {
             int num = items.Count;
             for (int i = 0; i < num; i++) {
                 MapItem item = items[i];
-                DrawItem(gfx, item);
+                OnPaintItem(gfx, item);
             }
         }
 
-        private RectangleF ToRectangle(MapRect rect)
+        protected RectangleF ToRectangle(MapRect rect)
         {
             return new RectangleF(rect.X, rect.Y, rect.W, rect.H);
         }
 
-        protected virtual void DrawItem(Graphics gfx, MapItem item)
+        protected virtual void OnPaintItem(Graphics gfx, MapItem item)
         {
-            var rect = item.Bounds;
-            if (rect.W > 2 && rect.H > 2) {
-                var simpleItem = (SimpleItem)item;
-                gfx.FillRectangle(new SolidBrush(simpleItem.Color), rect.X, rect.Y, rect.W, rect.H);
-                gfx.DrawRectangle(fBorderPen, rect.X, rect.Y, rect.W, rect.H);
-                gfx.DrawString(simpleItem.Name, Font, fHeaderBrush, ToRectangle(rect));
+            var handler = PaintItem;
+            if (handler != null) {
+                handler(this, new PaintItemEventArgs(gfx, item));
+            } else {
+                var rect = item.Bounds;
+                if (rect.W > 2 && rect.H > 2) {
+                    var simpleItem = (SimpleItem)item;
+                    gfx.FillRectangle(new SolidBrush(simpleItem.Color), rect.X, rect.Y, rect.W, rect.H);
+                    gfx.DrawRectangle(fBorderPen, rect.X, rect.Y, rect.W, rect.H);
+                    gfx.DrawString(simpleItem.Name, Font, fHeaderBrush, ToRectangle(rect));
+                }
             }
 
-            DrawItems(gfx, item.Items);
+            PaintItems(gfx, item.Items);
         }
     }
 }

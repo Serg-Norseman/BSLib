@@ -1,6 +1,6 @@
 /*
  *  "BSLib.DataViz".
- *  Copyright (C) 2017-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2017-2022 by Sergey V. Zhdanovskih.
  *
  *  This file is part of "BSLib".
  *
@@ -22,6 +22,9 @@ using System.Collections.Generic;
 
 namespace BSLib.DataViz.TreeMap
 {
+    public delegate MapItem CreateItemEventHandler(MapItem parent, string name, double size);
+
+
     /// <summary>
     /// TreemapModel. Model object used to represent data for a treemap.
     /// 
@@ -30,7 +33,7 @@ namespace BSLib.DataViz.TreeMap
     ///
     /// Squarified Treemaps https://www.win.tue.nl/~vanwijk/stm.pdf
     /// </summary>
-    public abstract class TreemapModel
+    public class TreemapModel
     {
         private readonly List<MapItem> fItems;
 
@@ -45,24 +48,34 @@ namespace BSLib.DataViz.TreeMap
         }
 
 
+        public event CreateItemEventHandler CreatingItem;
+
+
         /// <summary>
         /// Creates a Map Model instance based on the relative size of the mappable items and the frame size.
         /// </summary>
-        protected TreemapModel()
+        public TreemapModel()
         {
             fItems = new List<MapItem>();
         }
 
-        protected abstract MapItem newItem(MapItem parent, string name, double size);
-
         public MapItem CreateItem(MapItem parent, string name, double size)
         {
-            MapItem result = newItem(parent, name, size);
+            MapItem result;
+
+            var handler = CreatingItem;
+            if (handler != null) {
+                result = handler(parent, name, size);
+            } else {
+                result = new MapItem(parent, name, size);
+            }
+
             if (parent == null) {
                 fItems.Add(result);
             } else {
                 parent.AddItem(result);
             }
+
             return result;
         }
 
