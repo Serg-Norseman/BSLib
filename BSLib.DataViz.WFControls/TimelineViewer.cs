@@ -24,7 +24,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BSLib.Timeline
+namespace BSLib.DataViz.Timeline
 {
     /// <summary>
     ///   Event arguments for an event that notifies about a change in the selection of tracks.
@@ -519,7 +519,7 @@ namespace BSLib.Timeline
                 }*/
 
                 // Determine colors for this track
-                Color trackBaseColor = frame.Color;
+                Color trackBaseColor = Color.FromArgb(frame.Color);
                 if (trackBaseColor == Color.Transparent) {
                      trackBaseColor = fTrackColors[trackIndex];
                 }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using BSLib.Surrogates;
 
 namespace SpanDev
 {
+#if NET45_AND_ABOVE
+    using BSLib.Surrogates;
+#endif
+
     class Program
     {
         private const int IterNum = 100000;
@@ -13,19 +16,59 @@ namespace SpanDev
             const string TestStr = "aaaaaaaaaa bbbbbbbbbbbb cccccccccccc dddddddddddd eeeeeeeeee ffffffffff gggggggggg";
 
             long y = 0;
-
-            for (int k = 0; k < IterNum; k++) y += EnumPureString(TestStr);
+            var watch = new System.Diagnostics.Stopwatch();
 
             StringSpan strSpan = TestStr;
-            for (int k = 0; k < IterNum; k++) y += EnumStringSpan(strSpan);
-
             char[] charArr = TestStr.ToCharArray();
-
-            for (int k = 0; k < IterNum; k++) y += EnumPureCharArr(charArr);
-
             ArraySpan<char> arrSpan = charArr;
-            for (int k = 0; k < IterNum; k++) y += EnumArraySpan(arrSpan);
+            Span<char> arrSysSpan = charArr;
 
+            for (int i = 1; i < 21; i++) {
+                watch.Reset();
+                watch.Start();
+                for (int k = 0; k < IterNum; k++)
+                    y += EnumPureString(TestStr);
+                Hole(ref y);
+                watch.Stop();
+                Console.WriteLine($"Execution Time (EnumPureString): {watch.ElapsedMilliseconds} ms");
+
+                watch.Reset();
+                watch.Start();
+                for (int k = 0; k < IterNum; k++)
+                    y += EnumStringSurrSpan(strSpan);
+                Hole(ref y);
+                watch.Stop();
+                Console.WriteLine($"Execution Time (EnumStringSurrSpan): {watch.ElapsedMilliseconds} ms");
+
+                watch.Reset();
+                watch.Start();
+                for (int k = 0; k < IterNum; k++)
+                    y += EnumPureCharArr(charArr);
+                Hole(ref y);
+                watch.Stop();
+                Console.WriteLine($"Execution Time (EnumPureCharArr): {watch.ElapsedMilliseconds} ms");
+
+                watch.Reset();
+                watch.Start();
+                for (int k = 0; k < IterNum; k++)
+                    y += EnumArraySurrSpan(arrSpan);
+                Hole(ref y);
+                watch.Stop();
+                Console.WriteLine($"Execution Time (EnumArraySurrSpan): {watch.ElapsedMilliseconds} ms");
+
+                watch.Reset();
+                watch.Start();
+                for (int k = 0; k < IterNum; k++)
+                    y += EnumArraySysSpan(arrSysSpan);
+                Hole(ref y);
+                watch.Stop();
+                Console.WriteLine($"Execution Time (EnumArraySysSpan): {watch.ElapsedMilliseconds} ms");
+                Console.WriteLine();
+            }
+
+
+            watch.Reset();
+            watch.Start();
             for (int k = 0; k < IterNum; k++) {
                 var str1 = GetSubPureStr(TestStr);
                 if (str1 != "bbbbbbbbbbbb") {
@@ -33,7 +76,11 @@ namespace SpanDev
                 }
                 Hole(ref str1);
             }
+            watch.Stop();
+            Console.WriteLine($"Execution Time (GetSubPureStr): {watch.ElapsedMilliseconds} ms");
 
+            watch.Reset();
+            watch.Start();
             for (int k = 0; k < IterNum; k++) {
                 var str2 = GetSubStrSpan(strSpan);
                 if (str2 != "bbbbbbbbbbbb") {
@@ -41,7 +88,11 @@ namespace SpanDev
                 }
                 Hole(ref str2);
             }
+            watch.Stop();
+            Console.WriteLine($"Execution Time (GetSubStrSpan): {watch.ElapsedMilliseconds} ms");
 
+            watch.Reset();
+            watch.Start();
             for (int k = 0; k < IterNum; k++) {
                 var str2 = GetSubPureCharArr(charArr);
                 if (str2 != "bbbbbbbbbbbb") {
@@ -49,7 +100,11 @@ namespace SpanDev
                 }
                 Hole(ref str2);
             }
+            watch.Stop();
+            Console.WriteLine($"Execution Time (GetSubPureCharArr): {watch.ElapsedMilliseconds} ms");
 
+            watch.Reset();
+            watch.Start();
             for (int k = 0; k < IterNum; k++) {
                 var str2 = GetSubArraySpan(arrSpan);
                 if (str2 != "bbbbbbbbbbbb") {
@@ -57,8 +112,11 @@ namespace SpanDev
                 }
                 Hole(ref str2);
             }
+            watch.Stop();
+            Console.WriteLine($"Execution Time (GetSubArraySpan): {watch.ElapsedMilliseconds} ms");
 
             Console.WriteLine(y);
+            Console.ReadKey();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
@@ -92,6 +150,12 @@ namespace SpanDev
         {
         }
 
+
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        public static void Hole(ref long value)
+        {
+        }
+
         public static int EnumPureString(string str)
         {
             int x = 0;
@@ -101,7 +165,7 @@ namespace SpanDev
             return x;
         }
 
-        public static int EnumStringSpan(StringSpan str)
+        public static int EnumStringSurrSpan(StringSpan str)
         {
             int x = 0;
             for (int i = 0, len = str.Length; i < len; i++) {
@@ -120,7 +184,16 @@ namespace SpanDev
             return x;
         }
 
-        public static int EnumArraySpan(ArraySpan<char> str)
+        public static int EnumArraySurrSpan(ArraySpan<char> str)
+        {
+            int x = 0;
+            for (int i = 0, len = str.Length; i < len; i++) {
+                x += str[i];
+            }
+            return x;
+        }
+
+        public static int EnumArraySysSpan(Span<char> str)
         {
             int x = 0;
             for (int i = 0, len = str.Length; i < len; i++) {

@@ -1,3 +1,23 @@
+/*
+ *  "BSLib".
+ *  Copyright (C) 2009-2023 by Sergey V. Zhdanovskih.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#if NET45_AND_ABOVE
+
 using System;
 using System.Runtime.CompilerServices;
 
@@ -11,7 +31,7 @@ namespace BSLib.Surrogates
 
         public char this[int index]
         {
-            [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get {
                 return fArray[fStart + index];
             }
@@ -19,7 +39,7 @@ namespace BSLib.Surrogates
 
         public int Length
         {
-            [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get {
                 return fLength;
             }
@@ -27,13 +47,13 @@ namespace BSLib.Surrogates
 
         public bool IsEmpty
         {
-            [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get {
                 return 0 >= fLength;
             }
         }
 
-        [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public StringSpan(string array)
         {
             if (array == null)
@@ -44,7 +64,7 @@ namespace BSLib.Surrogates
             fLength = array.Length;
         }
 
-        [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public StringSpan(string array, int start, int length)
         {
             if (array == null)
@@ -58,25 +78,25 @@ namespace BSLib.Surrogates
             fLength = length;
         }
 
-        [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator StringSpan(string array)
         {
             return new StringSpan(array);
         }
 
-        [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ISpan<char> Slice(int start)
         {
             return new StringSpan(fArray, start, fLength - start);
         }
 
-        [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ISpan<char> Slice(int start, int length)
         {
             return new StringSpan(fArray, start, length);
         }
 
-        [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public char[] ToArray()
         {
             if (fLength == 0)
@@ -86,10 +106,12 @@ namespace BSLib.Surrogates
             return destination;
         }
 
-        [MethodImpl((MethodImplOptions)256/*MethodImplOptions.AggressiveInlining*/)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
             return fArray.Substring(fStart, fLength);
         }
     }
 }
+
+#endif

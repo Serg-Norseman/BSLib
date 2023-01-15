@@ -11,3 +11,4 @@ coverage.xml
 
 /temp/
 /gource-bslib.cmd
+/packages/System.*/

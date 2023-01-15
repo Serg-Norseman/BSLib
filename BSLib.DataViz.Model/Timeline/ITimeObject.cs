@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BSLib.Timeline
+namespace BSLib.DataViz.Timeline
 {
     /// <summary>
     ///   Common interface members for elements that can serve as timeline tracks.

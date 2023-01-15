@@ -18,7 +18,7 @@
 
 using System.Collections.Generic;
 
-namespace BSLib.Timeline
+namespace BSLib.DataViz.Timeline
 {
     /// <summary>
     ///   Wraps a single <see cref="EventFrame" /> into an Track.

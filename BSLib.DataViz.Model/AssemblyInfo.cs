@@ -7,9 +7,9 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("BSLib.DataViz.Model is the library for store and manipulations over graphs and treemaps")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BSLib")]
-[assembly: AssemblyCopyright("Copyright © 2011-2022 Sergey V. Zhdanovskih")]
+[assembly: AssemblyCopyright("Copyright © 2011-2023 Sergey V. Zhdanovskih")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.4.0.0")]
+[assembly: AssemblyVersion("1.5.0.0")]
 
 #if DEBUG
 [assembly: InternalsVisibleTo("BSLib.Tests")]

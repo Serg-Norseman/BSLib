@@ -17,9 +17,8 @@
  */
 
 using System;
-using System.Drawing;
 
-namespace BSLib.Timeline
+namespace BSLib.DataViz.Timeline
 {
     /// <summary>
     ///   Describes an item that can be placed on a track in the timeline.
@@ -41,14 +40,10 @@ namespace BSLib.Timeline
         /// </summary>
         public DateTime End { get; set; }
 
-        public Color Color { get; set; }
+        public int Color { get; set; }
 
 
-        public EventFrame(string name, DateTime start, DateTime end) : this(name, start, end, Color.Transparent)
-        {
-        }
-
-        public EventFrame(string name, DateTime start, DateTime end, Color color)
+        public EventFrame(string name, DateTime start, DateTime end, int color)
         {
             Name = name;
             Start = start;
