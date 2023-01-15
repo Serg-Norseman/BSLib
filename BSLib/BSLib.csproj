@@ -7,7 +7,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>BSLib</AssemblyName>
     <NoWin32Manifest>False</NoWin32Manifest>
     <SignAssembly>False</SignAssembly>
@@ -32,10 +33,6 @@
     <Compile Include="BaseException.cs" />
     <Compile Include="BaseObject.cs" />
     <Compile Include="BitHelper.cs" />
-    <Compile Include="Calendar\CalendarAltConverter.cs" />
-    <Compile Include="Calendar\CalendarConverter.cs" />
-    <Compile Include="Calendar\CalendarData.cs" />
-    <Compile Include="Calendar\UDN.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="CRC32.cs" />
     <Compile Include="CSVReader.cs" />

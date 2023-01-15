@@ -38,7 +38,6 @@
     <Compile Include="ArborGVT\BarnesHutTreeTests.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BitHelperTests.cs" />
-    <Compile Include="CalendarTests.cs" />
     <Compile Include="ConvertHelperTests.cs" />
     <Compile Include="CSVReaderTests.cs" />
     <Compile Include="DateHelperTests.cs" />
@@ -52,7 +51,6 @@
     <Compile Include="IndistinctMatchingTests.cs" />
     <Compile Include="IniFileTests.cs" />
     <Compile Include="IocContainerTests.cs" />
-    <Compile Include="Linguistics\BaseMorpherTests.cs" />
     <Compile Include="MathHelperTests.cs" />
     <Compile Include="NetHelperTests.cs" />
     <Compile Include="PriorityQueueTests.cs" />
@@ -68,7 +66,6 @@
     <Compile Include="TestUtils.cs" />
     <Compile Include="TypeExtensionsTests.cs" />
     <Compile Include="TypeHandlerTests.cs" />
-    <Compile Include="UDNTests.cs" />
     <Compile Include="WeightedMeanTests.cs" />
     <Compile Include="ZipStorerTests.cs" />
   </ItemGroup>
@@ -80,10 +77,6 @@
     <ProjectReference Include="..\BSLib.Design\BSLib.Design.csproj">
       <Project>{e8f0dd42-720b-498c-b8f1-b0e4445deeab}</Project>
       <Name>BSLib.Design</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BSLib.Linguistics\BSLib.Linguistics.csproj">
-      <Project>{d28680cf-06ba-4b0a-a9f0-fb45eb9ce92a}</Project>
-      <Name>BSLib.Linguistics</Name>
     </ProjectReference>
     <ProjectReference Include="..\BSLib\BSLib.csproj">
       <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
