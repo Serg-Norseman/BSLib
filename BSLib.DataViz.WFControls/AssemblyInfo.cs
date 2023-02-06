@@ -8,6 +8,6 @@
 [assembly: AssemblyProduct("BSLib")]
 [assembly: AssemblyCopyright("Copyright © 2011-2023 Sergey V. Zhdanovskih")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.5.0.0")]
+[assembly: AssemblyVersion("1.6.0.0")]
 
 #endif

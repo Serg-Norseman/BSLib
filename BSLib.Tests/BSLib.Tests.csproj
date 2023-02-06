@@ -58,6 +58,7 @@
     <Compile Include="RandomHelperTests.cs" />
     <Compile Include="RangesTests.cs" />
     <Compile Include="ReflectionHelperTests.cs" />
+    <Compile Include="SDCompressionTests.cs" />
     <Compile Include="SmartGraphTests.cs" />
     <Compile Include="SortHelperTests.cs" />
     <Compile Include="StringListTests.cs" />
@@ -73,6 +74,10 @@
     <ProjectReference Include="..\BSLib.DataViz.Model\BSLib.DataViz.Model.csproj">
       <Project>{58e0dd1e-7a8c-4368-bac8-bbbf7361af2a}</Project>
       <Name>BSLib.DataViz.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSLib.Data\BSLib.Data.csproj">
+      <Project>{65ff6d4a-8a3b-4eea-afc6-2934ec06b93f}</Project>
+      <Name>BSLib.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\BSLib.Design\BSLib.Design.csproj">
       <Project>{e8f0dd42-720b-498c-b8f1-b0e4445deeab}</Project>

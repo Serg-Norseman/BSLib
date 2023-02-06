@@ -27,6 +27,7 @@
     <Compile Include="ArborGVT\BarnesHutTree.cs" />
     <Compile Include="ArborGVT\IArborRenderer.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Quality\ValueRange.cs" />
     <Compile Include="SmartGraph\Edge.cs" />
     <Compile Include="SmartGraph\Graph.cs" />
     <Compile Include="SmartGraph\GraphObject.cs" />

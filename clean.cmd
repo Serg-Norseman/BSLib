@@ -56,3 +56,6 @@ rmdir .\IPCClientTest\obj /s /q
 
 rmdir .\IPCServerTest\bin /s /q
 rmdir .\IPCServerTest\obj /s /q
+
+rmdir .\BSLib.Data\bin /s /q
+rmdir .\BSLib.Data\obj /s /q
