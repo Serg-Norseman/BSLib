@@ -50,7 +50,6 @@
     <Compile Include="GfxHelperTests.cs" />
     <Compile Include="IndistinctMatchingTests.cs" />
     <Compile Include="IniFileTests.cs" />
-    <Compile Include="IocContainerTests.cs" />
     <Compile Include="MathHelperTests.cs" />
     <Compile Include="NetHelperTests.cs" />
     <Compile Include="PriorityQueueTests.cs" />
@@ -78,10 +77,6 @@
     <ProjectReference Include="..\BSLib.Data\BSLib.Data.csproj">
       <Project>{65ff6d4a-8a3b-4eea-afc6-2934ec06b93f}</Project>
       <Name>BSLib.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BSLib.Design\BSLib.Design.csproj">
-      <Project>{e8f0dd42-720b-498c-b8f1-b0e4445deeab}</Project>
-      <Name>BSLib.Design</Name>
     </ProjectReference>
     <ProjectReference Include="..\BSLib\BSLib.csproj">
       <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
