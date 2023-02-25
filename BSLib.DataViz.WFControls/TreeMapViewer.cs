@@ -1,6 +1,6 @@
 /*
  *  "BSLib.DataViz".
- *  Copyright (C) 2017-2022 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2017-2023 by Sergey V. Zhdanovskih.
  *
  *  This file is part of "BSLib".
  *
@@ -26,8 +26,6 @@ using System.Windows.Forms;
 
 namespace BSLib.DataViz.TreeMap
 {
-    public delegate void HintRequestEventHandler(object sender, HintRequestEventArgs args);
-
     public sealed class SimpleItem : MapItem
     {
         public Color Color;
@@ -186,7 +184,7 @@ namespace BSLib.DataViz.TreeMap
             }
         }
 
-        public event HintRequestEventHandler HintRequest;
+        public event TMHintRequestEventHandler HintRequest;
 
         public event PaintItemEventHandler PaintItem;
 
@@ -245,7 +243,7 @@ namespace BSLib.DataViz.TreeMap
             var hintRequest = HintRequest;
             if (hintRequest == null) return mapItem.Name;
 
-            HintRequestEventArgs args = new HintRequestEventArgs(mapItem);
+            TMHintRequestEventArgs args = new TMHintRequestEventArgs(mapItem);
             hintRequest(this, args);
             return args.Hint;
         }

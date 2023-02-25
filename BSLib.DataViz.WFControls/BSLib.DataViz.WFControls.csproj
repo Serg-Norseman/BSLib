@@ -24,7 +24,6 @@
   <ItemGroup>
     <Compile Include="ArborViewer.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="HintRequestEventArgs.cs" />
     <Compile Include="QualityControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

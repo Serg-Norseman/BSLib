@@ -34,6 +34,7 @@
     <Compile Include="SmartGraph\GraphvizWriter.cs" />
     <Compile Include="SmartGraph\PathCandidate.cs" />
     <Compile Include="SmartGraph\Vertex.cs" />
+    <Compile Include="Spectrum.cs" />
     <Compile Include="Timeline\EventFrame.cs" />
     <Compile Include="Timeline\ITimeObject.cs" />
     <Compile Include="Timeline\Track.cs" />

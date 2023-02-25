@@ -1,6 +1,6 @@
 /*
  *  "BSLib.DataViz".
- *  Copyright (C) 2017-2022 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2017-2023 by Sergey V. Zhdanovskih.
  *
  *  This file is part of "BSLib".
  *
@@ -18,10 +18,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 
 namespace BSLib.DataViz.TreeMap
 {
+    public class TMHintRequestEventArgs : EventArgs
+    {
+        public MapItem MapItem { get; private set; }
+
+        public string Hint { get; set; }
+
+        public TMHintRequestEventArgs(MapItem mapItem)
+        {
+            MapItem = mapItem;
+        }
+    }
+
+
+    public delegate void TMHintRequestEventHandler(object sender, TMHintRequestEventArgs args);
+
+
     public delegate MapItem CreateItemEventHandler(MapItem parent, string name, double size);
 
 

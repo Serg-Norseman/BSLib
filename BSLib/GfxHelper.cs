@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2017 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2023 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ namespace BSLib
     /// </summary>
     public static class GfxHelper
     {
-        private static int MakeArgb(int alpha, int red, int green, int blue)
+        public static int MakeArgb(int alpha, int red, int green, int blue)
         {
             return (red << 16 | green << 8 | blue | alpha << 24);
         }
