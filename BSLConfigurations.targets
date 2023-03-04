@@ -54,6 +54,9 @@
   <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.6.2' ">
     <DefineConstants>$(DefineConstants);NET462;NET45_AND_ABOVE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.7.2' ">
+    <DefineConstants>$(DefineConstants);NET472;NET45_AND_ABOVE</DefineConstants>
+  </PropertyGroup>
 
   <PropertyGroup Condition=" $(Configuration.Contains('Mono')) ">
     <DefineConstants>$(DefineConstants);MONO;</DefineConstants>
