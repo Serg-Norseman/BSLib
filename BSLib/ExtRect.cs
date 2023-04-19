@@ -35,6 +35,11 @@ namespace BSLib
         public int Right;
         public int Bottom;
 
+        public static implicit operator ExtRect(ExtRectF rt)
+        {
+            return Create((int)rt.Left, (int)rt.Top, (int)rt.Right, (int)rt.Bottom);
+        }
+
         public int Square
         {
             get { return Width * Height; }
@@ -48,6 +53,14 @@ namespace BSLib
         public int Height
         {
             get { return (Bottom == Top) ? 0 : Bottom - Top + 1; }
+        }
+
+        public ExtRect(int left, int top, int width, int height)
+        {
+            Left = left;
+            Top = top;
+            Right = left + width - 1;
+            Bottom = top + height - 1;
         }
 
         public static ExtRect Create(int left, int top, int right, int bottom)
@@ -199,6 +212,24 @@ namespace BSLib
         public float Right;
         public float Bottom;
 
+        public ExtRectF(float left, float top, float width, float height)
+        {
+            Left = left;
+            Top = top;
+            Right = left + width/* - 1*/;
+            Bottom = top + height/* - 1*/;
+        }
+
+        public float Width
+        {
+            get { return (Right == Left) ? 0 : Right - Left/* + 1*/; }
+        }
+
+        public float Height
+        {
+            get { return (Bottom == Top) ? 0 : Bottom - Top/* + 1*/; }
+        }
+
         public static implicit operator ExtRectF(ExtRect rt)
         {
             return Create(rt.Left, rt.Top, rt.Right, rt.Bottom);
@@ -216,7 +247,7 @@ namespace BSLib
 
         public static ExtRectF CreateBounds(float left, float top, float width, float height)
         {
-            return Create(left, top, left + width - 1, top + height - 1);
+            return Create(left, top, left + width/* - 1*/, top + height/* - 1*/);
         }
 
         public static ExtRectF CreateEmpty()
@@ -226,12 +257,12 @@ namespace BSLib
 
         public float GetWidth()
         {
-            return (Right == Left) ? 0 : Right - Left + 1;
+            return (Right == Left) ? 0 : Right - Left/* + 1*/;
         }
 
         public float GetHeight()
         {
-            return (Bottom == Top) ? 0 : Bottom - Top + 1;
+            return (Bottom == Top) ? 0 : Bottom - Top/* + 1*/;
         }
 
         public bool IsEmpty()
@@ -239,9 +270,20 @@ namespace BSLib
             return Right <= Left || Bottom <= Top;
         }
 
-        public bool Contains(int x, int y)
+        public bool Contains(float x, float y)
         {
             return x >= Left && y >= Top && x <= Right && y <= Bottom;
+        }
+
+        public bool Contains(ExtPointF pt)
+        {
+            return Contains(pt.X, pt.Y);
+        }
+
+        public bool Contains(ExtRectF rt)
+        {
+            return Contains(rt.Left, rt.Top) && Contains(rt.Right, rt.Top)
+                && Contains(rt.Left, rt.Bottom) && Contains(rt.Right, rt.Bottom);
         }
 
         public ExtRectF GetOffset(float dX, float dY)
@@ -249,7 +291,7 @@ namespace BSLib
             return Create(Left + dX, Top + dY, Right + dX, Bottom + dY);
         }
 
-        public void Offset(int dX, int dY)
+        public void Offset(float dX, float dY)
         {
             Left += dX;
             Right += dX;
@@ -257,7 +299,7 @@ namespace BSLib
             Bottom += dY;
         }
 
-        public void Inflate(int dX, int dY)
+        public void Inflate(float dX, float dY)
         {
             Left += dX;
             Right -= dX;
@@ -265,7 +307,7 @@ namespace BSLib
             Bottom -= dY;
         }
 
-        public bool IntersectsWith(ExtRect rect)
+        public bool IntersectsWith(ExtRectF rect)
         {
             return rect.Left < Right && Left < rect.Right && rect.Top < Bottom && Top < rect.Bottom;
         }
