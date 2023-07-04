@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2017 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2023 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -49,19 +49,19 @@ namespace BSLib
         public void Include(T elem)
         {
             byte idx = ((IConvertible)elem).ToByte(null);
-            fData = (fData | (1u << idx));
+            fData = (fData | (1uL << idx));
         }
 
         public void Exclude(T elem)
         {
             byte idx = ((IConvertible)elem).ToByte(null);
-            fData = (fData & (~(1u << idx)));
+            fData = (fData & (~(1uL << idx)));
         }
 
         public bool Contains(T elem)
         {
             byte idx = ((IConvertible)elem).ToByte(null);
-            return (fData & (1u << idx)) > 0u;
+            return (fData & (1uL << idx)) > 0uL;
         }
 
         public bool ContainsAll(params T[] e)
