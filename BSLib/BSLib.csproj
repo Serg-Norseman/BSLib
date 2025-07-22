@@ -82,8 +82,6 @@
     <Compile Include="StringTokenizer.cs" />
     <Compile Include="KVTable.cs" />
     <Compile Include="StringTree.cs" />
-    <Compile Include="Surrogates\ArraySpan.cs" />
-    <Compile Include="Surrogates\StringSpan.cs" />
     <Compile Include="TimeHelper.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="TypeHandler.cs" />
