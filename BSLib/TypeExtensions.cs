@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 
@@ -30,9 +31,51 @@ namespace BSLib
     /// </summary>
     public static class TypeExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNull<T>(this T obj) where T : class
         {
-            return ReferenceEquals(obj, null);
+            return (obj == null);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmpty<T>(this T[] array)
+        {
+            return (array == null || array.Length == 0);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmpty<T>(this IList<T> source)
+        {
+            return (source == null || source.Count == 0);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmpty(this Array source)
+        {
+            return (source == null || source.Length == 0);
+        }
+
+        public static void Shuffle<T>(this T[] array)
+        {
+            var rng = new Random();
+
+            int n = array.Length;
+            while (n > 1) {
+                int k = rng.Next(n--);
+                T temp = array[n];
+                array[n] = array[k];
+                array[k] = temp;
+            }
+        }
+
+        public static void RemoveDuplicates<T>(this List<T> list, IComparer<T> comparer)
+        {
+            list.Sort();
+            int numUnique = 0;
+            for (int i = 0; i < list.Count; i++)
+                if ((i == 0) || (comparer.Compare(list[numUnique - 1], list[i]) != 0))
+                    list[numUnique++] = list[i];
+            list.RemoveRange(numUnique, list.Count - numUnique);
         }
 
         /// <summary>

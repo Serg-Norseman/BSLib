@@ -17,6 +17,7 @@
  */
 
 using System;
+using System.Runtime.CompilerServices;
 
 namespace BSLib
 {
@@ -83,6 +84,12 @@ namespace BSLib
             }
 
             return value >= lowLimit && value <= topLimit;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasRangeIntersection(int start1, int end1, int start2, int end2)
+        {
+            return (start1 <= end2 && start2 <= end1);
         }
 
         public static bool IsOdd(int value)

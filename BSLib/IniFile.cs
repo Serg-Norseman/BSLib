@@ -113,7 +113,7 @@ namespace BSLib
         public string ReadString(string section, string ident, string defaultValue)
         {
             string result = fHandler[section][ident];
-            return (result == null) ? defaultValue : result;
+            return string.IsNullOrEmpty(result) ? defaultValue : result;
         }
 
         public void WriteString(string section, string ident, string value)

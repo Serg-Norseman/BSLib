@@ -16,6 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Runtime.CompilerServices;
+
 namespace BSLib
 {
     /// <summary>
@@ -36,6 +38,24 @@ namespace BSLib
         public static bool IsSetBit(int bitMask, int bit)
         {
             return (bitMask & (1 << bit)) != 0;
+        }
+
+        /// <summary>
+        /// Converts the given <see cref="bool"/> value into a <see cref="byte"/>.
+        /// </summary>
+        /// <param name="value">The input value to convert.</param>
+        /// <returns>1 if <paramref name="flag"/> is <see langword="true"/>, 0 otherwise.</returns>
+        /// <remarks>This method does not contain branching instructions.</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe byte ToByte(bool value)
+        {
+            // Whenever we need to take the address of an argument, we make a local copy first.
+            // This will be removed by the JIT anyway, but it can help produce better codegen and
+            // remove unwanted stack spills if the caller is using constant arguments. This is
+            // because taking the address of an argument can interfere with some of the flow
+            // analysis executed by the JIT, which can in some cases block constant propagation.
+            bool copy = value;
+            return *(byte*)(&copy);
         }
     }
 }
