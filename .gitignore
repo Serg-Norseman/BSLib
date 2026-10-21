@@ -6,9 +6,11 @@
 
 *.suo
 *.userprefs
-*.DotSettings.user
+*.user
 coverage.xml
 
 /temp/
 /gource-bslib.cmd
 /packages/System.*/
+BSLib.Design/
+BSLib.Design.WFHandlers/

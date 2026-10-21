@@ -494,7 +494,6 @@ namespace BSLib
         {
             bool result = false;
 
-            int index = 0;
             int low = 0;
             int high = fList.Count - 1;
 
@@ -517,8 +516,7 @@ namespace BSLib
                 }
             }
 
-            index = low;
-
+            int index = low;
             return (result) ? index : (-index - 1);
         }
 

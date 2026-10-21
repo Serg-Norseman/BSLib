@@ -9,6 +9,8 @@
     <OutputType>Library</OutputType>
     <AssemblyName>BSLib.SQLite</AssemblyName>
     <NoWin32Manifest>False</NoWin32Manifest>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>

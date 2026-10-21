@@ -68,13 +68,13 @@ namespace BSLib
 
         public T Peek()
         {
-            return Empty ? default(T) : fHead.Value;
+            return Empty ? default : fHead.Value;
         }
 
         public T Poll()
         {
             if (Empty) {
-                return default(T);
+                return default;
             }
 
             T value = fHead.Value;

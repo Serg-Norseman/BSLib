@@ -9,6 +9,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BSLib.DataViz.Model</RootNamespace>
     <AssemblyName>BSLib.DataViz.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>

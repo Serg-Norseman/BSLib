@@ -26,3 +26,10 @@ rmdir .\BSLib.SQLite\obj /s /q
 
 rmdir .\BSLib.Data\bin /s /q
 rmdir .\BSLib.Data\obj /s /q
+
+
+rmdir .\BSLib.Design\bin /s /q
+rmdir .\BSLib.Design\obj /s /q
+
+rmdir .\BSLib.Design.WFHandlers\bin /s /q
+rmdir .\BSLib.Design.WFHandlers\obj /s /q

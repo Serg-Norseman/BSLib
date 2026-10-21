@@ -28,7 +28,7 @@ namespace BSLib
     /// </summary>
     public struct ExtRect : ICloneable<ExtRect>, IEquatable<ExtRect>
     {
-        public static readonly ExtRect Empty = default(ExtRect);
+        public static readonly ExtRect Empty = default;
 
         public int Left;
         public int Top;
@@ -205,7 +205,7 @@ namespace BSLib
 
     public struct ExtRectF
     {
-        public static readonly ExtRect Empty = default(ExtRect);
+        public static readonly ExtRect Empty = default;
 
         public float Left;
         public float Top;

@@ -22,14 +22,14 @@ namespace BSLib
 {
     public class KVTable<TKey, TValue>
     {
-        private Dictionary<TKey, TValue> fTable = new Dictionary<TKey, TValue>();
+        private readonly Dictionary<TKey, TValue> fTable = new Dictionary<TKey, TValue>();
 
         public TValue this[TKey key]
         {
             get {
                 TValue val;
                 if (!fTable.TryGetValue(key, out val)) {
-                    return default(TValue);
+                    return default;
                 }
                 return val;
             }

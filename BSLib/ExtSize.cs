@@ -22,7 +22,7 @@ namespace BSLib
 {
     public struct ExtSize
     {
-        public static readonly ExtSize Empty = default(ExtSize);
+        public static readonly ExtSize Empty = default;
 
         public int Width;
         public int Height;
@@ -92,7 +92,7 @@ namespace BSLib
 
     public struct ExtSizeF
     {
-        public static readonly ExtSizeF Empty = default(ExtSizeF);
+        public static readonly ExtSizeF Empty = default;
 
         public float Width;
         public float Height;

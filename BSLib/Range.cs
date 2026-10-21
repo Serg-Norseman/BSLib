@@ -20,7 +20,7 @@ using System;
 
 namespace BSLib
 {
-    public struct Range<T> : ICloneable<Range<T>> where T : IComparable<T>
+    public readonly struct Range<T> : ICloneable<Range<T>> where T : IComparable<T>
     {
         public readonly T Start;
         public readonly T End;

@@ -61,7 +61,7 @@ namespace BSLib
         {
             fStackBackward = new Stack<T>();
             fStackForward = new Stack<T>();
-            fCurrent = default(T);
+            fCurrent = default;
         }
 
         public T Back()

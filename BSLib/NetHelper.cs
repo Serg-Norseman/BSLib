@@ -54,7 +54,7 @@ namespace BSLib
                 }
             }
 
-            return default(IPAddress);
+            return default;
         }
 
         public static string GetPublicAddressEx()

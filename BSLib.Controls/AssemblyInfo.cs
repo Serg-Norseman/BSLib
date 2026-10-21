@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+#if !NETSTANDARD
+
 [assembly: AssemblyTitle("BSLib.Controls")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
@@ -12,3 +14,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("0.5.1.0")]
+
+#endif

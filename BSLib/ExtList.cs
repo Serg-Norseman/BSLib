@@ -111,8 +111,7 @@ namespace BSLib
         private void Notify(object instance, ListNotification action)
         {
             if (fOwnsObjects && action == ListNotification.Deleted) {
-                var disposable = instance as IDisposable;
-                if (disposable != null) {
+                if (instance is IDisposable disposable) {
                     disposable.Dispose();
                 }
             }

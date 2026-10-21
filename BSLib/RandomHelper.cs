@@ -82,7 +82,7 @@ namespace BSLib
             int size = list.Count;
 
             if (size < 1) {
-                return default(T);
+                return default;
             } else if (size == 1) {
                 return list[0];
             } else {

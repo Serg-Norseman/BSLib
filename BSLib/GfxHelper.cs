@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2023 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2026 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -15,6 +15,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+using System;
 
 namespace BSLib
 {
@@ -52,8 +54,8 @@ namespace BSLib
             byte red1, green1, blue1, alpha1;
             DecomposeARGB(color1, out alpha1, out red1, out green1, out blue1);
 
-            byte red2, green2, blue2, alpha2;
-            DecomposeARGB(color2, out alpha2, out red2, out green2, out blue2);
+            byte red2, green2, blue2;
+            DecomposeARGB(color2, out _, out red2, out green2, out blue2);
 
             int color = MakeArgb(alpha1,
                 (byte)(red1 * rat1 + red2 * rat2),
@@ -125,6 +127,30 @@ namespace BSLib
             }
 
             return aspectRatio;
+        }
+
+        private const float DEG2RAD = 3.14159F / 180;
+
+        public static ExtPoint[] GetCirclePoints(ExtPoint center, int count, float radius)
+        {
+            ExtPoint[] result = new ExtPoint[count];
+            if (count > 0) {
+                float degSection = 360.0f / count;
+                for (int i = 0; i < count; i++) {
+                    float degInRad = (i * degSection) * DEG2RAD;
+                    float dx = (float)Math.Cos(degInRad) * radius;
+                    float dy = (float)Math.Sin(degInRad) * radius;
+                    result[i] = new ExtPoint((int)Math.Round(center.X + dx), (int)Math.Round(center.Y + dy));
+                }
+            }
+            return result;
+        }
+
+        public static ExtPoint MidPt(ExtPoint pt1, ExtPoint pt2)
+        {
+            int dx = (int)Math.Round((pt2.X + pt1.X) / 2.0f);
+            int dy = (int)Math.Round((pt2.Y + pt1.Y) / 2.0f);
+            return new ExtPoint(dx, dy);
         }
     }
 }

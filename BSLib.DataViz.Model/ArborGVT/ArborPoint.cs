@@ -32,8 +32,7 @@ namespace BSLib.DataViz.ArborGVT
 
         public override bool Equals(object obj)
         {
-            if (obj is ArborPoint) {
-                ArborPoint other = (ArborPoint)obj;
+            if (obj is ArborPoint other) {
                 return other.X == X && other.Y == Y;
             }
             return false;
@@ -82,6 +81,16 @@ namespace BSLib.DataViz.ArborGVT
         public ArborPoint Normalize()
         {
             return Div(Magnitude());
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked {
+                int hashCode = 1861411795;
+                hashCode = hashCode * -1521134295 + X.GetHashCode();
+                hashCode = hashCode * -1521134295 + Y.GetHashCode();
+                return hashCode;
+            }
         }
     }
 }

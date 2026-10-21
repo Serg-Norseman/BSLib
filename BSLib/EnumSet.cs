@@ -151,8 +151,8 @@ namespace BSLib
 
         public override bool Equals(object obj)
         {
-            if (obj is EnumSet<T>) {
-                return (fData == ((EnumSet<T>)obj).fData);
+            if (obj is EnumSet<T> set) {
+                return (fData == set.fData);
             }
             return false;
         }

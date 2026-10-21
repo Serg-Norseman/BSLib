@@ -101,7 +101,7 @@ namespace BSLib
             int order = 0;
             while (len >= 1024 && order < sizes.Length - 1) {
                 order++;
-                len = len / 1024;
+                len /= 1024;
             }
 
             return string.Format(CultureInfo.InvariantCulture.NumberFormat, "{0:0.##} {1}", len, sizes[order]);

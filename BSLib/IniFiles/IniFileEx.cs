@@ -248,7 +248,7 @@ namespace BSLib.IniFiles
             if (!( // 1) element is a blank line AND blank lines are not allowed
                   (element is IniFileBlankLine && !AllowBlankLines)
                   // 2) element is an empty value AND empty values are not allowed
-                  || (!AllowEmptyValues && element is IniFileValue && ((IniFileValue)element).Value == "")))
+                  || (!AllowEmptyValues && element is IniFileValue ifValue && ifValue.Value == "")))
                 writer.WriteLine(element.Line);
         }
 

@@ -183,8 +183,7 @@ namespace BSLib.IniFiles
                     bool valFound = false;
                     for (int i = parent.elements.IndexOf(sectionStart) - 1; i >= 0; i--)
                     {
-                        var ifVal = parent.elements[i] as IniFileValue;
-                        if (ifVal != null) {
+                        if (parent.elements[i] is IniFileValue ifVal) {
                             ret = ifVal.CreateNew(key, value);
                             valFound = true;
                             break;
@@ -214,8 +213,7 @@ namespace BSLib.IniFiles
         {
             for (int i = elements.Count - 1; i >= 0; i--)
             {
-                IniFileValue value = elements[i] as IniFileValue;
-                if (value != null)
+                if (elements[i] is IniFileValue value)
                     return value;
             }
             return null;
@@ -225,8 +223,7 @@ namespace BSLib.IniFiles
         {
             for (int i = 0; i < elements.Count; i++)
             {
-                IniFileValue value = elements[i] as IniFileValue;
-                if (value != null)
+                if (elements[i] is IniFileValue value)
                     return value;
             }
             return null;

@@ -57,7 +57,7 @@ namespace BSLib
         public T GetRandomItem()
         {
             if (fTable.Count == 0) {
-                return default(T);
+                return default;
             }
     
             int index = RandomHelper.GetRandom(fTotal);
@@ -69,7 +69,7 @@ namespace BSLib
                 }
             }
     
-            return default(T);
+            return default;
         }
     }
 }

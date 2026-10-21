@@ -23,7 +23,7 @@ namespace BSLib
 {
     public struct ExtPoint : ICloneable<ExtPoint>
     {
-        public static readonly ExtPoint Empty = default(ExtPoint);
+        public static readonly ExtPoint Empty = default;
 
         public int X;
         public int Y;
@@ -102,7 +102,7 @@ namespace BSLib
 
     public struct ExtPointF
     {
-        public static readonly ExtPointF Empty = default(ExtPointF);
+        public static readonly ExtPointF Empty = default;
 
         public float X;
         public float Y;

@@ -59,7 +59,7 @@ namespace BSLib
             Action<TElement, TElement> removeChild,
             Func<TElement, IEnumerable<TElement>> getChildren)
         {
-            return Where(element, default(TElement), predicate, addChild, removeChild, getChildren);
+            return Where(element, default, predicate, addChild, removeChild, getChildren);
         }
 
         private static TElement Where<TElement>(
@@ -97,7 +97,7 @@ namespace BSLib
                     filterChild(parent, child);
                 }
 
-                return default(TElement);
+                return default;
             }
         }
 

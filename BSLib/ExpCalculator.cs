@@ -436,17 +436,15 @@ namespace BSLib
 
         private double exprIf()
         {
-            double resCond = 0.0d, resThen = 0.0d, resElse = 0.0d;
-
-            resCond = expr6();
+            double resCond = expr6();
 
             checkToken(ExpToken.tkSEMICOLON);
             lex();
-            resThen = expr6();
+            double resThen = expr6();
 
             checkToken(ExpToken.tkSEMICOLON);
             lex();
-            resElse = expr6();
+            double resElse = expr6();
 
             double R = (resCond == 1.0d) ? resThen : resElse;
             return R;
@@ -510,11 +508,11 @@ namespace BSLib
 
                 switch (oldt) {
                     case ExpToken.tkMUL:
-                        R = (R * V);
+                        R *= V;
                         break;
 
                     case ExpToken.tkDIV:
-                        R = (R / V);
+                        R /= V;
                         break;
 
                     case ExpToken.tkMOD:
@@ -544,11 +542,11 @@ namespace BSLib
 
                 switch (oldt) {
                     case ExpToken.tkADD:
-                        R = (R + V);
+                        R += V;
                         break;
 
                     case ExpToken.tkSUB:
-                        R = (R - V);
+                        R -= V;
                         break;
                 }
             }
@@ -647,8 +645,6 @@ namespace BSLib
 
         public double Calc(string expression)
         {
-            double result = 0.0;
-
             fTokenizer = new StringTokenizer(expression);
             fTokenizer.IgnoreWhiteSpace = true;
             fTokenizer.RecognizeDecimals = true;
@@ -657,7 +653,7 @@ namespace BSLib
             fTokenizer.Next();
 
             lex();
-            result = expr7();
+            double result = expr7();
             checkToken(ExpToken.tkEOF);
 
             return result;

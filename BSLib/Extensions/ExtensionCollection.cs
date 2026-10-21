@@ -25,7 +25,7 @@ namespace BSLib.Extensions
         where T : class, IExtensibleObject<T>
         where X : class, IExtension<T>
     {
-        private T fOwner;
+        private readonly T fOwner;
         private X[] fItems;
         private int fSize;
         private readonly object fSyncRoot;
@@ -83,7 +83,7 @@ namespace BSLib.Extensions
                 if (index < fSize) {
                     Array.Copy(fItems, index + 1, fItems, index, fSize - index);
                 }
-                fItems[fSize] = default(X);
+                fItems[fSize] = default;
 
                 return true;
             }
@@ -125,12 +125,12 @@ namespace BSLib.Extensions
         {
             lock (fSyncRoot) {
                 for (int i = 0; i < fSize; i++) {
-                    IExtension<T> item = fItems[i];
-                    if (item is E) return (E)item;
+                    var item = fItems[i];
+                    if (item is E e) return e;
                 }
             }
 
-            return default(E);
+            return default;
         }
 
         public Collection<E> FindAll<E>()
@@ -139,8 +139,8 @@ namespace BSLib.Extensions
 
             lock (fSyncRoot) {
                 for (int i = 0; i < fSize; i++) {
-                    IExtension<T> item = fItems[i];
-                    if (item is E) result.Add((E)item);
+                    var item = fItems[i];
+                    if (item is E e) result.Add(e);
                 }
             }
 

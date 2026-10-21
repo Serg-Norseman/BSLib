@@ -211,7 +211,7 @@ namespace BSLib
 
             for (int i = index; length > 0; i++, length--) {
                 result = (result * m_a) + data[i];
-                m_a = m_a * B;
+                m_a *= B;
             }
 
             return result;
