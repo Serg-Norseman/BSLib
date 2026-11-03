@@ -20,6 +20,9 @@ using System;
 
 namespace BSLib
 {
+    public delegate void LineProc(int aX, int aY, ref bool refContinue);
+
+
     /// <summary>
     /// 
     /// </summary>
@@ -151,6 +154,167 @@ namespace BSLib
             int dx = (int)Math.Round((pt2.X + pt1.X) / 2.0f);
             int dy = (int)Math.Round((pt2.Y + pt1.Y) / 2.0f);
             return new ExtPoint(dx, dy);
+        }
+
+        public static ExtPointF IntersectLine2Line(ExtPointF p1, ExtPointF p2, ExtPointF p3, ExtPointF p4)
+        {
+            float denom = ((p4.Y - p3.Y) * (p2.X - p1.X) - (p4.X - p3.X) * (p2.Y - p1.Y));
+            if (denom == 0) {
+                return ExtPointF.Empty; // lines are parallel
+            }
+            float ua = ((p4.X - p3.X) * (p1.Y - p3.Y) - (p4.Y - p3.Y) * (p1.X - p3.X)) / denom;
+            float ub = ((p2.X - p1.X) * (p1.Y - p3.Y) - (p2.Y - p1.Y) * (p1.X - p3.X)) / denom;
+
+            if (ua < 0 || ua > 1 || ub < 0 || ub > 1) {
+                return ExtPointF.Empty;
+            }
+
+            return new ExtPointF(p1.X + ua * (p2.X - p1.X), p1.Y + ua * (p2.Y - p1.Y));
+        }
+
+        public static ExtPointF IntersectLine2Rect(ExtPointF p1, ExtPointF p2, ExtRect rt)
+        {
+            float bx1 = rt.Left;
+            float by1 = rt.Top;
+            float bx2 = rt.Right;
+            float by2 = rt.Bottom;
+
+            ExtPointF tl = new ExtPointF(bx1, by1);
+            ExtPointF tr = new ExtPointF(bx2, by1);
+            ExtPointF bl = new ExtPointF(bx1, by2);
+            ExtPointF br = new ExtPointF(bx2, by2);
+
+            ExtPointF pt;
+
+            pt = IntersectLine2Line(p1, p2, tl, tr);
+            if (!pt.IsEmpty) {
+                return pt;
+            }
+
+            pt = IntersectLine2Line(p1, p2, tr, br);
+            if (!pt.IsEmpty) {
+                return pt;
+            }
+
+            pt = IntersectLine2Line(p1, p2, br, bl);
+            if (!pt.IsEmpty) {
+                return pt;
+            }
+
+            pt = IntersectLine2Line(p1, p2, bl, tl);
+            if (!pt.IsEmpty) {
+                return pt;
+            }
+
+            return ExtPointF.Empty;
+        }
+
+        public static int CalcDistanceToArea(ExtPoint p, ExtRect a)
+        {
+            int result;
+            if (a.Contains(p.X, p.Y)) {
+                result = 0;
+            } else {
+                int dist = int.MaxValue;
+
+                for (int x = a.Left; x <= a.Right; x++) {
+                    int td = MathHelper.Distance(p.X, p.Y, x, a.Top);
+                    if (td < dist) {
+                        dist = td;
+                    }
+                    td = MathHelper.Distance(p.X, p.Y, x, a.Bottom);
+                    if (td < dist) {
+                        dist = td;
+                    }
+                }
+
+                for (int y = a.Top; y <= a.Bottom; y++) {
+                    int td = MathHelper.Distance(p.X, p.Y, a.Left, y);
+                    if (td < dist) {
+                        dist = td;
+                    }
+                    td = MathHelper.Distance(p.X, p.Y, a.Right, y);
+                    if (td < dist) {
+                        dist = td;
+                    }
+                }
+                result = dist;
+            }
+            return result;
+        }
+
+        public static bool DoLine(int x1, int y1, int x2, int y2, LineProc lineProc, bool excludeFirst)
+        {
+            bool result = true;
+
+            int dX = Math.Abs(x1 - x2);
+            int dY = Math.Abs(y1 - y2);
+            int dX2 = dX << 1;
+            int dY2 = dY << 1;
+
+            int XInc;
+            if (x1 < x2) {
+                XInc = 1;
+            } else {
+                XInc = -1;
+            }
+
+            int YInc;
+            if (y1 < y2) {
+                YInc = 1;
+            } else {
+                YInc = -1;
+            }
+
+            int X = x1;
+            int Y = y1;
+
+            bool refContinue = result;
+            if (!excludeFirst) {
+                lineProc(X, Y, ref refContinue);
+            }
+
+            if (refContinue) {
+                if (dX > dY) {
+                    int S = dY2 - dX;
+                    int dXY = dY2 - dX2;
+
+                    for (int i = 1; i <= dX; i++) {
+                        if (S >= 0) {
+                            Y += YInc;
+                            S += dXY;
+                        } else {
+                            S += dY2;
+                        }
+                        X += XInc;
+
+                        lineProc(X, Y, ref refContinue);
+                        if (!refContinue) {
+                            break;
+                        }
+                    }
+                } else {
+                    int S = dX2 - dY;
+                    int dXY = dX2 - dY2;
+
+                    for (int i = 1; i <= dY; i++) {
+                        if (S >= 0) {
+                            X += XInc;
+                            S += dXY;
+                        } else {
+                            S += dX2;
+                        }
+                        Y += YInc;
+
+                        lineProc(X, Y, ref refContinue);
+                        if (!refContinue) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return refContinue;
         }
     }
 }

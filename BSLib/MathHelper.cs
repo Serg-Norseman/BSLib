@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2018 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2026 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -95,6 +95,33 @@ namespace BSLib
         public static bool IsOdd(int value)
         {
             return value % 2 != 0;
+        }
+
+        public static int Middle(int a, int b, int c)
+        {
+            int result;
+            if (a > b) {
+                if (b > c) {
+                    result = b;
+                } else {
+                    if (a > c) {
+                        result = c;
+                    } else {
+                        result = a;
+                    }
+                }
+            } else {
+                if (a > c) {
+                    result = a;
+                } else {
+                    if (b > c) {
+                        result = c;
+                    } else {
+                        result = b;
+                    }
+                }
+            }
+            return result;
         }
     }
 }

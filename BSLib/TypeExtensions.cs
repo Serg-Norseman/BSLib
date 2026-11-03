@@ -128,6 +128,57 @@ namespace BSLib
             return array.IsNull() || array.Length == 0;
         }
 
+        public static void Rotate<T>(this IList<T> list, int distance)
+        {
+            int size = list.Count();
+            if (size == 0)
+                return;
+            distance %= size;
+            if (distance == 0)
+                return;
+            if (distance < 0)
+                distance += size;
+
+            // Determine the least common multiple of distance and size, as there
+            // are (distance / LCM) loops to cycle through.
+            int a = size;
+            int lcm = distance;
+            int b = a % lcm;
+            while (b != 0) {
+                a = lcm;
+                lcm = b;
+                b = a % lcm;
+            }
+
+            // Now, make the swaps. We must take the remainder every time through
+            // the inner loop so that we don't overflow i to negative values.
+            while (--lcm >= 0) {
+                T o = list[lcm];
+                for (int i = lcm + distance; i != lcm; i = (i + distance) % size) {
+                    T prev = list[i];
+                    list[i] = o;
+                    o = prev;
+                }
+                list[lcm] = o;
+            }
+        }
+
+        public static void AddRange<T>(this IList<T> list, IList<T> otherRange)
+        {
+            foreach (T item in otherRange)
+                list.Add(item);
+        }
+
+        public static int IndexOf<T>(this T[] array, T item)
+        {
+            for (int i = 0; i < array.Length; i++) {
+                if ((array[i] != null && array[i].Equals(item)) || (item == null && array[i] == null)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         #endregion
 
         #region Char operations
@@ -206,6 +257,11 @@ namespace BSLib
         public static string JoinLines(this IEnumerable<string> source)
         {
             return source.Join("\r\n");
+        }
+
+        public static IEnumerable<T> GetValues<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
         }
 
         #endregion

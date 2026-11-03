@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2017 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2026 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -50,6 +50,28 @@ namespace BSLib
         public Range<T> Clone()
         {
             return new Range<T>(Start, End);
+        }
+    }
+
+
+    public sealed class MNXRange : ICloneable<MNXRange>
+    {
+        public int Min;
+        public int Max;
+
+        public MNXRange()
+        {
+        }
+
+        public MNXRange(int min, int max)
+        {
+            Min = min;
+            Max = max;
+        }
+
+        public MNXRange Clone()
+        {
+            return new MNXRange(Min, Max);
         }
     }
 }

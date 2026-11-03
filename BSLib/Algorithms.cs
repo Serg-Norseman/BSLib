@@ -1,6 +1,6 @@
 ﻿/*
  *  "BSLib".
- *  Copyright (C) 2009-2022 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2009-2026 by Sergey V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -70,6 +70,16 @@ namespace BSLib
         public static int IfElse(bool flag, int v1, int v2)
         {
             return (-Convert.ToInt32(flag) & v1) | ((Convert.ToInt32(flag) - 1) & v2);
+        }
+
+        public static byte GetShortLo(ushort val)
+        {
+            return (byte)(val & 0xff);
+        }
+
+        public static byte GetShortHi(ushort val)
+        {
+            return (byte)((val >> 8) & 0xff);
         }
     }
 }
